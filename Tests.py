@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
 # Background
 background1 = pygame.image.load("MyImages/App2022/AppImagesFirstPage.jpg").convert_alpha()
-gameOver = pygame.image.load("resources/BB_Resources/resources/images/youwin.png").convert_alpha()
+gameOver = pygame.image.load("MyImages/App2022/youwin.png").convert_alpha()
 forest = pygame.image.load("MyImages/App2022/Forest.png")
 intermediateImage = pygame.image.load("MyImages/App2022/IntermediateImage.jpg")
 startButtonImage = pygame.image.load("MyImages/App2022/StartButton.png")
