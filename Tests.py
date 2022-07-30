@@ -1,14 +1,7 @@
 import pygame
 import time
 
-# from pygame.locals import *
-# import math
-# import random
-# import sys
-# import pygame as pg
-
 # Screen
-
 pygame.init()
 width, height = 640, 480
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
