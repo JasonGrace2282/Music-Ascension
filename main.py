@@ -121,14 +121,15 @@ class Game:
                     self.screen.blit(beginnerTopicsText, (0, 0))
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
-                    self.nextClicked = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.nextButton.collidepoint(event.pos):
+                        self.nextClicked = True
                     if self.nextClicked:
-                        if self.nextButton.collidepoint(event.pos):
-                            self.screen.fill(0)
-                            if self.counter == 1:
-                                print('Next Button Clicked')
-                                self.counter = self.counter - 1
+                        self.screen.blit(self.gameOver, (0,0))
+                        if self.counter == 1:
+                            print('Next Button Clicked')
+                            self.counter = self.counter - 1
+
             # Update Screen
             pygame.display.flip()
 
