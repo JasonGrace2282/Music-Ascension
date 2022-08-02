@@ -130,6 +130,7 @@ class Game:
                     if self.counter == 1:
                         print('Next Button Clicked')
                         self.counter -= 1
+
             # Update Screen
             pygame.display.flip()
 
