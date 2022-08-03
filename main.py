@@ -1,4 +1,3 @@
-import turtle
 import pygame
 import sys
 import time
@@ -6,6 +5,7 @@ import time
 
 class Game:
     def __init__(self):
+        # Class which includes all variables
 
         pygame.init()
 
@@ -23,6 +23,7 @@ class Game:
         self.nextButtonImage = pygame.image.load("MyImages/App2022/NextButton.png")
         self.beginnerMap = pygame.image.load("MyImages/App2022/BeginnerMap.jpg")
         self.beginnerTopicsCovered = pygame.image.load("MyImages/App2022/TopicsCoveredBeginnerLevelReplacement.jpg")
+        self.beginnerImage = pygame.image.load("MyImages/App2022/UpdatedBeginnerImage.png")
 
         # Variables
         self.startGame = False
@@ -37,18 +38,21 @@ class Game:
         self.getCoordinates = False
         self.boolean = False
         self.stageChooser = False
-        self.counter = 1
-        self.beginnerRect = pygame.Rect(550, 50, 200, 124)
+        self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.intermediateRect = pygame.Rect(550, 400, self.intermediateImage.get_width(),
+        self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(),
                                             self.intermediateImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(),
                                          self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
+        self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(),
+                                                 self.nextButtonImage.get_height())
+        print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
 
     def run(self):
-        while True:
+        while 1:
+            # The code that runs the program
             for event in pygame.event.get():
                 # check if the event is the X button
                 if event.type == pygame.QUIT:
@@ -79,14 +83,11 @@ class Game:
                 # Background
                 self.screen.fill(0)
                 self.screen.blit(self.levelBackground, (0, 0))
-                # Beginner text
-                self.screen.fill((0, 255, 0), rect=(550, 50, 200, 124))
-                beginnerText = pygame.font.SysFont(None, 50)
-                beginnerText = beginnerText.render('Beginner', True, 0)
-                self.screen.blit(beginnerText, (560, 50))
+                # Beginner  image
+                self.screen.blit(self.beginnerImage, (600-self.beginnerImage.get_width()/2, 50))
                 # Intermediate Image
                 self.screen.blit(self.intermediateImage,
-                                 (550, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
+                                 (600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
                 # Advanced
                 pass
             if not self.offCreditButton:
@@ -143,15 +144,18 @@ class Game:
                 if self.stageChooser:
                     # Fills the screen with the information needed to learn about note duration
                     self.screen.fill((255, 255, 255))
+                    # It is preferable if it is an image instead of typed out
                     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
                     self.screen.blit(title, (0, 0))
+                    self.screen.blit(self.nextButtonImage,
+                                     (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
                     pass
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.noteDurationStartRect.collidepoint(event.pos):
+                            # Call the note duration minigame file
+                            pass
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    while self.counter >= 1:
-                        print(pygame.mouse.get_pos())
-                        self.counter = self.counter - 1
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.counter = self.counter + 1
+                    print(pygame.mouse.get_pos())
 
             # Update Screen
             pygame.display.flip()
