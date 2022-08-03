@@ -1,3 +1,4 @@
+import turtle
 import pygame
 import sys
 import time
@@ -20,6 +21,8 @@ class Game:
         self.startButtonImage = pygame.image.load("MyImages/App2022/StartButton.png")
         self.creditsButtonImage = pygame.image.load("MyImages/App2022/CreditsButton.png")
         self.nextButtonImage = pygame.image.load("MyImages/App2022/NextButton.png")
+        self.beginnerMap = pygame.image.load("MyImages/App2022/BeginnerMap.jpg")
+        self.beginnerTopicsCovered = pygame.image.load("MyImages/App2022/TopicsCoveredBeginnerLevelReplacement.jpg")
 
         # Variables
         self.startGame = False
@@ -30,6 +33,10 @@ class Game:
         self.levelConfirm = False
         self.beginnerClicked = False
         self.nextClicked = False
+        self.chooseBeginnerLevel = False
+        self.getCoordinates = False
+        self.boolean = False
+        self.stageChooser = False
         self.counter = 1
         self.beginnerRect = pygame.Rect(550, 50, 200, 124)
         self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
@@ -38,6 +45,7 @@ class Game:
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(),
                                          self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
+        self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
 
     def run(self):
         while True:
@@ -66,7 +74,7 @@ class Game:
                     self.offCreditButton = True
                 if self.creditsButton.collidepoint(event.pos):
                     self.creditsClicked = True
-                    print('Credits Button CLicked')
+                    # print('Credits Button CLicked')
             if self.startGame:
                 # Background
                 self.screen.fill(0)
@@ -96,10 +104,10 @@ class Game:
                 if self.levelConfirm:
                     if self.intermediateRect.collidepoint(event.pos):
                         self.interClicked = True
-                        print("Intermediate Button Clicked")
+                        # print("Intermediate Button Clicked")
                     if self.beginnerRect.collidepoint(event.pos):
                         self.beginnerClicked = True
-                        print("Beginner Button Clicked")
+                        # print("Beginner Button Clicked")
             if self.levelConfirm:
                 if self.interClicked:
                     self.screen.fill((255, 255, 255))
@@ -117,19 +125,33 @@ class Game:
                     self.screen.blit(interTopicsText3, (0, 100))
                 if self.beginnerClicked:
                     self.screen.fill((255, 255, 255))
-                    beginnerTopicsText = (pygame.font.SysFont(None, 40)).render('Topics Covered', True, 0)
-                    self.screen.blit(beginnerTopicsText, (0, 0))
+                    self.screen.blit(self.beginnerTopicsCovered, (0, 0))
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.nextButton.collidepoint(event.pos):
                         self.nextClicked = True
-
+                # If Next is clicked for the beginner level
                 if self.nextClicked:
-                    self.screen.fill(0)
-                    if self.counter == 1:
-                        print('Next Button Clicked')
-                        self.counter -= 1
+                    self.screen.blit(self.beginnerMap, (0, 0))
+                    # print('Next Button Clicked')
+                    self.chooseBeginnerLevel = True
+                    # self.screen.fill(0, rect=(540, 310, 75, 75))
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.noteDurationStage1.collidepoint(event.pos):
+                        self.stageChooser = True
+                if self.stageChooser:
+                    # Fills the screen with the information needed to learn about note duration
+                    self.screen.fill((255, 255, 255))
+                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
+                    self.screen.blit(title, (0, 0))
+                    pass
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    while self.counter >= 1:
+                        print(pygame.mouse.get_pos())
+                        self.counter = self.counter - 1
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.counter = self.counter + 1
 
             # Update Screen
             pygame.display.flip()
