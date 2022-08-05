@@ -1,5 +1,6 @@
 import pygame, sys, time
 from setup import *
+from level import Level
 
 
 class Game:
@@ -11,16 +12,16 @@ class Game:
         self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
         # Background
-        self.background1 = pygame.image.load("MyImages/App2022/App Images (1).jpg")
-        self.gameOver = pygame.image.load("MyImages/App2022/youwin.png").convert_alpha()
-        self.levelBackground = pygame.image.load("MyImages/App2022/RandomBackground(ReplaceImageLater).jpg")
-        self.intermediateImage = pygame.image.load("MyImages/App2022/IntermediateImage.jpg")
-        self.startButtonImage = pygame.image.load("MyImages/App2022/StartButton.png")
-        self.creditsButtonImage = pygame.image.load("MyImages/App2022/CreditsButton.png")
-        self.nextButtonImage = pygame.image.load("MyImages/App2022/NextButton.png")
-        self.beginnerMap = pygame.image.load("MyImages/App2022/BeginnerMap.jpg")
-        self.beginnerTopicsCovered = pygame.image.load("MyImages/App2022/TopicsCoveredBeginnerLevelReplacement.jpg")
-        self.beginnerImage = pygame.image.load("MyImages/App2022/UpdatedBeginnerImage.png")
+        self.background1 = pygame.image.load("resources/frontpage.jpg")
+        self.gameOver = pygame.image.load("resources/youwin.png").convert_alpha()
+        self.levelBackground = pygame.image.load("resources/background.jpg")
+        self.intermediateImage = pygame.image.load("resources/intermediate.png")
+        self.startButtonImage = pygame.image.load("resources/start.png")
+        self.creditsButtonImage = pygame.image.load("resources/credits.png")
+        self.nextButtonImage = pygame.image.load("resources/next.png")
+        self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
+        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
+        self.beginnerImage = pygame.image.load("resources/beginner.png")
 
         # Variables
         self.startGame = False
@@ -44,12 +45,25 @@ class Game:
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
 
+        self.start = 0
+        self.end = 0
+        self.done = False
+
     def run(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.start = time.time()
+                        self.done = False
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        self.end = time.time()
+                        self.done = True
+                        print(self.end - self.start)
 
             self.screen.fill(0)
             self.screen.blit(self.background1, (0, 0))
@@ -129,11 +143,12 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.noteDurationStartRect.collidepoint(event.pos):
-                            pass
+                            level = Level(level1, self.screen)
+                            level.run(self.end-self.start)
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    print(pygame.mouse.get_pos())
-
+                """if event.type == pygame.MOUSEBUTTONDOWN:
+                    print(pygame.mouse.get_pos())"""
+                
             # Update Screen
             pygame.display.flip()
 
