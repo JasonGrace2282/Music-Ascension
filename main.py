@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import time
@@ -15,7 +16,7 @@ class Game:
 
         # Background
         self.background1 = pygame.image.load("MyImages/App2022/App Images (1).jpg")
-        self.gameOver = pygame.image.load("MyImages/App2022/youwin.png").convert_alpha()
+        #   self.gameOver = pygame.image.load("MyImages/App2022/youwin.png").convert_alpha()
         self.levelBackground = pygame.image.load("MyImages/App2022/RandomBackground(ReplaceImageLater).jpg")
         self.intermediateImage = pygame.image.load("MyImages/App2022/IntermediateImage.jpg")
         self.startButtonImage = pygame.image.load("MyImages/App2022/StartButton.png")
@@ -38,9 +39,12 @@ class Game:
         self.getCoordinates = False
         self.boolean = False
         self.stageChooser = False
-        self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
-        self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(),
+        self.beginnerRect = pygame.Rect(600 - self.beginnerImage.get_width() / 2, 50, self.beginnerImage.get_width(),
+                                        self.beginnerImage.get_height())
+        self.startButtonRect = pygame.Rect(540, 200, self.startButtonImage.get_width(),
+                                           self.startButtonImage.get_height())
+        self.intermediateRect = pygame.Rect(600 - self.intermediateImage.get_width() / 2, 400,
+                                            self.intermediateImage.get_width(),
                                             self.intermediateImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(),
                                          self.creditsButtonImage.get_height())
@@ -48,7 +52,6 @@ class Game:
         self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(),
                                                  self.nextButtonImage.get_height())
-        print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
 
     def run(self):
         while 1:
@@ -70,7 +73,7 @@ class Game:
             self.screen.blit(self.creditsButtonImage, (530, 300))
             # Checks if START is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.area.collidepoint(event.pos):
+                if self.startButtonRect.collidepoint(event.pos):
                     self.startGame = True
                     print('START Button Clicked')
                     time.sleep(0.5)
@@ -80,14 +83,16 @@ class Game:
                     self.creditsClicked = True
                     # print('Credits Button CLicked')
             if self.startGame:
+                # Image loading
                 # Background
                 self.screen.fill(0)
                 self.screen.blit(self.levelBackground, (0, 0))
                 # Beginner  image
-                self.screen.blit(self.beginnerImage, (600-self.beginnerImage.get_width()/2, 50))
+                self.screen.blit(self.beginnerImage, (600 - self.beginnerImage.get_width() / 2, 50))
                 # Intermediate Image
                 self.screen.blit(self.intermediateImage,
-                                 (600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
+                                 (600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
+                                  self.intermediateImage.get_height()))
                 # Advanced
                 pass
             if not self.offCreditButton:
@@ -144,21 +149,20 @@ class Game:
                 if self.stageChooser:
                     # Fills the screen with the information needed to learn about note duration
                     self.screen.fill((255, 255, 255))
-                    # It is preferable if it is an image instead of typed out
                     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
                     self.screen.blit(title, (0, 0))
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
-                    pass
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.noteDurationStartRect.collidepoint(event.pos):
                             # Call the note duration minigame file
                             pass
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    print(pygame.mouse.get_pos())
-
+                    # prints the location of where mouse is clicked
+                    pass
+                    # print(pygame.mouse.get_pos())
             # Update Screen
-            pygame.display.flip()
+            pygame.display.update()
 
 
 game = Game()
