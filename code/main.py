@@ -10,6 +10,7 @@ class Game:
 
         # Screen
         self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+        self.level = Level(level1, self.screen)
 
         # Background
         self.background1 = pygame.image.load("resources/frontpage.jpg")
@@ -149,8 +150,8 @@ class Game:
                 
                 if self.level1picked:
                     self.screen.fill("black")
-                    level = Level(level1, self.screen)
-                    level.run(self.end-self.start)
+                    self.level.run(self.end-self.start)
+                    
 
                 """if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())"""
