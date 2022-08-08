@@ -3,7 +3,7 @@ from tiles import Tile
 from setup import tilesize, width, height
 from player import Player
 
-class Level:
+class TeleportLevel():
     def __init__(self, level_data, surface):
 
         # level setup
@@ -12,8 +12,6 @@ class Level:
         self.h_shift = 0
         self.v_shift = 0
         self.current_x = 0
-
-        # dust
         self.player_on_ground = False
     
     def on_ground(self):
@@ -31,37 +29,37 @@ class Level:
             if num == 0.5:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-32)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
 
             if num == 1:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
             
             if num == 1.5:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
                 
             if num == 2:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
             
             if num == 3:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
             
             if num == 4:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-256)
-                tile = Tile(pos, tilesize)
+                tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
         
         player_sprite = Player((192, 512), self.display_surface)
@@ -108,7 +106,6 @@ class Level:
             if player.on_ceiling and player.direction.y > 0:
                 player.on_ceiling
         
-
     def run(self, delta):
 
         # level tiles
@@ -122,3 +119,20 @@ class Level:
         self.detect_collisions()      
         self.on_ground()
         self.player.draw(self.display_surface)
+
+class NoteLevel(TeleportLevel):
+    def __init__(self, level_data, surface):
+        super().__init__(level_data, surface)
+    
+    def setup_level(self, layout):
+        self.tiles = pygame.sprite.Group()
+        self.player = pygame.sprite.GroupSingle()
+
+        pos = (0, 100)
+        for i in range(1, 6):
+            tile = Tile(pos, (1000, 10))
+            self.tiles.add(tile)
+            pos = (pos[0], pos[1]+100)
+
+        player_sprite = Player((192, 512), self.display_surface)
+        self.player.add(player_sprite)

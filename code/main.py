@@ -1,6 +1,6 @@
 import pygame, sys, time
 from setup import *
-from level import Level
+from level import NoteLevel
 
 
 class Game:
@@ -10,19 +10,19 @@ class Game:
 
         # Screen
         self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-        self.level = Level(level1, self.screen)
+        self.level = NoteLevel(level1, self.screen)
 
         # Background
-        self.background1 = pygame.image.load("resources/frontpage.jpg")
-        self.gameOver = pygame.image.load("resources/youwin.png").convert_alpha()
-        self.levelBackground = pygame.image.load("resources/background.jpg")
-        self.intermediateImage = pygame.image.load("resources/intermediate.png")
-        self.startButtonImage = pygame.image.load("resources/start.png")
-        self.creditsButtonImage = pygame.image.load("resources/credits.png")
-        self.nextButtonImage = pygame.image.load("resources/next.png")
-        self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
-        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
-        self.beginnerImage = pygame.image.load("resources/beginner.png")
+        self.background1 = pygame.image.load("../resources/frontpage.jpg")
+        self.gameOver = pygame.image.load("../resources/youwin.png").convert_alpha()
+        self.levelBackground = pygame.image.load("../resources/background.jpg")
+        self.intermediateImage = pygame.image.load("../resources/intermediate.png")
+        self.startButtonImage = pygame.image.load("../resources/start.png")
+        self.creditsButtonImage = pygame.image.load("../resources/credits.png")
+        self.nextButtonImage = pygame.image.load("../resources/next.png")
+        self.beginnerMap = pygame.image.load("../resources/beginnermap.jpg")
+        self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.jpg")
+        self.beginnerImage = pygame.image.load("../resources/beginner.png")
 
         # Variables
         self.startGame = False

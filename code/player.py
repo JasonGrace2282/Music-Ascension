@@ -3,15 +3,9 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
         super().__init__()
-        self.frame_index = 0
         self.animation_speed = 0.15
-        self.image = pygame.image.load("resources/player.png")
+        self.image = pygame.image.load("../resources/player.png")
         self.rect = self.image.get_rect(topleft = pos)
-
-        # dust particles
-        self.dust_frame_index = 0
-        self.dust_animation_speed = 0.15
-        self.display_surface = surface
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
@@ -58,15 +52,7 @@ class Player(pygame.sprite.Sprite):
     def input(self, delta):
         keys = pygame.key.get_pressed()
         self.delta = delta
-
-        if keys[pygame.K_RIGHT]:
-            self.direction.x = 1
-            self.facing_right = True
-        elif keys[pygame.K_LEFT]:
-            self.direction.x = -1
-            self.facing_right = False
-        else:
-            self.direction.x = 0
+        self.direction.x = 0
 
         self.teleport()
 
