@@ -173,14 +173,17 @@ class Game:
                     print(pygame.mouse.get_pos())
 
                 if self.level1picked:
-                    self.counter = 1
                     self.screen.fill("black")
                     self.level.run(self.end - self.start)
-
-
-                if self.counter == 1:
-                    if not self.level1picked:
-                        pass
+                
+                if self.level1picked and self.counter == False:
+                    #run metronome
+                    self.counter = True
+                
+                if not self.level1picked and self.counter == True:
+                    #turn off metronome
+                    self.counter = False
+            
 
                 """if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())"""
