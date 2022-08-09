@@ -1,7 +1,7 @@
 import pygame
 from tiles import Tile
 from setup import tilesize, width, height
-from player import Player
+from player import TeleportPlayer, NotePlayer
 
 class TeleportLevel():
     def __init__(self, level_data, surface):
@@ -62,7 +62,7 @@ class TeleportLevel():
                 tile = Tile(pos, (tilesize, tilesize))
                 self.tiles.add(tile)
         
-        player_sprite = Player((192, 512), self.display_surface)
+        player_sprite = TeleportPlayer((192, 512), self.display_surface)
         self.player.add(player_sprite)
     
     def scroll(self):
@@ -78,7 +78,7 @@ class TeleportLevel():
             self.h_shift = -8
             player.speed = 0
         elif player_y < height/4:
-            self.v_shift = 1
+            self.v_shift = 4
         else:
             self.h_shift = 0
             self.v_shift = 0
@@ -130,9 +130,13 @@ class NoteLevel(TeleportLevel):
 
         pos = (0, 100)
         for i in range(1, 6):
-            tile = Tile(pos, (1000, 10))
+            tile = Tile(pos, (2000, 20))
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100)
 
-        player_sprite = Player((192, 512), self.display_surface)
+        player_sprite = NotePlayer((192, 340), self.display_surface)
         self.player.add(player_sprite)
+    
+    def detect_collisions(self):
+        player = self.player.sprite
+        player.rect.x += player.direction.x * player.speed
