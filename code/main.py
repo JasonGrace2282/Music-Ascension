@@ -2,6 +2,7 @@ import pygame, sys, time
 from setup import *
 from level import Level
 
+
 class Game:
     def __init__(self):
         # Class which includes all variables
@@ -14,15 +15,15 @@ class Game:
         # Background
         self.background1 = pygame.image.load("resources/frontpage.jpg")
         self.gameOver = pygame.image.load("resources/youwin.png").convert_alpha()
-        self.levelBackground = pygame.image.load("resources/background.jpg")
-        self.intermediateImage = pygame.image.load("resources/intermediate.png")
+        self.levelBackground = pygame.image.load("resources/LevelBackground.png")
+        self.intermediateImage = pygame.image.load("resources/FinalIntermediateImage.png")
         self.startButtonImage = pygame.image.load("resources/start.png")
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
         self.nextButtonImage = pygame.image.load("resources/next.png")
-        self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
+        self.beginnerMap = pygame.image.load("resources/beginnerMap.jpg")
         self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
-        self.beginnerImage = pygame.image.load("resources/beginner.png")
-
+        self.beginnerImage = pygame.image.load("resources/FinalBeginnerImage.png")
+        self.metronome = pygame.mixer.Sound("resources/Metronome.mp3")
 
         # Variables
         self.startGame = False
@@ -38,14 +39,21 @@ class Game:
         self.boolean = False
         self.stageChooser = False
         self.level1picked = False
-        self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
+        self.counter = False
+        self.informationPage2 = False
+        self.nextCounter = 0
+        self.metronome.set_volume(0.1)
+        self.beginnerRect = pygame.Rect(600 - self.beginnerImage.get_width() / 2, 50, self.beginnerImage.get_width(),
+                                        self.beginnerImage.get_height())
         self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
-        self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
+        self.intermediateRect = pygame.Rect(600 - self.intermediateImage.get_width() / 2, 400,
+                                            self.intermediateImage.get_width(), self.intermediateImage.get_height())
+        self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(),
+                                         self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
-        self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
-        print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
+        self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(),
+                                                 self.nextButtonImage.get_height())
 
         self.start = 0
         self.end = 0
@@ -86,8 +94,10 @@ class Game:
             if self.startGame:
                 self.screen.fill(0)
                 self.screen.blit(self.levelBackground, (0, 0))
-                self.screen.blit(self.beginnerImage, (600-self.beginnerImage.get_width()/2, 50))
-                self.screen.blit(self.intermediateImage, (600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
+                self.screen.blit(self.beginnerImage, (600 - self.beginnerImage.get_width() / 2, 50))
+                self.screen.blit(self.intermediateImage, (
+                    600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
+                    self.intermediateImage.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
@@ -125,48 +135,56 @@ class Game:
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.nextButton.collidepoint(event.pos):
-                        self.nextClicked = True
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            self.nextClicked = True
 
-                if self.nextClicked:
-                    self.screen.blit(self.beginnerMap, (0, 0))
-                    self.chooseBeginnerLevel = True
+                    if self.informationPage2:
+                        self.screen.fill(0)
+                        self.screen.blit(self.nextButtonImage,
+                                         (
+                                         898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+
+                    if self.nextClicked:
+                        self.screen.blit(self.beginnerMap, (0, 0))
+                        self.chooseBeginnerLevel = True
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.noteDurationStage1.collidepoint(event.pos):
-                        self.stageChooser = True
+                        if self.nextCounter:
+                            self.stageChooser = True
+                        else:
+                            self.informationPage2 = True
+                            self.nextCounter = True
 
                 if self.stageChooser:
                     self.screen.fill((255, 255, 255))
                     # It is preferable if it is an image instead of typed out
                     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
                     self.screen.blit(title, (0, 0))
-
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
                     pass
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.noteDurationStartRect.collidepoint(event.pos):
-                            # Call the note duration minigame file
-                            pass
+                        if self.stageChooser:
+                            if self.noteDurationStartRect.collidepoint(event.pos):
+                                self.level1picked = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())
 
-
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.noteDurationStartRect.collidepoint(event.pos):
-                            self.level1picked = True
-                            
-                
                 if self.level1picked:
+                    self.counter = 1
                     self.screen.fill("black")
-                    self.level.run(self.end-self.start)
-                    
+                    self.level.run(self.end - self.start)
+
+
+                if self.counter == 1:
+                    if not self.level1picked:
+                        pass
 
                 """if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())"""
-                
+
             # Update Screen
             pygame.display.update()
             if self.done:
