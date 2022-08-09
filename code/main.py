@@ -1,6 +1,6 @@
 import pygame, sys, time
 from setup import *
-from level import NoteLevel
+from level import TeleportLevel, NoteLevel
 
 
 class Game:

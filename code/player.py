@@ -5,8 +5,8 @@ class TeleportPlayer(pygame.sprite.Sprite):
         super().__init__()
         self.animation_speed = 0.15
         self.image = pygame.image.load("../resources/player.png")
-        self.rect = self.image.get_rect(topleft = pos)
         self.pos = pos
+        self.rect = self.image.get_rect(topleft = self.pos)
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
@@ -136,14 +136,23 @@ class TeleportPlayer(pygame.sprite.Sprite):
 class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
+        self.ready = False
     
-    def input(self, delta):
+    def input(self):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_UP]:
             self.pos = (self.pos[0], self.pos[1]-100)
         elif keys[pygame.K_DOWN]:
-            self.direction.x = -1
-            self.facing_right = False
+            pass
+        elif keys[pygame.K_SPACE]:
+            self.ready = True
         else:
             self.direction.x = 0
+        
+    def update(self):
+        self.input()
+        self.update_status()
+        self.set_image()
+        if self.ready:
+            self.direction.x += 0.5

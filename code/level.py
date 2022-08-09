@@ -115,7 +115,7 @@ class TeleportLevel():
         self.scroll()
 
         # player
-        self.player.update(delta, self.h_shift)
+        self.player.update()
         self.detect_collisions()      
         self.on_ground()
         self.player.draw(self.display_surface)
@@ -140,3 +140,22 @@ class NoteLevel(TeleportLevel):
     def detect_collisions(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
+    
+    def scroll(self):
+        player = self.player.sprite
+        player_x = player.rect.centerx
+        player_y = player.rect.centery
+        direction_x = player.direction.x
+
+        if player_x < width/4 and direction_x < 0:
+            self.h_shift = 8
+            player.speed = 0
+        elif player_x > width - width/4 and direction_x > 0:
+            self.h_shift = -8
+            player.speed = 0
+        elif player_y < height/4:
+            self.v_shift = 4
+        else:
+            self.h_shift = 0
+            self.v_shift = 0
+            player.speed = 8
