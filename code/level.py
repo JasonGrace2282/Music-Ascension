@@ -13,6 +13,7 @@ class TeleportLevel():
         self.v_shift = 0
         self.current_x = 0
         self.player_on_ground = False
+        self.note_text = None
     
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -25,41 +26,41 @@ class TeleportLevel():
         self.player = pygame.sprite.GroupSingle()
         pos = (0, 640) 
 
-        for num in layout:
-            if num == 0.5:
+        for info in layout:
+            if info[0] == 0.5:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-32)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
 
-            if num == 1:
+            if info[0] == 1:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
             
-            if num == 1.5:
+            if info[0] == 1.5:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
                 
-            if num == 2:
+            if info[0] == 2:
                 offset = 192
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
             
-            if num == 3:
+            if info[0] == 3:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
             
-            if num == 4:
+            if info[0] == 4:
                 offset = 256
                 pos = (offset+pos[0], pos[1]-256)
-                tile = Tile(pos, (tilesize, tilesize))
+                tile = Tile(pos, (tilesize, tilesize), info[1])
                 self.tiles.add(tile)
         
         player_sprite = TeleportPlayer((192, 512), self.display_surface)
@@ -92,6 +93,8 @@ class TeleportLevel():
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
+                note = pygame.font.SysFont(None, 30)
+                self.note_text = note.render(sprite.note, True, (255, 255, 255))
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -113,9 +116,11 @@ class TeleportLevel():
         self.tiles.update(self.v_shift, "y")
         self.tiles.draw(self.display_surface)
         self.scroll()
+        if self.note_text != None:
+            self.display_surface.blit(self.note_text, (0, 0))
 
         # player
-        self.player.update()
+        self.player.update(delta, self.h_shift)
         self.detect_collisions()      
         self.on_ground()
         self.player.draw(self.display_surface)
@@ -159,3 +164,17 @@ class NoteLevel(TeleportLevel):
             self.h_shift = 0
             self.v_shift = 0
             player.speed = 8
+    
+    def run(self, delta):
+
+        # level tiles
+        self.tiles.update(self.h_shift, "x")
+        self.tiles.update(self.v_shift, "y")
+        self.tiles.draw(self.display_surface)
+        self.scroll()
+
+        # player
+        self.player.update()
+        self.detect_collisions()      
+        self.on_ground()
+        self.player.draw(self.display_surface)

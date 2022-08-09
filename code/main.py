@@ -10,7 +10,7 @@ class Game:
 
         # Screen
         self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-        self.level = NoteLevel(level1, self.screen)
+        self.level = TeleportLevel(level1, self.screen)
 
         # Background
         self.background1 = pygame.image.load("../resources/frontpage.jpg")
