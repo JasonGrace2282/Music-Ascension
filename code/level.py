@@ -134,7 +134,7 @@ class NoteLevel(TeleportLevel):
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100)
 
-        player_sprite = NotePlayer((192, 340), self.display_surface)
+        player_sprite = NotePlayer((192, 377.7777777), self.display_surface)
         self.player.add(player_sprite)
     
     def detect_collisions(self):
