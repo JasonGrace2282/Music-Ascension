@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from tiles import Tile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
@@ -14,6 +14,7 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
         self.note_text = None
+        self.gameover = pygame.image.load("../resources/gameover.png")
     
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -121,10 +122,20 @@ class TeleportLevel():
 
         # player
         self.player.update(delta, self.h_shift)
-        self.detect_collisions()      
+        self.detect_collisions()
         self.on_ground()
         self.player.draw(self.display_surface)
 
+        if self.player.sprite.rect.topleft[1] > height:
+            self.display_surface.blit(self.gameover, (0, 0, width, height))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.gameover.get_rect().collidepoint(event.pos):
+                        print("why")
+                    
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface):
         super().__init__(level_data, surface)
