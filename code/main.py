@@ -38,6 +38,7 @@ class Game:
         self.boolean = False
         self.stageChooser = False
         self.level1picked = False
+        self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
@@ -147,11 +148,19 @@ class Game:
                         if self.noteDurationStartRect.collidepoint(event.pos):
                             self.level1picked = True
                             
-                
+                if self.level1picked and self.counter == 0:
+                    self.level = TeleportLevel(level1, self.screen)
+                    self.counter = 1
+
                 if self.level1picked:
                     self.screen.fill("black")
                     self.level.run(self.end-self.start)
-                    
+                    if self.level.reset:
+                        self.level = TeleportLevel(level1, self.screen)
+                    elif self.level.back:
+                        self.level1picked = False
+                        self.stageChooser = False
+                        self.counter = 0
 
                 """if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())"""

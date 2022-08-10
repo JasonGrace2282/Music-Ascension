@@ -15,6 +15,11 @@ class TeleportLevel():
         self.player_on_ground = False
         self.note_text = None
         self.gameover = pygame.image.load("../resources/gameover.png")
+        self.restart = pygame.image.load("../resources/next.png")
+        self.mainmenu = pygame.image.load("../resources/next.png")
+        self.reset = False
+        self.back = False
+        self.complete = False
     
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -89,6 +94,22 @@ class TeleportLevel():
     def detect_collisions(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
+
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.x < 0:
+                    player.rect.left = sprite.rect.right
+                    player.on_left = True
+                    self.current_x = player.rect.left
+                elif player.direction.x > 0:
+                    player.rect.right = sprite.rect.left
+                    player.on_right = True
+                    self.current_x = player.rect.right
+            
+        if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
+            player.on_left = False
+        if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
+            player.on_right = False
         
         player.apply_gravity()
 
@@ -127,14 +148,24 @@ class TeleportLevel():
         self.player.draw(self.display_surface)
 
         if self.player.sprite.rect.topleft[1] > height:
-            self.display_surface.blit(self.gameover, (0, 0, width, height))
+            self.display_surface.blit(self.gameover, (0, 0))
+            self.display_surface.blit(self.restart, (0, 0))
+            self.display_surface.blit(self.mainmenu, (0, 122))
+            # self.mainmenu.get_rect().topleft = (0, 122)
+            # print(self.mainmenu.get_rect().topleft)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.gameover.get_rect().collidepoint(event.pos):
+                    mouse = pygame.mouse.get_pos()
+                    print(mouse)
+                    """if self.restart.get_rect().collidepoint(event.pos):
                         print("why")
+                        self.reset = True
+                    elif self.mainmenu.get_rect().collidepoint(event.pos):
+                        print("no u")
+                        self.back = True"""
                     
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface):
@@ -186,6 +217,6 @@ class NoteLevel(TeleportLevel):
 
         # player
         self.player.update()
-        self.detect_collisions()      
+        self.detect_collisions()
         self.on_ground()
         self.player.draw(self.display_surface)

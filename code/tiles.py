@@ -11,5 +11,5 @@ class Tile(pygame.sprite.Sprite):
     def update(self, shift, plane):
         if plane == "x":
             self.rect.x += shift
-        elif plane == "y":  
+        elif plane == "y":
             self.rect.y += shift
