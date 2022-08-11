@@ -226,8 +226,8 @@ class TeleportLevel():
                         self.back = True
                     
 class NoteLevel(TeleportLevel):
-    def __init__(self, level_data, surface):
-        super().__init__(level_data, surface)
+    def __init__(self, level_data, surface, stage):
+        super().__init__(level_data, surface, stage)
     
     def setup_level(self, layout):
         self.tiles = pygame.sprite.Group()
