@@ -183,6 +183,7 @@ class Game:
                 
                 if self.level2picked and self.counter == 0:
                     self.level = NoteLevel(level1, self.screen, self.level.stage)
+                    self.counter = 1
                 
                 if self.level2picked:
                     self.screen.fill("black")

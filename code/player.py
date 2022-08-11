@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 
 class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
@@ -142,17 +142,19 @@ class NotePlayer(TeleportPlayer):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_UP]:
+            print("hi")
             self.pos = (self.pos[0], self.pos[1]-100)
         elif keys[pygame.K_DOWN]:
             pass
         elif keys[pygame.K_SPACE]:
             self.ready = True
-        else:
-            self.direction.x = 0
         
     def update(self):
+        pos = self.pos
         self.input()
         self.update_status()
         self.set_image()
+        if self.pos != pos:
+            self.rect = self.image.get_rect(topleft = self.pos)
         if self.ready:
-            self.direction.x += 0.5
+            self.direction.x = 0.5

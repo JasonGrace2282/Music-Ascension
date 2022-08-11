@@ -9,7 +9,6 @@ class TeleportLevel():
         # level setup
         self.display_surface = surface
         self.stage = stage
-        print(self.stage)
         self.setup_level(level_data)
         self.h_shift = 0
         self.v_shift = 0
