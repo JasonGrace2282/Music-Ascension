@@ -21,7 +21,7 @@ class Game:
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
         self.nextButtonImage = pygame.image.load("resources/next.png")
         self.beginnerMap = pygame.image.load("resources/beginnerMap.jpg")
-        self.beginnerTopicsCovered = pygame.image.load("resources/TrialBeginnerTopics.png")
+        self.beginnerTopicsCovered = pygame.image.load("resources/FinalBeginnerTopics.png")
         self.beginnerImage = pygame.image.load("resources/FinalBeginnerImage.png")
         self.NDNotes = pygame.image.load("resources/NDNotes.png")
         self.playAudioButton = pygame.image.load("resources/Play.png")
