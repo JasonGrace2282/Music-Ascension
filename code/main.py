@@ -170,7 +170,11 @@ class Game:
                 if self.level1picked:
                     self.screen.fill("black")
                     self.level.run(self.end-self.start)
-                    if self.level.reset:
+                    if self.level.reset and self.level.stagefinished:
+                        self.level.run(self.end-self.start)
+                        time.sleep(1)
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                    elif self.level.reset:
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.back:
                         self.level1picked = False
