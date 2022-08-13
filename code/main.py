@@ -1,6 +1,6 @@
 import pygame, sys, time
 from setup import *
-from level import Level
+from level import TeleportLevel, NoteLevel
 
 
 class Game:
@@ -10,7 +10,7 @@ class Game:
 
         # Screen
         self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-        self.level = Level(level1, self.screen)
+        self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
         self.background1 = pygame.image.load("resources/frontpage.jpg")
@@ -40,9 +40,12 @@ class Game:
         self.chooseBeginnerLevel = False
         self.getCoordinates = False
         self.boolean = False
+        self.stageChooser = False
+        self.stageChooser2 = False
         self.NDpage1 = False
         self.level1picked = False
-        self.counter = False
+        self.level2picked = False
+        self.counter = 0
         self.informationPage2 = False
         self.NDgameStart = False
         self.nextCounter = 0
@@ -56,13 +59,17 @@ class Game:
                                          self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
+        self.noteDurationStage2 = pygame.Rect(600, 100, 75, 75)
+        self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(),
+                                                 self.nextButtonImage.get_height())
+        print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
 
         self.start = 0
         self.end = 0
         self.done = False
 
     def run(self):
-        while 1:
+        while True:
             # The code that runs the program
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -88,7 +95,7 @@ class Game:
                 if self.area.collidepoint(event.pos):
                     self.startGame = True
                     print('START Button Clicked')
-                    time.sleep(0.5)
+                    time.sleep(1)
                     self.levelConfirm = True
                     self.offCreditButton = True
                 if self.creditsButton.collidepoint(event.pos):
@@ -99,8 +106,8 @@ class Game:
                 self.screen.blit(self.levelBackground, (0, 0))
                 self.screen.blit(self.beginnerImage, (600 - self.beginnerImage.get_width() / 2, 50))
                 self.screen.blit(self.intermediateImage, (
-                    600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
-                    self.intermediateImage.get_height()))
+                600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
+                self.intermediateImage.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
@@ -146,6 +153,8 @@ class Game:
 
                     if self.nextClicked:
                         self.screen.blit(self.beginnerMap, (0, 0))
+                        self.chooseBeginnerLevel = True
+                        print("Clicked on Next button")
 
                     if self.NDpage1:
                         self.screen.fill((255, 255, 255))
@@ -156,39 +165,95 @@ class Game:
                         self.screen.blit(self.playAudioButton, (1040, 288))
                         self.screen.blit(self.nextButtonImage,
                                          (
-                                             898, 582, self.nextButtonImage.get_width(),
-                                             self.nextButtonImage.get_height()))
+                                         898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if self.nextButton.collidepoint(event.pos):
                                 self.informationPage2 = True
 
-                        if self.informationPage2:
-                            self.screen.blit(self.InfoPage2ND, (0, 0))
-                            self.screen.blit(self.nextButtonImage,
-                                             (
-                                                 898, 582, self.nextButtonImage.get_width(),
-                                                 self.nextButtonImage.get_height()))
-                            time.sleep(0.2)
-                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                if self.nextButton.collidepoint(event.pos):
-                                    if self.nextCounter == 1:
-                                        self.level1picked = True
-                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                if self.nextButton.collidepoint(event.pos):
-                                    if self.nextCounter != 1:
-                                        self.nextCounter = self.nextCounter+1
+                    if self.informationPage2:
+                        self.screen.blit(self.InfoPage2ND, (0, 0))
+                        self.screen.blit(self.nextButtonImage,
+                                         (
+                                             898, 582, self.nextButtonImage.get_width(),
+                                             self.nextButtonImage.get_height()))
+                        time.sleep(0.2)
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if self.nextButton.collidepoint(event.pos):
+                                if self.nextCounter == 1:
+                                    self.level1picked = True
+                                    print("Selected level1")
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if self.nextButton.collidepoint(event.pos):
+                                if self.nextCounter != 1:
+                                    self.nextCounter = self.nextCounter + 1
+                    #
+                    #     if event.type == pygame.MOUSEBUTTONDOWN:
+                    #         if self.noteDurationStartRect.collidepoint(event.pos):
+                    #             self.level2picked = True
+
+                    if self.level1picked and self.counter == 0:
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                        self.counter = 1
+
+                    if self.level1picked:
+                        self.screen.fill("black")
+                        self.level.run(self.end - self.start)
+                    if self.level.reset and self.level.stagefinished:
+                        self.level.run(self.end - self.start)
+                        time.sleep(1)
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                    elif self.level.reset:
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                    elif self.level.back:
+                        self.level1picked = False
+                        self.stageChooser = False
+                        self.counter = 0
+
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    print(pygame.mouse.get_pos())
+                    if self.level.settings.collidepoint(event.pos):
+                        self.level.settingsClicked = True
+                        self.counter = 1
 
-                if self.level1picked:
-                    self.counter = 1
-                    self.screen.fill("black")
-                    self.level.run(self.end - self.start)
-                    while self.nextCounter == 1:
-                        self.metronome.play()
-                        self.nextCounter = self.nextCounter-1
+                # if event.type == pygame.MOUSEBUTTONDOWN and self.chooseBeginnerLevel:
+                #     if self.noteDurationStage1.collidepoint(event.pos):
+                #         self.stageChooser = True
+                #     if self.noteDurationStage2.collidepoint(event.pos):
+                #         self.stageChooser2 = True
+                #
+                # if self.stageChooser:
+                #     self.screen.fill((255, 255, 255))
+                #     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
+                #     self.screen.blit(title, (0, 0))
+                #     self.screen.blit(self.nextButtonImage,
+                #                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                #     if event.type == pygame.MOUSEBUTTONDOWN:
+                #         if self.noteDurationStartRect.collidepoint(event.pos):
+                #             self.level1picked = True
+
+
+
+            # if self.stageChooser2:
+            #     self.screen.fill((255, 255, 255))
+            #     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
+            #     self.screen.blit(title, (0, 0))
+            #     self.screen.blit(self.nextButtonImage,
+            #                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #     if self.noteDurationStartRect.collidepoint(event.pos):
+            #         self.level2picked = True
+            #
+            # if self.level2picked and self.counter == 0:
+            #     self.level = NoteLevel(level1, self.screen, self.level.stage)
+            #     self.counter = 1
+            #
+            if self.level1picked:
+                self.screen.fill("black")
+                self.level.run(self.end - self.start)
+                while self.nextCounter == 1:
+                    self.metronome.play()
+                    self.nextCounter = self.nextCounter - 1
 
             # Update Screen
             pygame.display.update()
