@@ -2,6 +2,7 @@ import pygame, sys, time
 from tiles import Tile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
+import random
 
 
 class TeleportLevel():
@@ -232,11 +233,17 @@ class NoteLevel(TeleportLevel):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
+        noteY = [77, 127, 177, 227, 277, 327, 377.77777, 427, 477]
+
         pos = (0, 100)
         for i in range(1, 6):
-            tile = Tile(pos, (2000, 20), "G", False)
+            tile = Tile(pos, (9000, 20), "G", False)
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100)
+        for i in range(43):
+            yResult = random.choice(noteY)
+            emtoinaldmage = Tile((400+i*200, yResult), (64, 64), "G", False)
+            self.tiles.add(emtoinaldmage)
 
         player_sprite = NotePlayer((192, 377.7777777), self.display_surface)
         self.player.add(player_sprite)
