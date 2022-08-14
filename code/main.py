@@ -20,7 +20,7 @@ class Game:
         self.startButtonImage = pygame.image.load("resources/start.png")
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
         self.nextButtonImage = pygame.image.load("resources/next.png")
-        self.beginnerMap = pygame.image.load("resources/beginnerMap.jpg")
+        self.beginnerMap = pygame.image.load("resources/FinalBeginnerMap.png")
         self.beginnerTopicsCovered = pygame.image.load("resources/FinalBeginnerTopics.png")
         self.beginnerImage = pygame.image.load("resources/FinalBeginnerImage.png")
         self.NDNotes = pygame.image.load("resources/NDNotes.png")
@@ -58,7 +58,7 @@ class Game:
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(),
                                          self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
-        self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
+        self.noteDurationStage1 = pygame.Rect(25, 332, 142, 196)
         self.noteDurationStage2 = pygame.Rect(600, 100, 75, 75)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(),
                                                  self.nextButtonImage.get_height())
@@ -92,6 +92,9 @@ class Game:
             self.screen.blit(self.creditsButtonImage, (530, 300))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print(pygame.mouse.get_pos())
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.area.collidepoint(event.pos):
                     self.startGame = True
                     print('START Button Clicked')
@@ -106,8 +109,8 @@ class Game:
                 self.screen.blit(self.levelBackground, (0, 0))
                 self.screen.blit(self.beginnerImage, (600 - self.beginnerImage.get_width() / 2, 50))
                 self.screen.blit(self.intermediateImage, (
-                600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
-                self.intermediateImage.get_height()))
+                    600 - self.intermediateImage.get_width() / 2, 400, self.intermediateImage.get_width(),
+                    self.intermediateImage.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
@@ -154,7 +157,7 @@ class Game:
                     if self.nextClicked:
                         self.screen.blit(self.beginnerMap, (0, 0))
                         self.chooseBeginnerLevel = True
-                        print("Clicked on Next button")
+                        # print("Clicked on Next button")
 
                     if self.NDpage1:
                         self.screen.fill((255, 255, 255))
@@ -165,7 +168,8 @@ class Game:
                         self.screen.blit(self.playAudioButton, (1040, 288))
                         self.screen.blit(self.nextButtonImage,
                                          (
-                                         898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                                             898, 582, self.nextButtonImage.get_width(),
+                                             self.nextButtonImage.get_height()))
 
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if self.nextButton.collidepoint(event.pos):
@@ -210,7 +214,6 @@ class Game:
                         self.stageChooser = False
                         self.counter = 0
 
-
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.level.settings.collidepoint(event.pos):
                         self.level.settingsClicked = True
@@ -231,8 +234,6 @@ class Game:
                 #     if event.type == pygame.MOUSEBUTTONDOWN:
                 #         if self.noteDurationStartRect.collidepoint(event.pos):
                 #             self.level1picked = True
-
-
 
             # if self.stageChooser2:
             #     self.screen.fill((255, 255, 255))
