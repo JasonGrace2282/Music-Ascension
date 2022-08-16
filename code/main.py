@@ -22,6 +22,8 @@ class Game:
         self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
         self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
         self.beginnerImage = pygame.image.load("resources/beginner.png")
+        self.informationPage1 = pygame.image.load("resources/NDNotes.png")
+        self.NDhow2play = pygame.image.load("resources/HowToPlayND.png")
 
         # Variables
         self.startGame = False
@@ -45,7 +47,7 @@ class Game:
         self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
-        self.noteDurationStage1 = pygame.Rect(540, 310, 75, 75)
+        self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
         self.noteDurationStage2 = pygame.Rect(600, 100, 75, 75)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
@@ -144,8 +146,7 @@ class Game:
 
                 if self.stageChooser:
                     self.screen.fill((255, 255, 255))
-                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
-                    self.screen.blit(title, (0, 0))
+                    self.screen.blit(self.informationPage1, (0, 0))
                     self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -192,8 +193,8 @@ class Game:
                     self.screen.fill("black")
                     self.level.run(self.end-self.start)
 
-                """if event.type == pygame.MOUSEBUTTONDOWN:
-                    print(pygame.mouse.get_pos())"""
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print(pygame.mouse.get_pos())
                 
             # Update Screen
             pygame.display.update()
