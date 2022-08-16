@@ -1,4 +1,5 @@
 import pygame, time
+from setup import height
 
 class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
@@ -23,7 +24,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.on_right = False
         self.start = 0
         self.end = 0
-        self.counter = 0
+        self.counter = True
         self.delta = 0
         self.correctnote = False
         self.level_note = "G"
@@ -158,11 +159,16 @@ class NotePlayer(TeleportPlayer):
     def input(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_UP]:
+        if not self.counter:
+            time.sleep(0.2)
+            self.counter = True
+        elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-50 > 0:
             print("hi")
-            self.pos = (self.pos[0], self.pos[1]-100)
-        elif keys[pygame.K_DOWN]:
-            pass
+            self.pos = (self.pos[0], self.pos[1]-50)
+            self.counter = False
+        elif keys[pygame.K_DOWN] and self.counter and not self.ready and self.pos[1]+114 < height:
+            self.pos = (self.pos[0], self.pos[1]+50)
+            self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
         
