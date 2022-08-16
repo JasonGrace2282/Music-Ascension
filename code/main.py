@@ -1,3 +1,4 @@
+from re import T
 import pygame, sys, time
 from setup import *
 from level import TeleportLevel, NoteLevel
@@ -41,6 +42,7 @@ class Game:
         self.level1picked = False
         self.level2picked = False
         self.informationPage2 = False
+        self.nextCounter = 0
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
@@ -77,7 +79,7 @@ class Game:
             self.screen.blit(self.creditsButtonImage, (530, 300))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.area.collidepoint(event.pos):
+                if self.startRect.collidepoint(event.pos):
                     self.startGame = True
                     print('START Button Clicked')
                     time.sleep(0.5)
@@ -153,9 +155,23 @@ class Game:
                     self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.noteDurationStartRect.collidepoint(event.pos):
-                            self.level1picked = True
-                
+                        if self.nextButton.collidepoint(event.pos):
+                            self.informationPage2 = True
+                    
+                if self.informationPage2:
+                    self.screen.blit(self.NDhow2play, (0, 0))
+                    self.screen.blit(self.nextButtonImage, (898, 582))
+                    time.sleep(0.2)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            if self.nextCounter == 1:
+                                self.level1picked = True
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                            if self.nextButton.collidepoint(event.pos):
+                                if self.nextCounter != 1:
+                                    self.nextCounter = self.nextCounter + 1
+
                 if self.stageChooser2:
                     self.screen.fill((255, 255, 255))
                     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
