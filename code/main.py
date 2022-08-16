@@ -14,7 +14,7 @@ class Game:
 
         # Background
         self.background1 = pygame.image.load("resources/frontpage.jpg")
-        self.levelBackground = pygame.image.load("resources/background.jpg")
+        self.levelBackground = pygame.image.load("resources/background.png")
         self.intermediateImage = pygame.image.load("resources/intermediate.png")
         self.startButtonImage = pygame.image.load("resources/start.png")
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
