@@ -24,33 +24,32 @@ class Game:
         self.beginnerImage = pygame.image.load("resources/beginner.png")
         self.informationPage1 = pygame.image.load("resources/NDNotes.png")
         self.NDhow2play = pygame.image.load("resources/HowToPlayND.png")
+        self.playButton = pygame.image.load("resources/Play.png")
 
         # Variables
         self.startGame = False
         self.interClicked = False
         self.creditsClicked = False
         self.offCreditButton = False
-        self.backButton = False
         self.levelConfirm = False
         self.beginnerClicked = False
         self.nextClicked = False
         self.chooseBeginnerLevel = False
         self.getCoordinates = False
-        self.boolean = False
         self.stageChooser = False
         self.stageChooser2 = False
         self.level1picked = False
         self.level2picked = False
+        self.informationPage2 = False
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
-        self.area = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
+        self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
         self.noteDurationStage2 = pygame.Rect(600, 100, 75, 75)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
-        print(self.intermediateImage.get_width(), ' ', self.intermediateImage.get_height())
 
         self.start = 0
         self.end = 0
@@ -147,6 +146,10 @@ class Game:
                 if self.stageChooser:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.informationPage1, (0, 0))
+                    self.screen.blit(self.playButton, (461,55))
+                    self.screen.blit(self.playButton, (461,285))
+                    self.screen.blit(self.playButton, (1038,55))
+                    self.screen.blit(self.playButton, (1038,285))
                     self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
