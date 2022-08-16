@@ -16,10 +16,10 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
         self.note_text = None
-        self.gameover = pygame.image.load("../resources/gameover.png")
-        self.restartImage = pygame.image.load("../resources/next.png")
-        self.mainmenuImage = pygame.image.load("../resources/next.png")
-        self.settingsImage = pygame.image.load("../resources/next.png")
+        self.gameover = pygame.image.load("resources/gameover.png")
+        self.restartImage = pygame.image.load("resources/next.png")
+        self.mainmenuImage = pygame.image.load("resources/next.png")
+        self.settingsImage = pygame.image.load("resources/next.png")
         self.restart = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())

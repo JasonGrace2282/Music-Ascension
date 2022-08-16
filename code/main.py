@@ -13,16 +13,15 @@ class Game:
         self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
-        self.background1 = pygame.image.load("../resources/frontpage.jpg")
-        self.gameOver = pygame.image.load("../resources/youwin.png").convert_alpha()
-        self.levelBackground = pygame.image.load("../resources/background.jpg")
-        self.intermediateImage = pygame.image.load("../resources/intermediate.png")
-        self.startButtonImage = pygame.image.load("../resources/start.png")
-        self.creditsButtonImage = pygame.image.load("../resources/credits.png")
-        self.nextButtonImage = pygame.image.load("../resources/next.png")
-        self.beginnerMap = pygame.image.load("../resources/beginnermap.jpg")
-        self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.jpg")
-        self.beginnerImage = pygame.image.load("../resources/beginner.png")
+        self.background1 = pygame.image.load("resources/frontpage.jpg")
+        self.levelBackground = pygame.image.load("resources/background.jpg")
+        self.intermediateImage = pygame.image.load("resources/FinalIntermediateImage.png")
+        self.startButtonImage = pygame.image.load("resources/start.png")
+        self.creditsButtonImage = pygame.image.load("resources/credits.png")
+        self.nextButtonImage = pygame.image.load("resources/next.png")
+        self.beginnerMap = pygame.image.load("resources/FinalBeginnerMap.png")
+        self.beginnerTopicsCovered = pygame.image.load("resources/FinalBeginnerTopics.png")
+        self.beginnerImage = pygame.image.load("resources/FinalBeginnerImage.png")
 
         # Variables
         self.startGame = False
