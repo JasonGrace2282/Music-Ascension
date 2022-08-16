@@ -198,6 +198,7 @@ class Game:
                     elif self.level.back:
                         self.level1picked = False
                         self.informationPage2 = False
+                        self.stageChooser = False
                         self.counter = 0
                     
                     if event.type == pygame.MOUSEBUTTONDOWN:
