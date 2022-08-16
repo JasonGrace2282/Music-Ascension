@@ -16,13 +16,13 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
         self.note_text = None
-        self.gameover = pygame.image.load("resources/gameover.png")
-        self.restartImage = pygame.image.load("resources/next.png")
-        self.mainmenuImage = pygame.image.load("resources/next.png")
-        self.settingsImage = pygame.image.load("resources/next.png")
+        # self.gameover = pygame.image.load("resources/gameover.png")
+        self.restartImage = pygame.image.load("resources/retry.png")
+        self.mainmenuImage = pygame.image.load("resources/quit.png")
+        self.settingsImage = pygame.image.load("resources/menu.png")
         self.restart = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
-        self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.settings = pygame.Rect(85, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settingsClicked = False
         self.stagefinished = False
         self.reset = False
@@ -182,7 +182,7 @@ class TeleportLevel():
         self.display_surface.blit(self.settingsImage, (100, 0))
 
         if self.settingsClicked:
-            self.display_surface.blit(self.gameover, (0, 0))
+            self.display_surface.fill((255,255,255), rect=(0, 0, 300, 200))
             self.display_surface.blit(self.restartImage, (0, 0))
             self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()))
             
@@ -199,7 +199,7 @@ class TeleportLevel():
                         self.back = True
 
         if self.player.sprite.rect.topleft[1] > height:
-            self.display_surface.blit(self.gameover, (0, 0))
+            self.display_surface.fill((255,255,255), rect=(0, 0, 300, 200))
             self.display_surface.blit(self.restartImage, (0, 0))
             self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()))
             

@@ -42,6 +42,8 @@ class Game:
         self.level1picked = False
         self.level2picked = False
         self.informationPage2 = False
+        self.sleepCounter1 = 0
+        self.sleepCounter2 = 0
         self.nextCounter = 0
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
@@ -161,7 +163,9 @@ class Game:
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
                     self.screen.blit(self.nextButtonImage, (898, 582))
-                    time.sleep(0.2)
+                    while self.sleepCounter1 == 0:
+                        time.sleep(0.2)
+                        self.sleepCounter1=1
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -191,7 +195,9 @@ class Game:
                     self.level.run(self.end-self.start)
                     if self.level.reset and self.level.stagefinished:
                         self.level.run(self.end-self.start)
-                        time.sleep(1)
+                        while self.sleepCounter2 == 0:
+                            time.sleep(1)
+                            self.sleepCounter2 = 1
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
