@@ -197,7 +197,7 @@ class Game:
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.back:
                         self.level1picked = False
-                        self.stageChooser = False
+                        self.informationPage2 = False
                         self.counter = 0
                     
                     if event.type == pygame.MOUSEBUTTONDOWN:
