@@ -1,8 +1,7 @@
-import pygame, sys, time
+import pygame, sys, random, time
 from tiles import Tile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
-import random
 
 class TeleportLevel():
     def __init__(self, level_data, surface, stage):
@@ -16,7 +15,6 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
         self.note_text = None
-        # self.gameover = pygame.image.load("resources/gameover.png")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
@@ -179,7 +177,7 @@ class TeleportLevel():
         if self.note_text != None:
             self.display_surface.blit(self.note_text, (0, 0))
         
-        self.display_surface.blit(self.settingsImage, (100, 0))
+        self.display_surface.blit(self.settingsImage, (50, 0))
 
         if self.settingsClicked:
             self.display_surface.fill((255,255,255), rect=(0, 0, 300, 200))
