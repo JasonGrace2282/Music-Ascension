@@ -52,7 +52,7 @@ class Game:
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
-        self.noteDurationStage2 = pygame.Rect(600, 100, 75, 75)
+        self.noteDurationStage2 = pygame.Rect(225, 340, 135, 185)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
 
         self.start = 0
