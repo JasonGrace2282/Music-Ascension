@@ -3,7 +3,7 @@ import pygame, sys, time
 from setup import *
 from level import TeleportLevel, NoteLevel
 
-
+#Main class
 class Game:
     def __init__(self):
         # Class which includes all variables
