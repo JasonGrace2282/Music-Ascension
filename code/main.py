@@ -1,3 +1,4 @@
+from hashlib import blake2b
 from re import T
 import pygame, sys, time
 from setup import *
@@ -26,6 +27,7 @@ class Game:
         self.informationPage1 = pygame.image.load("resources/NDNotes.png")
         self.NDhow2play = pygame.image.load("resources/NDdirections.png")
         self.playButton = pygame.image.load("resources/play.png")
+        self.interMapImage = pygame.image.load("resources/InterMapImage.png")
 
         # Variables
         self.startGame = False
@@ -42,6 +44,7 @@ class Game:
         self.level1picked = False
         self.level2picked = False
         self.informationPage2 = False
+        self.interMap = False
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.nextCounter = 0
@@ -126,16 +129,24 @@ class Game:
                     interTopicsText3 = pygame.font.SysFont(None, 40)
                     interTopicsText3 = interTopicsText3.render('Time Signatures', True, 0)
                     self.screen.blit(interTopicsText3, (0, 100))
+                    self.screen.blit(self.nextButtonImage, (898, 592))
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            self.interMap = True
 
                 if self.beginnerClicked:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.beginnerTopicsCovered, (0, 0))
                     self.screen.blit(self.nextButtonImage,
                                      (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.nextButton.collidepoint(event.pos):
-                        self.nextClicked = True
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            self.nextClicked = True
+                
+                if self.interMap:
+                    self.screen.fill("white")
+                    self.screen.blit(self.interMapImage, (0, 0))
 
                 if self.nextClicked:
                     self.screen.blit(self.beginnerMap, (0, 0))
@@ -170,7 +181,8 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
-                                self.level1picked = True
+                                if self.chooseBeginnerLevel:
+                                    self.level1picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                             if self.nextButton.collidepoint(event.pos):
                                 if self.nextCounter != 1:
@@ -184,7 +196,8 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.noteDurationStartRect.collidepoint(event.pos):
-                            self.level2picked = True
+                            if self.chooseBeginnerLevel:
+                                self.level2picked = True
                             
                 if self.level1picked and self.counter == 0:
                     self.level = TeleportLevel(level1, self.screen, self.level.stage)
