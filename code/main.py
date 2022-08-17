@@ -10,7 +10,7 @@ class Game:
         pygame.init()
 
         # Screen
-        self.screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode((width, height))
         self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
