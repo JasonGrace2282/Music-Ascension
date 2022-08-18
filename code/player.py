@@ -155,6 +155,7 @@ class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
         self.ready = False
+        self.start = time.time()
     
     def input(self):
         keys = pygame.key.get_pressed()
@@ -181,3 +182,6 @@ class NotePlayer(TeleportPlayer):
             self.rect = self.image.get_rect(topleft = self.pos)
         if self.ready:
             self.direction.x = 0.5
+        self.end = time.time()
+        if self.end - self.start >= 5:
+            self.ready = True

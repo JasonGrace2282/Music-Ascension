@@ -261,7 +261,6 @@ class NoteLevel(TeleportLevel):
 
         note = random.choice(notes)
         font = pygame.font.SysFont(None, 30)
-        note = "MidC"
         self.note_text = font.render(note, True, (255, 255, 255))
 
         yResult = noteY[notes.index(note)]
