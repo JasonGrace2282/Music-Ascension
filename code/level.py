@@ -1,5 +1,5 @@
 import pygame, sys, random
-from tiles import Tile
+from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
 
@@ -9,12 +9,12 @@ class TeleportLevel():
         # level setup
         self.display_surface = surface
         self.stage = stage
+        self.note_text = None
         self.setup_level(level_data)
         self.h_shift = 0
         self.v_shift = 0
         self.current_x = 0
         self.player_on_ground = False
-        self.note_text = None
         self.gameover = pygame.image.load("resources/gameover.png")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
@@ -28,6 +28,7 @@ class TeleportLevel():
         self.back = False
         self.complete = False
         self.note = "G"
+        self.ledger = pygame.sprite.GroupSingle()
     
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -49,7 +50,7 @@ class TeleportLevel():
                     last = True
                 offset = 128
                 pos = (offset+pos[0], pos[1]-32)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
 
@@ -59,7 +60,7 @@ class TeleportLevel():
                     last = True
                 offset = 192
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
             
@@ -69,7 +70,7 @@ class TeleportLevel():
                     last = True
                 offset = 256
                 pos = (offset+pos[0], pos[1]-96)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
                 
@@ -79,7 +80,7 @@ class TeleportLevel():
                     last = True
                 offset = 320
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
             
@@ -89,7 +90,7 @@ class TeleportLevel():
                     last = True
                 offset = 384
                 pos = (offset+pos[0], pos[1]-192)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
             
@@ -99,7 +100,7 @@ class TeleportLevel():
                     last = True
                 offset = 448
                 pos = (offset+pos[0], pos[1]-256)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
         
@@ -222,20 +223,16 @@ class NoteLevel(TeleportLevel):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
-        noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
-
         pos = (0, 100)
         for i in range(1, 6):
-            tile = Tile(pos, (9000, 20), "G", False)
+            tile = NoteTile(pos, (9000, 20), False)
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100)
-        for i in range(43):
-            yResult = random.choice(noteY)
-            emtoinaldmage = Tile((400+i*200, yResult), (64, 64), "G", False)
-            self.tiles.add(emtoinaldmage)
 
         player_sprite = NotePlayer((192, 378), self.display_surface)
         self.player.add(player_sprite)
+
+        self.randomize_note()
     
     def detect_collisions(self):
         player = self.player.sprite
@@ -257,6 +254,20 @@ class NoteLevel(TeleportLevel):
             self.h_shift = 0
             self.v_shift = 0
             player.speed = 8
+
+    def randomize_note(self):
+        noteY = [628, 578, 528, 478, 428, 378, 328, 278, 228, 178, 128, 78, 28]
+        notes = ["LoB", "MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG"]
+
+        note = random.choice(notes)
+        font = pygame.font.SysFont(None, 30)
+        note = "MidC"
+        self.note_text = font.render(note, True, (255, 255, 255))
+
+        yResult = noteY[notes.index(note)]
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True)
+
+        self.tiles.add(house)
     
     def run(self, delta):
 
@@ -272,12 +283,15 @@ class NoteLevel(TeleportLevel):
         self.on_ground()
         self.player.draw(self.display_surface)
 
-        self.ledger = pygame.sprite.GroupSingle()
+        if self.note_text != None:
+            self.display_surface.blit(self.note_text, (0, 0))
+
         if self.player.sprite.pos[1] == 578:
-            tile = Tile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), "G", False)
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False)
             tile.add(self.ledger)
-            self.ledger.draw(self.display_surface)
         elif self.player.sprite.pos[1] == 628:
-            tile = Tile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), "G", False)
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False)
             tile.add(self.ledger)
+        
+        if not self.player.sprite.ready:
             self.ledger.draw(self.display_surface)
