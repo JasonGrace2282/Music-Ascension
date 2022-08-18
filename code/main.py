@@ -145,8 +145,7 @@ class Game:
                 if self.beginnerClicked:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.beginnerTopicsCovered, (0, 0))
-                    self.screen.blit(self.nextButtonImage,
-                                     (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             self.nextClicked = True
@@ -196,8 +195,7 @@ class Game:
                     self.screen.blit(self.playButton, (461, 285))
                     self.screen.blit(self.playButton, (1038, 55))
                     self.screen.blit(self.playButton, (1038, 285))
-                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(
-                    ), self.nextButtonImage.get_height()))
+                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -232,8 +230,7 @@ class Game:
                                 self.level2picked = True
 
                 if self.level1picked and self.counter == 0:
-                    self.level = TeleportLevel(
-                        level1, self.screen, self.level.stage)
+                    self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
@@ -244,11 +241,9 @@ class Game:
                         while self.sleepCounter2 == 0:
                             time.sleep(1)
                             self.sleepCounter2 = 1
-                        self.level = TeleportLevel(
-                            level1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.reset:
-                        self.level = TeleportLevel(
-                            level1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.back:
                         self.level1picked = False
                         self.informationPage2 = False
@@ -260,8 +255,7 @@ class Game:
                             self.level.settingsClicked = True
 
                 if self.level2picked and self.counter == 0:
-                    self.level = NoteLevel(
-                        level1, self.screen, self.level.stage)
+                    self.level = NoteLevel(level1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level2picked:
