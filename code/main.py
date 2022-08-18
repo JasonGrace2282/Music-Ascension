@@ -105,7 +105,7 @@ class Game:
                 self.screen.fill(0)
                 self.screen.blit(self.levelBackground, (0, 0))
                 self.screen.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
-                self.screen.blit(self.intermediateImage, (600-self.intermediateImage.get_width())/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
+                self.screen.blit(self.intermediateImage, (600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
