@@ -157,6 +157,7 @@ class NotePlayer(TeleportPlayer):
         super().__init__(pos, surface)
         self.ready = False
         self.start = time.time()
+        self.chain = False
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -186,3 +187,5 @@ class NotePlayer(TeleportPlayer):
         self.end = time.time()
         if self.end - self.start >= 5:
             self.ready = True
+        if self.end - self.start >= 100:
+            self.chain = True

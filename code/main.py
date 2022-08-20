@@ -194,8 +194,19 @@ class Game:
                 if self.pizzaMan3:
                     self.screen.fill((0, 0, 255))
                     # Insert code to call stage 3 of pizza man minigame
-
+                
                 if self.stageChooser:
+                    self.screen.fill((255, 255, 255))
+                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
+                    self.screen.blit(title, (0, 0))
+                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.noteDurationStartRect.collidepoint(event.pos):
+                            if self.chooseBeginnerLevel:
+                                self.level1picked = True
+
+                if self.stageChooser2:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.informationPage1, (0, 0))
                     self.screen.blit(self.playButton, (461, 55))
@@ -231,31 +242,32 @@ class Game:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
                                 if self.chooseBeginnerLevel:
-                                    self.level1picked = True
+                                    self.level2picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter != 1:
                                 self.nextCounter = self.nextCounter + 1
-
-                if self.stageChooser2:
-                    self.screen.fill((255, 255, 255))
-                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
-                    self.screen.blit(title, (0, 0))
-                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
-
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.noteDurationStartRect.collidepoint(event.pos):
-                            if self.chooseBeginnerLevel:
-                                self.level2picked = True
-
+                            
                 if self.level1picked and self.counter == 0:
+                    self.level = NoteLevel(level1, self.screen, self.level.stage)
+                    self.counter = 1
+
+                if self.level1picked:
+                    self.screen.fill("black")
+                    self.level.run()
+                    if self.level.chain:
+                        self.level1picked = False
+                        self.stageChooser = False
+                        self.counter = 0
+
+                if self.level2picked and self.counter == 0:
                     self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     pygame.mixer.music.load("resources/metronome.mp3")
                     pygame.mixer.music.play(0)
                     pygame.mixer.music.set_volume(0.5)
                     self.counter = 1
 
-                if self.level1picked:
+                if self.level2picked:
                     self.screen.fill("black")
                     self.level.run(self.end-self.start)
                     if self.level.reset and self.level.stagefinished:
@@ -272,22 +284,13 @@ class Game:
                     elif self.level.back:
                         self.level1picked = False
                         self.informationPage2 = False
-                        self.stageChooser = False
+                        self.stageChooser2 = False
                         self.counter = 0
                         pygame.mixer.music.stop()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
                             self.level.settingsClicked = True
-
-
-                if self.level2picked and self.counter == 0:
-                    self.level = NoteLevel(level1, self.screen, self.level.stage)
-                    self.counter = 1
-
-                if self.level2picked:
-                    self.screen.fill("black")
-                    self.level.run(self.end-self.start)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print(pygame.mouse.get_pos())
