@@ -1,5 +1,3 @@
-from hashlib import blake2b
-from re import T
 import pygame
 import sys
 import time
