@@ -54,6 +54,7 @@ class Game:
         self.DurationStage3 = False
         self.pizzaMan2 = False
         self.pizzaMan3 = False
+        self.metronome_counter = False
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.nextCounter = 0
@@ -89,6 +90,7 @@ class Game:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
@@ -293,6 +295,15 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
                             self.level.settingsClicked = True
+                
+                if self.level1picked:
+                    self.metronome_counter = True
+                    pygame.mixer.music.load("resources/metronome.mp3")
+                    pygame.mixer.music.play(0)
+                    pygame.mixer.music.set_volume(0.5)
+
+                if not self.level1picked and self.metronome_counter:
+                    pygame.mixer.music.stop
 
                 if self.level2picked and self.counter == 0:
                     self.level = NoteLevel(
