@@ -12,6 +12,7 @@ from level import TeleportLevel, NoteLevel
 class Game:
     def __init__(self):
         # Class which includes all variables
+        pygame.mixer.init()
         pygame.init()
 
         # Screen
@@ -73,6 +74,10 @@ class Game:
         self.noteDurationStage2 = pygame.Rect(225, 340, 135, 185)
         self.noteDurationStartRect = pygame.Rect(
             898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
+        self.play_1 = pygame.Rect(461, 55, self.playButton.get_width(), self.playButton.get_height())
+        self.play_2 = pygame.Rect(461, 285, self.playButton.get_width(), self.playButton.get_height())
+        self.play_3 = pygame.Rect(1038, 55, self.playButton.get_width(), self.playButton.get_height())
+        self.play_4 = pygame.Rect(1038, 285, self.playButton.get_width(), self.playButton.get_height())
         self.NDstage2 = pygame.Rect(400, 340, 140, 215)
         self.pizza_man_2 = pygame.Rect(605, 340, 140, 215)
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
@@ -180,15 +185,15 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONDOWN and self.chooseBeginnerLevel:
                     if self.noteDurationStage1.collidepoint(event.pos):
                         self.stageChooser = True
-                    if self.noteDurationStage2.collidepoint(event.pos):
+                    elif self.noteDurationStage2.collidepoint(event.pos):
                         self.stageChooser2 = True
-                    if self.NDstage2.collidepoint(event.pos):
+                    elif self.NDstage2.collidepoint(event.pos):
                         self.DurationStage2 = True
-                    if self.NDstage3.collidepoint(event.pos):
+                    elif self.NDstage3.collidepoint(event.pos):
                         self.DurationStage3 = True
-                    if self.pizza_man_2.collidepoint(event.pos):
+                    elif self.pizza_man_2.collidepoint(event.pos):
                         self.pizzaMan2 = True
-                    if self.pizza_man_3.collidepoint(event.pos):
+                    elif self.pizza_man_3.collidepoint(event.pos):
                         self.pizzaMan3 = True
 
                 if self.DurationStage2:
@@ -220,6 +225,18 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             self.informationPage2 = True
+                        elif self.play_1.collidepoint(event.pos):
+                            pygame.mixer.music.load("resources/quarter_note.mp3")
+                            pygame.mixer.music.play(0)
+                        elif self.play_2.collidepoint(event.pos):
+                            pygame.mixer.music.load("resources/whole_note.mp3")
+                            pygame.mixer.music.play(0)
+                        elif self.play_3.collidepoint(event.pos):
+                            pygame.mixer.music.load("resources/half_note.mp3")
+                            pygame.mixer.music.play(0)
+                        elif self.play_4.collidepoint(event.pos):
+                            pygame.mixer.music.load("resources/eighth_note.mp3")
+                            pygame.mixer.music.play(0)
 
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
