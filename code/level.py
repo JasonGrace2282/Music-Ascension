@@ -5,10 +5,12 @@ import random
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
+import random
 
 
 class TeleportLevel():
     def __init__(self, level_data, surface, stage):
+
 
         # level setup
         self.display_surface = surface
@@ -19,6 +21,7 @@ class TeleportLevel():
         self.v_shift = 0
         self.current_x = 0
         self.player_on_ground = False
+
         self.gameover = pygame.image.load("resources/gameover.png")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
@@ -43,6 +46,7 @@ class TeleportLevel():
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
         pos = (0, 640)
+
         last = False
         index = 0
 
@@ -54,6 +58,7 @@ class TeleportLevel():
                 offset = 128
                 pos = (offset+pos[0], pos[1]-32)
                 tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+
                 self.tiles.add(tile)
                 last = False
 
@@ -62,6 +67,7 @@ class TeleportLevel():
                 if len(layout[self.stage-1]) == index:
                     last = True
                 offset = 192
+
                 pos = (offset+pos[0], pos[1]-64)
                 tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
@@ -116,6 +122,7 @@ class TeleportLevel():
         player_y = player.rect.centery
         direction_x = player.direction.x
 
+
         if player_x < width/2 and direction_x < 0:
             self.h_shift = 8
             player.speed = 0
@@ -124,12 +131,14 @@ class TeleportLevel():
             player.speed = 0
         elif player_y < height/4:
             self.v_shift = 4
+
         else:
             self.h_shift = 0
             self.v_shift = 0
             player.speed = 8
 
     def detect_collisions(self, delta):
+
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
 
@@ -322,6 +331,7 @@ class NoteLevel(TeleportLevel):
         self.player.update()
         self.detect_collisions()
         self.on_ground()
+
         self.player.draw(self.display_surface)
 
         if self.note_text != None:
