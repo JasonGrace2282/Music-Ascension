@@ -1,5 +1,4 @@
-import pygame
-import time
+import pygame, time, random
 from setup import height
 
 
@@ -158,6 +157,8 @@ class NotePlayer(TeleportPlayer):
         self.ready = False
         self.start = time.time()
         self.chain = False
+        self.delivered = False
+        self.coins = 0
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -176,6 +177,9 @@ class NotePlayer(TeleportPlayer):
             self.ready = True
 
     def update(self):
+        if self.delivered:
+            self.coins += random.randint(5, 8)
+            self.delivered = False
         pos = self.pos
         self.input()
         self.update_status()
@@ -184,6 +188,8 @@ class NotePlayer(TeleportPlayer):
             self.rect = self.image.get_rect(topleft=self.pos)
         if self.ready:
             self.direction.x = 0.5
+        else:
+            self.direction.x = 0
         self.end = time.time()
         if self.end - self.start >= 5:
             self.ready = True

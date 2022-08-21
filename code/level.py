@@ -196,10 +196,10 @@ class TeleportLevel():
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
-                        print("why")
+                        print("reset")
                         self.reset = True
                     if self.mainmenu.collidepoint(event.pos):
-                        print("no u")
+                        print("main menu")
                         self.back = True
 
         if self.player.sprite.rect.topleft[1] > height:
@@ -214,10 +214,10 @@ class TeleportLevel():
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
-                        print("why")
+                        print("reset")
                         self.reset = True
                     if self.mainmenu.collidepoint(event.pos):
-                        print("no u")
+                        print("main menu")
                         self.back = True
 
 
@@ -231,6 +231,8 @@ class NoteLevel(TeleportLevel):
         self.chain = False
         self.draw_old = True
         self.counter = 0
+        self.counterclock = False
+        self.playerdelivered = False
 
 
     def setup_level(self, layout):
@@ -253,10 +255,11 @@ class NoteLevel(TeleportLevel):
         player.rect.x += player.direction.x * player.speed
 
         if self.house.sprite.rect.colliderect(player.rect):
+            print("it worked")
             self.draw_old = False
-            self.counter = 1
+            self.playerdelivered = True
         if self.barrier.sprite.rect.colliderect(player.rect):
-            self.counter = 0
+            self.counterclock = True
             self.old_house.add(self.house.sprite)
             self.randomize_note()
             
@@ -289,6 +292,7 @@ class NoteLevel(TeleportLevel):
         note = random.choice(notes)
         font = pygame.font.SysFont(None, 30)
         self.note_text = font.render(note, True, (255, 255, 255))
+        self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
 
         self.player.sprite.pos = (self.player.sprite.rect.x, self.player.sprite.rect.y)
 
@@ -322,6 +326,8 @@ class NoteLevel(TeleportLevel):
 
         if self.note_text != None:
             self.display_surface.blit(self.note_text, (0, 0))
+        if self.coin_text != None:
+            self.display_surface.blit(self.coin_text, (1000, 0))
 
         if self.player.sprite.pos[1] == 578:
             tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
@@ -332,5 +338,15 @@ class NoteLevel(TeleportLevel):
 
         if not self.player.sprite.ready:
             self.ledger.draw(self.display_surface)
-        if type(self.old_house.sprite) != NoneType:
-            print(self.old_house.sprite.pos[1])
+        
+        if self.counterclock:
+            self.counter += 1
+            if self.counter >= 20:
+                player_sprite = NotePlayer((self.player.sprite.pos), self.display_surface)
+                self.player.add(player_sprite)
+                self.counterclock = False
+                self.counter = 0
+                if not self.playerdelivered:
+                    self.player.sprite.delivered = True
+                    self.player.update()
+                    self.playerdelivered = False
