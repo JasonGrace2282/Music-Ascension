@@ -1,5 +1,6 @@
-import pygame, time
+import pygame, time, random
 from setup import height
+
 
 class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
@@ -7,10 +8,10 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.animation_speed = 0.15
         self.image = pygame.image.load("resources/player.png")
         self.pos = pos
-        self.rect = self.image.get_rect(topleft = self.pos)
+        self.rect = self.image.get_rect(topleft=self.pos)
 
         # player movement
-        self.direction = pygame.math.Vector2(0,0)
+        self.direction = pygame.math.Vector2(0, 0)
         self.speed = 8
         self.gravity = 0.8
         self.jump_speed = -16
@@ -28,31 +29,30 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.delta = 0
         self.correctnote = False
         self.level_note = "G"
-    
+
     def set_image(self):
-        
+
         image = self.image
         if self.facing_right:
             self.image = image
         else:
             flipped_image = pygame.transform.flip(image, True, False)
             self.image = flipped_image
-        
+
         # set the rect
         if self.on_ground and self.on_right:
-            self.rect = self.image.get_rect(bottomright = self.rect.bottomright)
+            self.rect = self.image.get_rect(bottomright=self.rect.bottomright)
         elif self.on_ground and self.on_left:
-            self.rect = self.image.get_rect(bottomleft = self.rect.bottomleft)
+            self.rect = self.image.get_rect(bottomleft=self.rect.bottomleft)
         elif self.on_ground:
-            self.rect = self.image.get_rect(midbottom = self.rect.midbottom)
+            self.rect = self.image.get_rect(midbottom=self.rect.midbottom)
         elif self.on_ceiling and self.on_right:
-            self.rect = self.image.get_rect(topright = self.rect.topright)
+            self.rect = self.image.get_rect(topright=self.rect.topright)
         elif self.on_ceiling and self.on_left:
-            self.rect = self.image.get_rect(topleft = self.rect.topleft)
+            self.rect = self.image.get_rect(topleft=self.rect.topleft)
         elif self.on_ceiling:
-            self.rect = self.image.get_rect(midtop = self.rect.midtop)
-        
-        
+            self.rect = self.image.get_rect(midtop=self.rect.midtop)
+
     def input(self, delta):
         keys = pygame.key.get_pressed()
         self.delta = delta
@@ -86,11 +86,10 @@ class TeleportPlayer(pygame.sprite.Sprite):
             else:
                 self.status = "idle"
 
-    
     def apply_gravity(self):
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
-    
+
     def teleport(self):
         if self.delta <= 0:
             pass
@@ -144,18 +143,23 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 56
         elif self.delta > 4.1:
             print("mission failed, we'll get e'm next time")
-    
+
     def update(self, delta, shift):
         self.input(delta)
         self.update_status()
         self.set_image()
         self.rect.x += shift
 
+
 class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
         self.ready = False
-    
+        self.start = time.time()
+        self.chain = False
+        self.delivered = False
+        self.coins = 0
+
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -171,13 +175,23 @@ class NotePlayer(TeleportPlayer):
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
-        
+
     def update(self):
+        if self.delivered:
+            self.coins += random.randint(5, 8)
+            self.delivered = False
         pos = self.pos
         self.input()
         self.update_status()
         self.set_image()
         if self.pos != pos:
-            self.rect = self.image.get_rect(topleft = self.pos)
+            self.rect = self.image.get_rect(topleft=self.pos)
         if self.ready:
             self.direction.x = 0.5
+        else:
+            self.direction.x = 0
+        self.end = time.time()
+        if self.end - self.start >= 5:
+            self.ready = True
+        if self.end - self.start >= 100:
+            self.chain = True

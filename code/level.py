@@ -1,8 +1,12 @@
-import pygame, sys, random
-from tiles import Tile
+from types import NoneType
+import pygame
+import sys
+import random
+from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
 import random
+
 
 class TeleportLevel():
     def __init__(self, level_data, surface, stage):
@@ -11,13 +15,13 @@ class TeleportLevel():
         # level setup
         self.display_surface = surface
         self.stage = stage
+        self.note_text = None
         self.setup_level(level_data)
         self.h_shift = 0
         self.v_shift = 0
         self.current_x = 0
         self.player_on_ground = False
 
-        self.note_text = None
         self.gameover = pygame.image.load("resources/gameover.png")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
@@ -53,7 +57,7 @@ class TeleportLevel():
                     last = True
                 offset = 128
                 pos = (offset+pos[0], pos[1]-32)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
 
                 self.tiles.add(tile)
                 last = False
@@ -65,50 +69,50 @@ class TeleportLevel():
                 offset = 192
 
                 pos = (offset+pos[0], pos[1]-64)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
-            
+
             if info[0] == 1.5:
                 index += 1
                 if len(layout[self.stage-1]) == index:
                     last = True
                 offset = 256
                 pos = (offset+pos[0], pos[1]-96)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
-                
+
             if info[0] == 2:
                 index += 1
                 if len(layout[self.stage-1]) == index:
                     last = True
                 offset = 320
                 pos = (offset+pos[0], pos[1]-128)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
-            
+
             if info[0] == 3:
                 index += 1
                 if len(layout[self.stage-1]) == index:
                     last = True
                 offset = 384
                 pos = (offset+pos[0], pos[1]-192)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
-            
+
             if info[0] == 4:
                 index += 1
                 if len(layout[self.stage-1]) == index:
                     last = True
                 offset = 448
                 pos = (offset+pos[0], pos[1]-256)
-                tile = Tile(pos, (tilesize, tilesize), info[1], last)
+                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
                 self.tiles.add(tile)
                 last = False
-        
+
         player_sprite = TeleportPlayer((192, 512), self.display_surface)
         self.player.add(player_sprite)
 
@@ -166,7 +170,6 @@ class TeleportLevel():
             if player.on_ceiling and player.direction.y > 0:
                 player.on_ceiling
 
-        
     def run(self, delta):
         # tiles
         self.tiles.update(self.h_shift, "x")
@@ -187,70 +190,93 @@ class TeleportLevel():
 
         if self.note_text != None:
             self.display_surface.blit(self.note_text, (0, 0))
-        
+
         self.display_surface.blit(self.settingsImage, (100, 0))
 
         if self.settingsClicked:
             self.display_surface.blit(self.gameover, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 0))
-            self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()))
-            
+            self.display_surface.blit(
+                self.mainmenuImage, (0, self.restartImage.get_height()))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
-                        print("why")
+                        print("reset")
                         self.reset = True
                     if self.mainmenu.collidepoint(event.pos):
-                        print("no u")
+                        print("main menu")
                         self.back = True
 
         if self.player.sprite.rect.topleft[1] > height:
             self.display_surface.blit(self.gameover, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 0))
-            self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()))
-            
+            self.display_surface.blit(
+                self.mainmenuImage, (0, self.restartImage.get_height()))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
-                        print("why")
+                        print("reset")
                         self.reset = True
                     if self.mainmenu.collidepoint(event.pos):
-                        print("no u")
+                        print("main menu")
                         self.back = True
-                    
+
+
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface, stage):
+        self.ledger = pygame.sprite.GroupSingle()
+        self.house = pygame.sprite.GroupSingle()
+        self.old_house = pygame.sprite.GroupSingle()
+        self.barrier = pygame.sprite.GroupSingle()
         super().__init__(level_data, surface, stage)
-    
+        self.chain = False
+        self.draw_old = True
+        self.counter = 0
+        self.counterclock = False
+        self.playerdelivered = False
+
+
     def setup_level(self, layout):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
-        noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
-
         pos = (0, 100)
         for i in range(1, 6):
-            tile = Tile(pos, (9000, 20), "G", False)
+            tile = NoteTile(pos, (9000, 20), False, False)
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100)
-        for i in range(43):
-            yResult = random.choice(noteY)
-            emtoinaldmage = Tile((400+i*200, yResult), (64, 64), "G", False)
-            self.tiles.add(emtoinaldmage)
 
         player_sprite = NotePlayer((192, 378), self.display_surface)
         self.player.add(player_sprite)
-    
+
+        self.randomize_note()
+
     def detect_collisions(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
-    
+
+        if self.house.sprite.rect.colliderect(player.rect):
+            print("it worked")
+            self.draw_old = False
+            self.playerdelivered = True
+        if self.barrier.sprite.rect.colliderect(player.rect):
+            self.counterclock = True
+            self.old_house.add(self.house.sprite)
+            self.randomize_note()
+            
+        if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
+            player.on_left = False
+        if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
+            player.on_right = False
+
     def scroll(self):
         player = self.player.sprite
         player_x = player.rect.centerx
@@ -267,17 +293,70 @@ class NoteLevel(TeleportLevel):
             self.h_shift = 0
             self.v_shift = 0
             player.speed = 8
-    
-    def run(self, delta):
+
+    def randomize_note(self):
+        noteY = [628, 578, 528, 478, 428, 378, 328, 278, 228, 178, 128, 78, 28]
+        notes = ["LoB", "MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG"]
+
+        note = random.choice(notes)
+        font = pygame.font.SysFont(None, 30)
+        self.note_text = font.render(note, True, (255, 255, 255))
+        self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
+
+        self.player.sprite.pos = (self.player.sprite.rect.x, self.player.sprite.rect.y)
+
+        yResult = noteY[notes.index(note)]
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, False)
+        self.house.add(house)
+        barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, True)
+        self.barrier.add(barrier)
+
+    def run(self):
 
         # level tiles
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
+        self.house.update(self.h_shift, "x")
+        self.barrier.update(self.h_shift, "x")
         self.tiles.draw(self.display_surface)
+        self.house.draw(self.display_surface)
+        if self.old_house != None and self.draw_old:
+            self.old_house.update(self.h_shift, "x")
+            self.old_house.draw(self.display_surface)
+        elif not self.draw_old:
+            self.draw_old = True
         self.scroll()
 
         # player
         self.player.update()
         self.detect_collisions()
         self.on_ground()
+
         self.player.draw(self.display_surface)
+
+        if self.note_text != None:
+            self.display_surface.blit(self.note_text, (0, 0))
+        if self.coin_text != None:
+            self.display_surface.blit(self.coin_text, (1000, 0))
+
+        if self.player.sprite.pos[1] == 578:
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
+            tile.add(self.ledger)
+        elif self.player.sprite.pos[1] == 628:
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+            tile.add(self.ledger)
+
+        if not self.player.sprite.ready:
+            self.ledger.draw(self.display_surface)
+        
+        if self.counterclock:
+            self.counter += 1
+            if self.counter >= 20:
+                player_sprite = NotePlayer((self.player.sprite.pos), self.display_surface)
+                self.player.add(player_sprite)
+                self.counterclock = False
+                self.counter = 0
+                if not self.playerdelivered:
+                    self.player.sprite.delivered = True
+                    self.player.update()
+                    self.playerdelivered = False
