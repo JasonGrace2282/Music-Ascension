@@ -5,7 +5,6 @@ import random
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
-import random
 
 
 class TeleportLevel():
