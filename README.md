@@ -1,25 +1,22 @@
-# MusicApp
-The code for the Music Ascension Game/App. <br/>
-KNOWN ERRORS LIST:  
-On occasion, buttons do not click
+# Music Ascension
+by Captains of Code <br/>
 
 <h1>Game: Music Ascension </h1>
-Name of Team
-Captains of Code
 Problem Statement
 People in class were struggling with music due to lack of music training earlier, or need a different style of teaching then classroom style - other apps may cost money or have ads, or aren’t engaging - Make learning music theory more fun.
 
 <h1> How to Play?</h1>
-Map of different islands - 4 or 5 - where a few are locked at the beginning depending on skill level.
+When you open the file, you will be greeted with a screen that shows two buttons, Start and Credits. If you click on credits, you can see the image citations. However in order to start the game, you must click on start. After that, you can choose the level of experience you have with music theory. 
 
-Each island has different minigames based on the overarching lesson.
-Each minigame has a percentage of completion, and completing one gets you to another level in that subject. What does it mean to complete a mini game?  To complete a minigame is to answer enough questions to get to the end of 2-3 levels, which are the same thing but with different difficulties.
+If you click beginner, you will see the topics covered in the beginner level (Note durations and Note on the staff).
+If you click Advanced, you will see the topics covered in the beginner level (Time signatures and Dynamics and Articulations)
 
-Finishing a subject gives you an item and getting all(probably 2) items lets you fight the boss.
-Basic(Beginner) Note Duration —-> Notes on the Staff 
-Intermediate (Mid): Time Signatures —-> Dynamics & Articulations
-Advanced (Pro): Chords → Scales
+Once you click next, a map with the different levels of each topics will be shown. 
 
 <h1> Tools used</h1>
-* Python
-* Github
+<ul><li>Python</li>
+<li>Github</li></ul>
+
+<h1>Known Errors</h1>
+<ul><li>Advanced Level is still a work in progress</li>
+<li>________</li></ul>
