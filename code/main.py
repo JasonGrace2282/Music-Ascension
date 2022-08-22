@@ -16,9 +16,9 @@ class Game:
         self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
-        self.background1 = pygame.image.load("resources/frontpage.jpg")
+        self.frontPage = pygame.image.load("resources/frontpage.jpg")
         self.levelBackground = pygame.image.load("resources/background.png")
-        self.intermediateImage = pygame.image.load("resources/intermediate.png")
+        self.AdvancedImage = pygame.image.load("resources/Advanced.png")
         self.startButtonImage = pygame.image.load("resources/start.png")
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
         self.nextButtonImage = pygame.image.load("resources/next.png")
@@ -28,11 +28,11 @@ class Game:
         self.informationPage1 = pygame.image.load("resources/NDNotes.png")
         self.NDhow2play = pygame.image.load("resources/NDdirections.jpg")
         self.playButton = pygame.image.load("resources/play.png")
-        self.interMapImage = pygame.image.load("resources/InterMapImage.png")
+        self.advMapImage = pygame.image.load("resources/WorkInProgress.png")
 
         # Variables
         self.startGame = False
-        self.interClicked = False
+        self.advClicked = False
         self.creditsClicked = False
         self.offCreditButton = False
         self.levelConfirm = False
@@ -45,7 +45,7 @@ class Game:
         self.level1picked = False
         self.level2picked = False
         self.informationPage2 = False
-        self.interMap = False
+        self.advancedMap = False
         self.DurationStage2 = False
         self.DurationStage3 = False
         self.pizzaMan2 = False
@@ -57,7 +57,7 @@ class Game:
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.intermediateRect = pygame.Rect(600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height())
+        self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
@@ -94,7 +94,7 @@ class Game:
                         print(self.end - self.start)
 
             self.screen.fill(0)
-            self.screen.blit(self.background1, (0, 0))
+            self.screen.blit(self.frontPage, (0, 0))
             self.screen.blit(self.startButtonImage, (540, 200))
             self.screen.blit(self.creditsButtonImage, (530, 300))
 
@@ -112,7 +112,7 @@ class Game:
                 self.screen.fill(0)
                 self.screen.blit(self.levelBackground, (0, 0))
                 self.screen.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
-                self.screen.blit(self.intermediateImage, (600-self.intermediateImage.get_width()/2, 400, self.intermediateImage.get_width(), self.intermediateImage.get_height()))
+                self.screen.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
@@ -126,28 +126,28 @@ class Game:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.levelConfirm:
-                    if self.intermediateRect.collidepoint(event.pos):
-                        self.interClicked = True
+                    if self.advancedRect.collidepoint(event.pos):
+                        self.advClicked = True
                     if self.beginnerRect.collidepoint(event.pos):
                         self.beginnerClicked = True
 
             if self.levelConfirm:
-                if self.interClicked:
+                if self.advClicked:
                     self.screen.fill((255, 255, 255))
-                    interTopicsText = pygame.font.SysFont(None, 40)
-                    interTopicsText = interTopicsText.render('Topics Covered: ', True, 0)
-                    self.screen.blit(interTopicsText, (0, 0))
-                    interTopicsText2 = pygame.font.SysFont(None, 40)
-                    interTopicsText2 = interTopicsText2.render('Dynamics and Articulation', True, 0)
-                    self.screen.blit(interTopicsText2, (0, 50))
-                    interTopicsText3 = pygame.font.SysFont(None, 40)
-                    interTopicsText3 = interTopicsText3.render('Time Signatures', True, 0)
-                    self.screen.blit(interTopicsText3, (0, 100))
+                    advTopicsText = pygame.font.SysFont(None, 40)
+                    advTopicsText = advTopicsText.render('Topics Covered: ', True, 0)
+                    self.screen.blit(advTopicsText, (0, 0))
+                    advTopicsText2 = pygame.font.SysFont(None, 40)
+                    advTopicsText2 = advTopicsText2.render('Dynamics and Articulation', True, 0)
+                    self.screen.blit(advTopicsText2, (0, 50))
+                    advTopicsText3 = pygame.font.SysFont(None, 40)
+                    advTopicsText3 = advTopicsText3.render('Time Signatures', True, 0)
+                    self.screen.blit(advTopicsText3, (0, 100))
                     self.screen.blit(self.nextButtonImage, (898, 592))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            self.interMap = True
+                            self.advancedMap = True
 
                 if self.beginnerClicked:
                     self.screen.fill((255, 255, 255))
@@ -157,9 +157,9 @@ class Game:
                         if self.nextButton.collidepoint(event.pos):
                             self.nextClicked = True
 
-                if self.interMap:
+                if self.advancedMap:
                     self.screen.fill("white")
-                    self.screen.blit(self.interMapImage, (0, 0))
+                    self.screen.blit(self.advMapImage, (0, 0))
 
                 if self.nextClicked:
                     self.screen.blit(self.beginnerMap, (0, 0))

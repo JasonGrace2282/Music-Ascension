@@ -21,7 +21,7 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
 
-        self.gameover = pygame.image.load("resources/gameover.png")
+        self.background4Settings = pygame.image.load("resources/blank.png")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
@@ -193,7 +193,7 @@ class TeleportLevel():
         self.display_surface.blit(self.settingsImage, (100, 0))
 
         if self.settingsClicked:
-            self.display_surface.blit(self.gameover, (0, 0))
+            self.display_surface.blit(self.background4Settings, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 0))
             self.display_surface.blit(
                 self.mainmenuImage, (0, self.restartImage.get_height()))
@@ -211,7 +211,7 @@ class TeleportLevel():
                         self.back = True
 
         if self.player.sprite.rect.topleft[1] > height:
-            self.display_surface.blit(self.gameover, (0, 0))
+            self.display_surface.blit(self.background4Settings, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 0))
             self.display_surface.blit(
                 self.mainmenuImage, (0, self.restartImage.get_height()))
