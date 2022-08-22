@@ -22,11 +22,11 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
 
-        self.background4Settings = pygame.image.load("resources/blank.jpg")
-        self.restartImage = pygame.image.load("resources/retry.png")
-        self.mainmenuImage = pygame.image.load("resources/quit.png")
+        self.background4Settings = pygame.image.load("resources/BlackBlank.jpg")
+        self.restartImage = pygame.image.load("resources/retry2.png")
+        self.mainmenuImage = pygame.image.load("resources/quit2.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
-        self.backImage = pygame.image.load("resources/back.jpg")
+        self.backImage = pygame.image.load("resources/back2.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
