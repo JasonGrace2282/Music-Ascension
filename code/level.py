@@ -1,3 +1,4 @@
+from turtle import back
 from types import NoneType
 import pygame
 import sys
@@ -21,12 +22,14 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
 
-        self.background4Settings = pygame.image.load("resources/blank.png")
+        self.background4Settings = pygame.image.load("resources/blank.jpg")
         self.restartImage = pygame.image.load("resources/retry.png")
         self.mainmenuImage = pygame.image.load("resources/quit.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
-        self.restart = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
-        self.mainmenu = pygame.Rect(0, self.restartImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
+        self.backImage = pygame.image.load("resources/back.jpg")
+        self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
+        self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
+        self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settingsClicked = False
         self.stagefinished = False
@@ -194,9 +197,10 @@ class TeleportLevel():
 
         if self.settingsClicked:
             self.display_surface.blit(self.background4Settings, (0, 0))
-            self.display_surface.blit(self.restartImage, (0, 0))
+            self.display_surface.blit(self.backImage, (0, 0))
+            self.display_surface.blit(self.restartImage, (0, 100))
             self.display_surface.blit(
-                self.mainmenuImage, (0, self.restartImage.get_height()))
+                self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -209,6 +213,8 @@ class TeleportLevel():
                     if self.mainmenu.collidepoint(event.pos):
                         print("main menu")
                         self.back = True
+                    if self.exitSettings.collidepoint(event.pos):
+                        self.settingsClicked = False
 
         if self.player.sprite.rect.topleft[1] > height:
             self.display_surface.blit(self.background4Settings, (0, 0))
