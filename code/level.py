@@ -295,7 +295,7 @@ class NoteLevel(TeleportLevel):
 
     def randomize_note(self):
         noteY = [628, 578, 528, 478, 428, 378, 328, 278, 228, 178, 128, 78, 28]
-        notes = ["LoB", "MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG"]
+        notes = ["LowB", "LowC", "LowD", "LowE", "LowF", "LowG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG"]
 
         note = random.choice(notes)
         font = pygame.font.SysFont(None, 30)

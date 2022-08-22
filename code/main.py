@@ -26,7 +26,7 @@ class Game:
         self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
         self.beginnerImage = pygame.image.load("resources/beginner.png")
         self.informationPage1 = pygame.image.load("resources/NDNotes.png")
-        self.NDhow2play = pygame.image.load("resources/NDdirections.png")
+        self.NDhow2play = pygame.image.load("resources/NDdirections.jpg")
         self.playButton = pygame.image.load("resources/play.png")
         self.interMapImage = pygame.image.load("resources/InterMapImage.png")
 
