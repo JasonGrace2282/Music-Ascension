@@ -6,7 +6,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
         super().__init__()
         self.animation_speed = 0.15
-        self.image = pygame.image.load("resources/player.jpg")
+        self.image = pygame.image.load("resources/player2.png")
         self.pos = pos
         self.rect = self.image.get_rect(topleft=self.pos)
 
