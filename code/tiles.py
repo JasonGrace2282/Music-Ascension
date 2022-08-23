@@ -24,10 +24,11 @@ class NoteTile(pygame.sprite.Sprite):
         self.rect_img = pygame.image.load("resources/hitbox.png")
         if advanced:
             self.image = pygame.image.load(image)
+            self.rect = self.rect_img.get_rect(center=pos)
         else:
             self.image = pygame.Surface(dimensions)
             self.image.fill("grey")
-        self.rect = self.rect_img.get_rect(center=pos)
+            self.rect = self.image.get_rect(topleft=pos)
         self.pos = pos
         self.is_house = house
 
