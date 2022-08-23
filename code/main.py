@@ -16,19 +16,19 @@ class Game:
         self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
-        self.frontPage = pygame.image.load("resources/frontpage.jpg")
-        self.levelBackground = pygame.image.load("resources/background.png")
+        self.frontPage = pygame.image.load("resources/frontpage.png")
+        self.levelBackground = pygame.image.load("resources/background.jpg")
         self.AdvancedImage = pygame.image.load("resources/Advanced.png")
         self.startButtonImage = pygame.image.load("resources/start.png")
         self.creditsButtonImage = pygame.image.load("resources/credits.png")
         self.nextButtonImage = pygame.image.load("resources/next3.png")
-        self.beginnerMap = pygame.image.load("resources/beginnermap.png")
-        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.jpg")
+        self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
+        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.png")
         self.beginnerImage = pygame.image.load("resources/beginner.png")
-        self.informationPage1 = pygame.image.load("resources/NDNotes.png")
-        self.NDhow2play = pygame.image.load("resources/NDdirections.jpg")
+        self.informationPage1 = pygame.image.load("resources/NDNotes.jpg")
+        self.NDhow2play = pygame.image.load("resources/NDdirections.png")
         self.playButton = pygame.image.load("resources/play.png")
-        self.advMapImage = pygame.image.load("resources/WorkInProgress.png")
+        self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
 
         # Variables
         self.startGame = False
@@ -59,14 +59,14 @@ class Game:
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
-        self.nextButton = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
+        self.nextButton = pygame.Rect(width-self.nextButtonImage.get_width(), height-self.nextButtonImage.get_height(), self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
         self.noteDurationStage2 = pygame.Rect(225, 340, 135, 185)
         self.noteDurationStartRect = pygame.Rect(898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
-        self.play_1 = pygame.Rect(461, 55, self.playButton.get_width(), self.playButton.get_height())
-        self.play_2 = pygame.Rect(461, 285, self.playButton.get_width(), self.playButton.get_height())
-        self.play_3 = pygame.Rect(1038, 55, self.playButton.get_width(), self.playButton.get_height())
-        self.play_4 = pygame.Rect(1038, 285, self.playButton.get_width(), self.playButton.get_height())
+        self.play_1 = pygame.Rect(461, 65, self.playButton.get_width(), self.playButton.get_height())
+        self.play_2 = pygame.Rect(461, 330, self.playButton.get_width(), self.playButton.get_height())
+        self.play_3 = pygame.Rect(1038, 65, self.playButton.get_width(), self.playButton.get_height())
+        self.play_4 = pygame.Rect(1038, 330, self.playButton.get_width(), self.playButton.get_height())
         self.NDstage2 = pygame.Rect(400, 340, 140, 215)
         self.pizza_man_2 = pygame.Rect(605, 340, 140, 215)
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
@@ -143,7 +143,7 @@ class Game:
                     advTopicsText3 = pygame.font.SysFont(None, 40)
                     advTopicsText3 = advTopicsText3.render('Time Signatures', True, 0)
                     self.screen.blit(advTopicsText3, (0, 100))
-                    self.screen.blit(self.nextButtonImage, (898, 592))
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -152,7 +152,7 @@ class Game:
                 if self.beginnerClicked:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.beginnerTopicsCovered, (0, 0))
-                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             self.nextClicked = True
@@ -199,7 +199,7 @@ class Game:
                     self.screen.fill((255, 255, 255))
                     title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
                     self.screen.blit(title, (0, 0))
-                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.noteDurationStartRect.collidepoint(event.pos):
@@ -209,11 +209,11 @@ class Game:
                 if self.stageChooser2:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.informationPage1, (0, 0))
-                    self.screen.blit(self.playButton, (461, 55))
-                    self.screen.blit(self.playButton, (461, 285))
-                    self.screen.blit(self.playButton, (1038, 55))
-                    self.screen.blit(self.playButton, (1038, 285))
-                    self.screen.blit(self.nextButtonImage, (898, 582, self.nextButtonImage.get_width(), self.nextButtonImage.get_height()))
+                    self.screen.blit(self.playButton, (461, 65))
+                    self.screen.blit(self.playButton, (461, 330))
+                    self.screen.blit(self.playButton, (1038, 65))
+                    self.screen.blit(self.playButton, (1038, 330))
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -233,7 +233,7 @@ class Game:
 
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
-                    self.screen.blit(self.nextButtonImage, (898, 582))
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
                     while self.sleepCounter1 == 0:
                         time.sleep(0.2)
                         self.sleepCounter1 = 1
