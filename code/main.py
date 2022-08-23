@@ -120,7 +120,7 @@ class Game:
                     self.screen.fill((255, 255, 255))
                     creditsText = pygame.font.SysFont(None, 30)
                     creditsText = creditsText.render('Credits:', True, 0)
-                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Insert Image Credits Here', True, 100)
+                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click here to copy to clipboard', True, 100)
                     self.screen.blit(creditsText, (0, 0))
                     self.screen.blit(creditsText2, (0, 100))
                     self.screen.blit(self.backImage, self.backRect)
@@ -137,6 +137,7 @@ class Game:
                             r.update() # now it stays on the clipboard after the window is closed
                             r.destroy()
                             print("Copied to clipboard")
+                            # text = (pygame.font.SysFont)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.levelConfirm:
