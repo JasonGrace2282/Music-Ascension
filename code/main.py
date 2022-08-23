@@ -124,10 +124,19 @@ class Game:
                     self.screen.blit(creditsText, (0, 0))
                     self.screen.blit(creditsText2, (0, 100))
                     self.screen.blit(self.backImage, self.backRect)
+                    self.screen.fill((255, 0, 0), self.copyClipboard)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.creditsClicked = False
+                        if self.copyClipboard.collidepoint(event.pos):
+                            r = tkinter.Tk()
+                            r.withdraw()
+                            r.clipboard_clear()
+                            r.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
+                            r.update() # now it stays on the clipboard after the window is closed
+                            r.destroy()
+                            print("Copied to clipboard")
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.levelConfirm:
@@ -304,8 +313,8 @@ class Game:
                         if self.level.settings.collidepoint(event.pos):
                             self.level.settingsClicked = True
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print(pygame.mouse.get_pos())
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #     print(pygame.mouse.get_pos())
 
             # Update Screen
             pygame.display.update()
