@@ -30,6 +30,7 @@ class Game:
         self.playButton = pygame.image.load("resources/play.png")
         self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
         self.backImage = pygame.image.load("resources/back2.png")
+        self.button = pygame.image.load("resources/button.jpg")
 
         # Variables
         self.startGame = False
@@ -52,8 +53,10 @@ class Game:
         self.pizzaMan2 = False
         self.pizzaMan3 = False
         self.metronome_counter = False
+        self.copied = False
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
+        self.sleepCounter3 = 0
         self.nextCounter = 0
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
@@ -72,7 +75,7 @@ class Game:
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
         self.pizza_man_3 = pygame.Rect(1015, 340, 140, 215)
         self.backRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
-        self.copyClipboard = pygame.Rect(0, 0, width, height/2)
+        self.copyClipboard = pygame.Rect(0, height/2-100, self.button.get_width(), self.button.get_width())
 
         self.start = 0
         self.end = 0
@@ -117,27 +120,36 @@ class Game:
 
             if not self.offCreditButton:
                 if self.creditsClicked:
+                    while self.sleepCounter3 == 0:
+                        time.sleep(0.5)
+                        self.sleepCounter3 = 1
                     self.screen.fill((255, 255, 255))
                     creditsText = pygame.font.SysFont(None, 30)
                     creditsText = creditsText.render('Credits:', True, 0)
-                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click here to copy to clipboard', True, 100)
+                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click the button to copy to clipboard', True, 100)
+                    self.screen.blit(self.button, self.copyClipboard)
                     self.screen.blit(creditsText, (0, 0))
                     self.screen.blit(creditsText2, (0, 100))
                     self.screen.blit(self.backImage, self.backRect)
-                    self.screen.fill((255, 0, 0), self.copyClipboard)
+                    # self.screen.fill((255, 0, 0), self.copyClipboard)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.creditsClicked = False
+                            self.copied = False
                         if self.copyClipboard.collidepoint(event.pos):
-                            r = tkinter.Tk()
-                            r.withdraw()
-                            r.clipboard_clear()
-                            r.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
-                            r.update() # now it stays on the clipboard after the window is closed
-                            r.destroy()
+                            variable = tkinter.Tk()
+                            variable.withdraw()
+                            variable.clipboard_clear()
+                            variable.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
+                            variable.update()
+                            variable.destroy()
                             print("Copied to clipboard")
-                            # text = (pygame.font.SysFont)
+                            self.copied = True
+
+                    if self.copied == True:
+                        text = (pygame.font.SysFont(None, 30)).render("Copied link to Clipboard", True, 0)
+                        self.screen.blit(text, (600, 400))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.levelConfirm:
