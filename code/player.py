@@ -6,7 +6,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
         super().__init__()
         self.animation_speed = 0.15
-        self.image = pygame.image.load("resources/player2.png")
+        self.image = pygame.image.load("resources/player.png")
         self.pos = pos
         self.rect = self.image.get_rect(topleft=self.pos)
 
@@ -154,6 +154,9 @@ class TeleportPlayer(pygame.sprite.Sprite):
 class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
+        self.image = pygame.image.load("resources/player.png")
+        self.rect_image = pygame.image.load("resources/hitbox.png")
+        self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
         self.start = time.time()
         self.chain = False
@@ -166,16 +169,25 @@ class NotePlayer(TeleportPlayer):
         if not self.counter:
             time.sleep(0.2)
             self.counter = True
-        elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-50 > 0:
+        elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
             print("hi")
-            self.pos = (self.pos[0], self.pos[1]-50)
+            self.pos = (self.pos[0], self.pos[1]-48)
             self.counter = False
         elif keys[pygame.K_DOWN] and self.counter and not self.ready and self.pos[1]+114 < height:
-            self.pos = (self.pos[0], self.pos[1]+50)
+            self.pos = (self.pos[0], self.pos[1]+48)
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
+    
+    def set_image(self):
 
+        image = self.image
+        if self.facing_right:
+            self.image = image
+        else:
+            flipped_image = pygame.transform.flip(image, True, False)
+            self.image = flipped_image
+            
     def update(self):
         if self.delivered:
             self.coins += random.randint(5, 8)
@@ -191,7 +203,7 @@ class NotePlayer(TeleportPlayer):
         else:
             self.direction.x = 0
         self.end = time.time()
-        if self.end - self.start >= 5:
+        if self.end - self.start >= 100:
             self.ready = True
         if self.end - self.start >= 100:
             self.chain = True

@@ -253,20 +253,20 @@ class NoteLevel(TeleportLevel):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
-        pos = (0, 100)
+        pos = (0, 240)
         for i in range(1, 6):
             tile = NoteTile(pos, (9000, 20), False, False)
             self.tiles.add(tile)
-            pos = (pos[0], pos[1]+100)
+            pos = (pos[0], pos[1]+96)
 
-        player_sprite = NotePlayer((192, 378), self.display_surface)
+        player_sprite = NotePlayer((192, 538), self.display_surface)
         self.player.add(player_sprite)
 
         self.randomize_note()
 
     def detect_collisions(self):
         player = self.player.sprite
-        player.rect.x += player.direction.x * player.speed
+        player.rect.centerx += player.direction.x * player.speed
 
         if self.house.sprite.rect.colliderect(player.rect):
             print("it worked")
@@ -276,11 +276,6 @@ class NoteLevel(TeleportLevel):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
             self.randomize_note()
-            
-        if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
-            player.on_left = False
-        if player.on_right and (player.rect.right < self.current_x or player.direction.x <= 0):
-            player.on_right = False
 
     def scroll(self):
         player = self.player.sprite
@@ -300,15 +295,16 @@ class NoteLevel(TeleportLevel):
             player.speed = 8
 
     def randomize_note(self):
-        noteY = [628, 578, 528, 478, 428, 378, 328, 278, 228, 178, 128, 78, 28]
-        notes = ["LowB", "LowC", "LowD", "LowE", "LowF", "LowG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG"]
+        noteY = [704, 656, 608, 560, 512, 464, 416, 368, 320, 272, 224, 176, 128, 80, 32]
+        notes = ["MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG", "HiA", "HiB", "MaxC"]
 
         note = random.choice(notes)
+        note = "MaxC"
         font = pygame.font.SysFont(None, 30)
         self.note_text = font.render(note, True, (255, 255, 255))
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
 
-        self.player.sprite.pos = (self.player.sprite.rect.x, self.player.sprite.rect.y)
+        self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
         yResult = noteY[notes.index(note)]
         house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, False)
@@ -361,6 +357,7 @@ class NoteLevel(TeleportLevel):
                 self.player.add(player_sprite)
                 self.counterclock = False
                 self.counter = 0
+                self.player.update()
                 if not self.playerdelivered:
                     self.player.sprite.delivered = True
                     self.player.update()
