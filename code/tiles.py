@@ -19,7 +19,7 @@ class TeleportTile(pygame.sprite.Sprite):
 
 
 class NoteTile(pygame.sprite.Sprite):
-    def __init__(self, pos, dimensions, house, invisible):
+    def __init__(self, pos, dimensions, house):
         super().__init__()
         self.image = pygame.Surface(dimensions)
         self.image.fill("grey")
