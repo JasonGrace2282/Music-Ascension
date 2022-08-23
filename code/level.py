@@ -299,7 +299,6 @@ class NoteLevel(TeleportLevel):
         notes = ["MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG", "HiA", "HiB", "MaxC"]
 
         note = random.choice(notes)
-        note = "MaxC"
         font = pygame.font.SysFont(None, 30)
         self.note_text = font.render(note, True, (255, 255, 255))
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
