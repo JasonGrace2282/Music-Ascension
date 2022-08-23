@@ -17,10 +17,13 @@ Once you click next, you will be directed to a page which tells you the goal of 
 The game will have a settings/menu button. Clicking on it opens a panel with different features, such as retrying the level, quitting the game (which will redirect you to the map), and exiting the settings.
 At this point, you can navigate to whichever level you want and play any level you want. Enjoy!
 
-<h1> Tools used</h1>
+<h1> Tools and libraries used</h1>
 <ul><li>Python</li>
-<li>Github</li></ul>
+<li>Github</li>
+<li>Pygame</li>
+<li>Sys Library</li>
+<li>Time Library</li></ul>
 
 <h1>Known Errors</h1>
 <ul><li>Advanced Level is still a work in progress</li>
-<li>________</li></ul>
+<li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li></ul>
