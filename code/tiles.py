@@ -19,16 +19,20 @@ class TeleportTile(pygame.sprite.Sprite):
 
 
 class NoteTile(pygame.sprite.Sprite):
-    def __init__(self, pos, dimensions, house):
+    def __init__(self, pos, dimensions, house, advanced, image="resources/hitbox.png"):
         super().__init__()
-        self.image = pygame.Surface(dimensions)
-        self.image.fill("grey")
-        self.rect = self.image.get_rect(topleft=pos)
+        self.rect_img = pygame.image.load("resources/hitbox.png")
+        if advanced:
+            self.image = pygame.image.load(image)
+        else:
+            self.image = pygame.Surface(dimensions)
+            self.image.fill("grey")
+        self.rect = self.rect_img.get_rect(center=pos)
         self.pos = pos
         self.is_house = house
 
     def update(self, shift, plane):
         if plane == "x":
-            self.rect.x += shift
+            self.rect.centerx += shift
         elif plane == "y":
-            self.rect.y += shift
+            self.rect.centery += shift

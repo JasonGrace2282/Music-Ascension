@@ -255,7 +255,7 @@ class NoteLevel(TeleportLevel):
 
         pos = (0, 240)
         for i in range(1, 6):
-            tile = NoteTile(pos, (9000, 20), False)
+            tile = NoteTile(pos, (9000, 20), False, False)
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+96)
 
@@ -307,9 +307,9 @@ class NoteLevel(TeleportLevel):
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
         yResult = noteY[notes.index(note)]
-        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True)
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "resources/house.png")
         self.house.add(house)
-        barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False)
+        barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, False)
         self.barrier.add(barrier)
 
     def run(self):
@@ -341,10 +341,10 @@ class NoteLevel(TeleportLevel):
             self.display_surface.blit(self.coin_text, (1000, 0))
 
         if self.player.sprite.pos[1] == 578:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False)
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
             tile.add(self.ledger)
         elif self.player.sprite.pos[1] == 628:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False)
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
             tile.add(self.ledger)
 
         if not self.player.sprite.ready:
