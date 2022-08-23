@@ -197,7 +197,7 @@ class NotePlayer(TeleportPlayer):
         self.update_status()
         self.set_image()
         if self.pos != pos:
-            self.rect = self.image.get_rect(topleft=self.pos)
+            self.rect = self.image.get_rect(center=self.pos)
         if self.ready:
             self.direction.x = 0.5
         else:

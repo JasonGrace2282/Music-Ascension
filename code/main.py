@@ -202,7 +202,7 @@ class Game:
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.noteDurationStartRect.collidepoint(event.pos):
+                        if self.nextButton.collidepoint(event.pos):
                             if self.chooseBeginnerLevel:
                                 self.level1picked = True
 

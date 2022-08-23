@@ -276,6 +276,7 @@ class NoteLevel(TeleportLevel):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
             self.randomize_note()
+            print(player.pos)
 
     def scroll(self):
         player = self.player.sprite
@@ -295,7 +296,7 @@ class NoteLevel(TeleportLevel):
             player.speed = 8
 
     def randomize_note(self):
-        noteY = [704, 656, 608, 560, 512, 464, 416, 368, 320, 272, 224, 176, 128, 80, 32]
+        noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
         notes = ["MidC", "MidD", "MidE", "MidF", "MidG", "MidA", "MidB", "HiC", "HiD", "HiE", "HiF", "HiG", "HiA", "HiB", "MaxC"]
 
         note = random.choice(notes)
@@ -352,6 +353,7 @@ class NoteLevel(TeleportLevel):
         if self.counterclock:
             self.counter += 1
             if self.counter >= 20:
+                print(self.player.sprite.pos)
                 player_sprite = NotePlayer((self.player.sprite.pos), self.display_surface)
                 self.player.add(player_sprite)
                 self.counterclock = False
