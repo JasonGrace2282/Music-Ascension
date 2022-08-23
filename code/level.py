@@ -266,7 +266,7 @@ class NoteLevel(TeleportLevel):
 
     def detect_collisions(self):
         player = self.player.sprite
-        player.rect.x += player.direction.x * player.speed
+        player.rect.centerx += player.direction.x * player.speed
 
         if self.house.sprite.rect.colliderect(player.rect):
             print("it worked")
