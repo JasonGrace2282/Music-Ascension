@@ -316,7 +316,7 @@ class NoteLevel(TeleportLevel):
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
         yResult = noteY[notes.index(note)]
-        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "resources/house2.png")
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "resources/house.png")
         self.house.add(house)
         barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, False)
         self.barrier.add(barrier)
