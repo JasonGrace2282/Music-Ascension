@@ -247,6 +247,7 @@ class NoteLevel(TeleportLevel):
         self.counter = 0
         self.counterclock = False
         self.playerdelivered = False
+        self.playercoins = 0
 
 
     def setup_level(self, layout):
@@ -272,6 +273,14 @@ class NoteLevel(TeleportLevel):
             print("it worked")
             self.draw_old = False
             self.playerdelivered = True
+
+            if self.coincounter == 0:
+                self.player.sprite.coins = self.playercoins + 1
+                self.playercoins = self.player.sprite.coins
+                self.coincounter = 1
+        else:
+            self.coincounter = 0
+
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
