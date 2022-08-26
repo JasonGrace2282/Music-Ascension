@@ -1,7 +1,36 @@
-thing = [704-6, 656-6, 608-6, 560-6, 512-6, 464-6, 416-6, 368-6, 320-6, 272-6, 224-6, 176-6, 128-6, 80-6, 32-6]
-new = []
+import pygame, sys
+import tkinter as tk
+from tkinter import ttk
 
-for blah in thing:
-    new.append(blah)
 
-print(new)
+def copy2clipboard(self):
+    variable = tk.Tk()
+    variable.withdraw()
+    variable.clipboard_clear()
+    variable.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
+    variable.update()
+    variable.destroy()
+    print("Copied to clipboard")
+
+
+
+# root window
+root = pygame.display.set_mode(300, 200)
+root.geometry('300x200') #Window size
+root.resizable(False, False)
+root.title('Button Demo')
+
+# exit button
+exit_button = ttk.Button(
+    root,
+    text='Exit',
+    command=lambda: root.quit()
+)
+
+exit_button.pack(
+    ipadx=5,
+    ipady=5,
+    expand=True
+)
+
+root.mainloop()
