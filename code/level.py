@@ -1,5 +1,3 @@
-from turtle import back
-from types import NoneType
 import pygame
 import sys
 import random
