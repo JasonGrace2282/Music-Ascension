@@ -31,6 +31,7 @@ class Game:
         self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
         self.backImage = pygame.image.load("resources/back2.png")
         self.button = pygame.image.load("resources/button.jpg")
+        self.pizzaNotes1 = pygame.image.load("resources/Pizza_treble_notes.png")
 
         # Variables
         self.startGame = False
@@ -233,9 +234,7 @@ class Game:
                     # Insert code to call stage 3 of pizza man minigame
                 
                 if self.stageChooser:
-                    self.screen.fill((255, 255, 255))
-                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
-                    self.screen.blit(title, (0, 0))
+                    self.screen.blit(self.pizzaNotes1, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
