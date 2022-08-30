@@ -22,7 +22,8 @@ At this point, you can navigate to whichever level you want and play any level y
 <li>Github</li>
 <li>Pygame</li>
 <li>Sys Library</li>
-<li>Time Library</li></ul>
+<li>Time Library</li>
+<li>tkinter Library</li></ul>
 
 <h1>Known Errors</h1>
 <ul><li>Advanced Level is still a work in progress</li>
