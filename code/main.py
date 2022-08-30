@@ -54,10 +54,13 @@ class Game:
         self.pizzaMan3 = False
         self.metronome_counter = False
         self.copied = False
+        self.pizzaInfo2 = False
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.sleepCounter3 = 0
+        self.sleepCounter4 = 0
         self.nextCounter = 0
+        self.nextCounter2 = 0
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
@@ -238,7 +241,24 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.chooseBeginnerLevel:
+                                self.pizzaInfo2 = True
+                                while self.sleepCounter4 == 0:
+                                    time.sleep(0.2)
+                                    self.sleepCounter4 = 1
+                
+                if self.pizzaInfo2:
+                    self.screen.fill(0)
+                    self.screen.blit(self.nextButtonImage, self.nextButton)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            if self.chooseBeginnerLevel and self.nextCounter2 == 1:
                                 self.level1picked = True
+                    
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.nextButton.collidepoint(event.pos):
+                            if self.nextCounter2 == 0:
+                                self.nextCounter2 = 1
 
                 if self.stageChooser2:
                     self.screen.fill((255, 255, 255))
