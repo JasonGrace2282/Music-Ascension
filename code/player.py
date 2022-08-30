@@ -6,7 +6,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
         super().__init__()
         self.animation_speed = 0.15
-        self.image = pygame.image.load("resources/player.png")
+        self.image = pygame.image.load("../resources/player.png")
         self.pos = pos
         self.rect = self.image.get_rect(topleft=self.pos)
 
@@ -154,8 +154,8 @@ class TeleportPlayer(pygame.sprite.Sprite):
 class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
-        self.image = pygame.image.load("resources/player.png")
-        self.rect_image = pygame.image.load("resources/hitbox.png")
+        self.image = pygame.image.load("../resources/player.png")
+        self.rect_image = pygame.image.load("../resources/hitbox.png")
         self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
         self.start = time.time()
