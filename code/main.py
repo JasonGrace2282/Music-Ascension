@@ -141,12 +141,12 @@ class Game:
                             self.creditsClicked = False
                             self.copied = False
                         if self.copyClipboard.collidepoint(event.pos):
-                            variable = tkinter.Tk()
-                            variable.withdraw()
-                            variable.clipboard_clear()
-                            variable.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
-                            variable.update()
-                            variable.destroy()
+                            clipboard = tkinter.Tk()
+                            clipboard.withdraw()
+                            clipboard.clipboard_clear()
+                            clipboard.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
+                            clipboard.update()
+                            clipboard.destroy()
                             print("Copied to clipboard")
                             self.copied = True
 

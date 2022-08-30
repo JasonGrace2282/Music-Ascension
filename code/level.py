@@ -129,7 +129,7 @@ class TeleportLevel():
         elif player_x > width/2:
             self.h_shift = -8
             player.speed = 0
-        elif player_y < height/4:
+        elif player_y < height/2:
             self.v_shift = 4
 
         else:
@@ -258,7 +258,7 @@ class NoteLevel(TeleportLevel):
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+96)
 
-        player_sprite = NotePlayer((192, 538), self.display_surface)
+        player_sprite = NotePlayer((192, 528), self.display_surface)
         self.player.add(player_sprite)
 
         self.randomize_note()
