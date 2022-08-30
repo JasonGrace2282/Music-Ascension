@@ -16,21 +16,22 @@ class Game:
         self.level = TeleportLevel(level1, self.screen, 1)
 
         # Background
-        self.frontPage = pygame.image.load("../resources/frontpage.png")
-        self.levelBackground = pygame.image.load("../resources/background.jpg")
-        self.AdvancedImage = pygame.image.load("../resources/Advanced.png")
-        self.startButtonImage = pygame.image.load("../resources/start.png")
-        self.creditsButtonImage = pygame.image.load("../resources/credits.png")
-        self.nextButtonImage = pygame.image.load("../resources/next3.png")
-        self.beginnerMap = pygame.image.load("../resources/beginnermap.jpg")
-        self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
-        self.beginnerImage = pygame.image.load("../resources/beginner.png")
-        self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
-        self.NDhow2play = pygame.image.load("../resources/NDdirections.png")
-        self.playButton = pygame.image.load("../resources/play.png")
-        self.advMapImage = pygame.image.load("../resources/WorkInProgress.jpg")
-        self.backImage = pygame.image.load("../resources/back2.png")
-        self.button = pygame.image.load("../resources/button.jpg")
+        self.frontPage = pygame.image.load("resources/frontpage.png")
+        self.levelBackground = pygame.image.load("resources/background.jpg")
+        self.AdvancedImage = pygame.image.load("resources/Advanced.png")
+        self.startButtonImage = pygame.image.load("resources/start.png")
+        self.creditsButtonImage = pygame.image.load("resources/credits.png")
+        self.nextButtonImage = pygame.image.load("resources/next3.png")
+        self.beginnerMap = pygame.image.load("resources/beginnermap.jpg")
+        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.png")
+        self.beginnerImage = pygame.image.load("resources/beginner.png")
+        self.informationPage1 = pygame.image.load("resources/NDNotes.jpg")
+        self.NDhow2play = pygame.image.load("resources/NDdirections.png")
+        self.playButton = pygame.image.load("resources/play.png")
+        self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
+        self.backImage = pygame.image.load("resources/back2.png")
+        self.button = pygame.image.load("resources/button.jpg")
+        self.pizzaNotes1 = pygame.image.load("resources/Pizza_treble_notes.png")
 
         # Variables
         self.startGame = False
@@ -233,9 +234,7 @@ class Game:
                     # Insert code to call stage 3 of pizza man minigame
                 
                 if self.stageChooser:
-                    self.screen.fill((255, 255, 255))
-                    title = (pygame.font.SysFont(None, 40)).render('Notes', True, 0)
-                    self.screen.blit(title, (0, 0))
+                    self.screen.blit(self.pizzaNotes1, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
