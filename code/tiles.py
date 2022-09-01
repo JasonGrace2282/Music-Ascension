@@ -19,9 +19,9 @@ class TeleportTile(pygame.sprite.Sprite):
 
 
 class NoteTile(pygame.sprite.Sprite):
-    def __init__(self, pos, dimensions, house, advanced, image="../resources/hitbox.png"):
+    def __init__(self, pos, dimensions, house, advanced, image="resources/hitbox.png"):
         super().__init__()
-        self.rect_img = pygame.image.load("../resources/hitbox.png")
+        self.rect_img = pygame.image.load("resources/hitbox.png")
         if advanced:
             self.image = pygame.image.load(image)
             self.rect = self.rect_img.get_rect(center=pos)
