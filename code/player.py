@@ -80,11 +80,11 @@ class TeleportPlayer(pygame.sprite.Sprite):
             pygame.mixer.music.play(0)
         elif keys[pygame.K_a]:
             self.level_note = "A"
-            pygame.mixer.music.load("resources/midC.wav")
+            pygame.mixer.music.load("resources/midA.wav")
             pygame.mixer.music.play(0)
         elif keys[pygame.K_b]:
             self.level_note = "B"
-            pygame.mixer.music.load("resources/midC.wav")
+            pygame.mixer.music.load("resources/midB.wav")
             pygame.mixer.music.play(0)
 
         self.teleport()
