@@ -31,7 +31,8 @@ class Game:
         self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
         self.backImage = pygame.image.load("resources/back2.png")
         self.button = pygame.image.load("resources/button.jpg")
-        self.pizzaNotes1 = pygame.image.load("resources/Pizza_treble_notes.png")
+        self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
+        self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
 
         # Variables
         self.startGame = False
@@ -151,7 +152,7 @@ class Game:
                             print("Copied to clipboard")
                             self.copied = True
 
-                    if self.copied == True:
+                    if self.copied:
                         text = (pygame.font.SysFont(None, 30)).render("Copied link to Clipboard", True, 0)
                         self.screen.blit(text, (600, 400))
 
@@ -247,6 +248,7 @@ class Game:
                 
                 if self.pizzaInfo2:
                     self.screen.fill(0)
+                    self.screen.blit(self.pizzaPlay, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
