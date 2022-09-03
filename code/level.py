@@ -1,3 +1,4 @@
+from asyncio import events
 import pygame
 import sys
 import random
@@ -25,10 +26,12 @@ class TeleportLevel():
         self.mainmenuImage = pygame.image.load("resources/quit2.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
         self.backImage = pygame.image.load("resources/back2.png")
+        self.pizzaWin = pygame.image.load("resources/pizza_delivered.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.pizzaFinishedMenu = pygame.Rect(1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height(), self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settingsClicked = False
         self.stagefinished = False
         self.reset = False
@@ -279,6 +282,19 @@ class NoteLevel(TeleportLevel):
         else:
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
+        
+        if self.playercoins == 10:
+            self.display_surface.blit(self.pizzaWin, (0, 0))
+            self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
+            # Remove Sprite
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.pizzaFinishedMenu.collidepoint(event.pos):
+                        self.back = True
+
 
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
