@@ -278,6 +278,7 @@ class NoteLevel(TeleportLevel):
                 self.coincounter = 1
         else:
             self.coincounter = 0
+            self.player.sprite.coins = self.playercoins
 
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
@@ -347,11 +348,19 @@ class NoteLevel(TeleportLevel):
         if self.coin_text != None:
             self.display_surface.blit(self.coin_text, (1000, 0))
 
-        if self.player.sprite.pos[1] == 578:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
+        print(self.player.sprite.rect.topleft)
+
+        if self.player.sprite.rect.topleft[1] == 698:
+            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]+22), (100, 20), False, False)
             tile.add(self.ledger)
-        elif self.player.sprite.pos[1] == 628:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+        elif self.player.sprite.rect.topleft[1] == 122:
+            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
+            tile.add(self.ledger)
+        elif self.player.sprite.rect.topleft[1] == 74:
+            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
+            tile.add(self.ledger)
+        elif self.player.sprite.rect.topleft[1] == 26:
+            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
             tile.add(self.ledger)
 
         if not self.player.sprite.ready:
