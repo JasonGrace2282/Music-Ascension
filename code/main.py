@@ -33,6 +33,7 @@ class Game:
         self.button = pygame.image.load("resources/button.jpg")
         self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
+        self.pizzaBackground = pygame.image.load("resources/pizzaBackground.png")
 
         # Variables
         self.startGame = False
@@ -309,6 +310,7 @@ class Game:
 
                 if self.level1picked:
                     self.screen.fill("black")
+                    self.screen.blit(self.pizzaBackground, (0, 0))
                     self.level.run()
                     if self.level.chain:
                         self.level1picked = False

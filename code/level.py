@@ -300,7 +300,7 @@ class NoteLevel(TeleportLevel):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
             self.randomize_note()
-            print(player.pos)
+            # print(player.pos)
 
     def scroll(self):
         player = self.player.sprite
