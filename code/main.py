@@ -73,10 +73,10 @@ class Game:
         self.nextButton = pygame.Rect(width-self.nextButtonImage.get_width(), height-self.nextButtonImage.get_height(), self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
         self.noteDurationStage2 = pygame.Rect(225, 340, 135, 185)
-        self.play_1 = pygame.Rect(461, 65, self.playButton.get_width(), self.playButton.get_height())
-        self.play_2 = pygame.Rect(461, 330, self.playButton.get_width(), self.playButton.get_height())
-        self.play_3 = pygame.Rect(1038, 65, self.playButton.get_width(), self.playButton.get_height())
-        self.play_4 = pygame.Rect(1038, 330, self.playButton.get_width(), self.playButton.get_height())
+        self.quarternoteAudio = pygame.Rect(461, 65, self.playButton.get_width(), self.playButton.get_height())
+        self.wholenoteAudio = pygame.Rect(461, 330, self.playButton.get_width(), self.playButton.get_height())
+        self.halfnoteAudio = pygame.Rect(1038, 65, self.playButton.get_width(), self.playButton.get_height())
+        self.eighthnoteAudio = pygame.Rect(1038, 330, self.playButton.get_width(), self.playButton.get_height())
         self.NDstage2 = pygame.Rect(400, 340, 140, 215)
         self.pizza_man_2 = pygame.Rect(605, 340, 140, 215)
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
@@ -266,31 +266,35 @@ class Game:
                 if self.stageChooser2:
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.informationPage1, (0, 0))
-                    self.screen.blit(self.playButton, self.play_1)
-                    self.screen.blit(self.playButton, self.play_2)
-                    self.screen.blit(self.playButton, self.play_3)
-                    self.screen.blit(self.playButton, self.play_4)
+                    self.screen.blit(self.playButton, self.quarternoteAudio)
+                    self.screen.blit(self.playButton, self.wholenoteAudio)
+                    self.screen.blit(self.playButton, self.halfnoteAudio)
+                    self.screen.blit(self.playButton, self.eighthnoteAudio)
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             self.informationPage2 = True
-                        elif self.play_1.collidepoint(event.pos):
+
+                        elif self.quarternoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/quarter_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
-                        elif self.play_2.collidepoint(event.pos):
+
+                        elif self.wholenoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/whole_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
-                        elif self.play_3.collidepoint(event.pos):
+
+                        elif self.halfnoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
-                        elif self.play_4.collidepoint(event.pos):
+                                
+                        elif self.eighthnoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():

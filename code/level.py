@@ -203,8 +203,7 @@ class TeleportLevel():
             self.display_surface.blit(self.background4Settings, (0, 0))
             self.display_surface.blit(self.backImage, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 100))
-            self.display_surface.blit(
-                self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
+            self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -223,9 +222,8 @@ class TeleportLevel():
 
         if self.player.sprite.rect.topleft[1] > height:
             self.display_surface.blit(self.background4Settings, (0, 0))
-            self.display_surface.blit(self.restartImage, (0, 0))
-            self.display_surface.blit(
-                self.mainmenuImage, (0, self.restartImage.get_height()))
+            self.display_surface.blit(self.restartImage, (0, 100))
+            self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -348,7 +346,7 @@ class NoteLevel(TeleportLevel):
         self.tiles.update(self.v_shift, "y")
         self.house.update(self.h_shift, "x")
         self.barrier.update(self.h_shift, "x")
-        # self.tiles.draw(self.display_surface)
+        self.tiles.draw(self.display_surface)
         self.house.draw(self.display_surface)
         if self.old_house != None and self.draw_old:
             self.old_house.update(self.h_shift, "x")

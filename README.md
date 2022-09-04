@@ -28,5 +28,6 @@ After completing the game, you will be transported back to the main menu, where 
 <li>tkinter Library</li></ul>
 
 <h1>Known Errors</h1>
-<ul><li>Advanced Level is still a work in progress</li>
+<ul><li>Some Audio files do not work</li>
+<li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li></ul>
