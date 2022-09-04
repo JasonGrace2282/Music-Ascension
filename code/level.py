@@ -289,7 +289,7 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins == 1:
+        if self.playercoins == 10:
             self.display_surface.blit(self.pizzaWin, (0, 0))
             self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
             self.draw = False

@@ -185,6 +185,51 @@ class NotePlayer(TeleportPlayer):
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
+            if self.pos[1] == 720:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midC.wav"))
+            if self.pos[1] == 672:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midD.wav"))
+            if self.pos[1] == 624:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midE.wav"))
+            if self.pos[1] == 576:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midF.wav"))
+            if self.pos[1] == 528:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midG.wav"))
+            if self.pos[1] == 480:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midA.wav"))
+            if self.pos[1] == 432:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midB.wav"))
+            if self.pos[1] == 384:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highC.wav"))
+            if self.pos[1] == 336:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highD.wav"))
+            if self.pos[1] == 288:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highE.wav"))
+            if self.pos[1] == 240:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highF.wav"))
+            if self.pos[1] == 192:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highG.wav"))
+            if self.pos[1] == 144:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highA.wav"))
+            if self.pos[1] == 96:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highB.wav"))
+            if self.pos[1] == 48:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/maxC.wav"))
     
     def set_image(self):
 
