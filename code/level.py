@@ -250,6 +250,7 @@ class NoteLevel(TeleportLevel):
         self.chain = False
         self.draw_old = True
         self.draw = True
+        self.draw_ledger = False
         self.counter = 0
         self.counterclock = False
         self.playerdelivered = False
@@ -371,19 +372,25 @@ class NoteLevel(TeleportLevel):
 
             
             if self.player.sprite.rect.topleft[1] == 672:
-                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
+                tile = NoteTile((self.player.sprite.rect.topleft[0]-18+24, self.player.sprite.rect.topleft[1]+22+24), (96, 20), False, False)
                 tile.add(self.ledger)
+                self.draw_ledger = True
             elif self.player.sprite.rect.topleft[1] == 96:
-                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile = NoteTile((self.player.sprite.rect.topleft[0]-18+24, self.player.sprite.rect.topleft[1]+22+24), (96, 20), False, False)
                 tile.add(self.ledger)
+                self.draw_ledger = True
             elif self.player.sprite.rect.topleft[1] == 48:
-                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile = NoteTile((self.player.sprite.rect.topleft[0]-18+24, self.player.sprite.rect.topleft[1]+22+24+48), (96, 20), False, False)
                 tile.add(self.ledger)
+                self.draw_ledger = True
             elif self.player.sprite.rect.topleft[1] == 0:
-                tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile = NoteTile((self.player.sprite.rect.topleft[0]-18+24, self.player.sprite.rect.topleft[1]+22+24), (96, 20), False, False)
                 tile.add(self.ledger)
+                self.draw_ledger = True
+            else:
+                self.draw_ledger = False
 
-            if not self.player.sprite.ready:
+            if not self.player.sprite.ready and self.draw_ledger:
                 self.ledger.draw(self.display_surface)
         
         if self.counterclock:
