@@ -53,71 +53,74 @@ class TeleportLevel():
         last = False
         index = 0
 
-        for info in layout[self.stage-1]:
-            if info[0] == 0.5:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 128
-                pos = (offset+pos[0], pos[1]-32)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+        try:
+            for info in layout[self.stage-1]:
+                if info[0] == 0.5:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 128
+                    pos = (offset+pos[0], pos[1]-32)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
 
-                self.tiles.add(tile)
-                last = False
+                    self.tiles.add(tile)
+                    last = False
 
-            if info[0] == 1:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 192
+                if info[0] == 1:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 192
 
-                pos = (offset+pos[0], pos[1]-64)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
-                self.tiles.add(tile)
-                last = False
+                    pos = (offset+pos[0], pos[1]-64)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    self.tiles.add(tile)
+                    last = False
 
-            if info[0] == 1.5:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 256
-                pos = (offset+pos[0], pos[1]-96)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
-                self.tiles.add(tile)
-                last = False
+                if info[0] == 1.5:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 256
+                    pos = (offset+pos[0], pos[1]-96)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    self.tiles.add(tile)
+                    last = False
 
-            if info[0] == 2:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 320
-                pos = (offset+pos[0], pos[1]-128)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
-                self.tiles.add(tile)
-                last = False
+                if info[0] == 2:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 320
+                    pos = (offset+pos[0], pos[1]-128)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    self.tiles.add(tile)
+                    last = False
 
-            if info[0] == 3:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 384
-                pos = (offset+pos[0], pos[1]-192)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
-                self.tiles.add(tile)
-                last = False
+                if info[0] == 3:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 384
+                    pos = (offset+pos[0], pos[1]-192)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    self.tiles.add(tile)
+                    last = False
 
-            if info[0] == 4:
-                index += 1
-                if len(layout[self.stage-1]) == index:
-                    last = True
-                offset = 448
-                pos = (offset+pos[0], pos[1]-256)
-                tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
-                self.tiles.add(tile)
-                last = False
+                if info[0] == 4:
+                    index += 1
+                    if len(layout[self.stage-1]) == index:
+                        last = True
+                    offset = 448
+                    pos = (offset+pos[0], pos[1]-256)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    self.tiles.add(tile)
+                    last = False
 
-        player_sprite = TeleportPlayer((192, 512), self.display_surface)
-        self.player.add(player_sprite)
+            player_sprite = TeleportPlayer((192, 512), self.display_surface)
+            self.player.add(player_sprite)
+        except:
+            self.complete = True
 
     def scroll(self):
         player = self.player.sprite
@@ -365,19 +368,18 @@ class NoteLevel(TeleportLevel):
         if self.coin_text != None:
             self.display_surface.blit(self.coin_text, (1000, 0))
 
-        print(self.player.sprite.rect.topleft)
 
-        if self.player.sprite.rect.topleft[1] == 698:
-            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]+22), (100, 20), False, False)
+        if self.player.sprite.rect.topleft[1] == 672:
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
             tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 122:
-            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
+        elif self.player.sprite.rect.topleft[1] == 96:
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
             tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 74:
-            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
+        elif self.player.sprite.rect.topleft[1] == 48:
+            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
             tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 26:
-            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.rect.topleft[1]-28), (100, 20), False, False)
+        elif self.player.sprite.rect.topleft[1] == 0:
+            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
             tile.add(self.ledger)
 
         if not self.player.sprite.ready:
@@ -386,7 +388,6 @@ class NoteLevel(TeleportLevel):
         if self.counterclock:
             self.counter += 1
             if self.counter >= 20:
-                print(self.player.sprite.pos)
                 player_sprite = NotePlayer((self.player.sprite.pos), self.display_surface)
                 self.player.add(player_sprite)
                 self.counterclock = False

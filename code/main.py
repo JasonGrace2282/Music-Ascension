@@ -324,7 +324,15 @@ class Game:
 
                 if self.level2picked:
                     self.screen.fill("black")
-                    self.level.run(self.end-self.start)
+                    try:
+                        self.level.run(self.end-self.start)
+                    except:
+                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                        self.level2picked = False
+                        self.informationPage2 = False
+                        self.stageChooser2 = False
+                        self.counter = 0
+                        pygame.mixer.music.stop()
                     if self.level.reset and self.level.stagefinished:
                         self.level.run(self.end-self.start)
                         while self.sleepCounter2 == 0:
