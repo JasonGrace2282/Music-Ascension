@@ -10,6 +10,7 @@ class Game:
         # Class which includes all variables
         pygame.init()
         pygame.mixer.init()
+        
 
         # Screen
         self.screen = pygame.display.set_mode((width, height))
@@ -132,7 +133,7 @@ class Game:
                     self.screen.fill((255, 255, 255))
                     creditsText = pygame.font.SysFont(None, 30)
                     creditsText = creditsText.render('Credits:', True, 0)
-                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click the button to copy to clipboard', True, 100)
+                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click the button to copy', True, 100)
                     self.screen.blit(self.button, self.copyClipboard)
                     self.screen.blit(creditsText, (0, 0))
                     self.screen.blit(creditsText2, (0, 100))
@@ -275,17 +276,13 @@ class Game:
                         if self.nextButton.collidepoint(event.pos):
                             self.informationPage2 = True
                         elif self.play_1.collidepoint(event.pos):
-                            pygame.mixer.music.load("resources/quarter_note.mp3")
-                            pygame.mixer.music.play(0)
+                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/quarter_note.mp3"))
                         elif self.play_2.collidepoint(event.pos):
-                            pygame.mixer.music.load("resources/whole_note.mp3")
-                            pygame.mixer.music.play(0)
+                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/whole_note.mp3"))
                         elif self.play_3.collidepoint(event.pos):
-                            pygame.mixer.music.load("resources/half_note.mp3")
-                            pygame.mixer.music.play(0)
+                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
                         elif self.play_4.collidepoint(event.pos):
-                            pygame.mixer.music.load("resources/eighth_note.mp3")
-                            pygame.mixer.music.play(0)
+                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
 
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
@@ -319,9 +316,10 @@ class Game:
 
                 if self.level2picked and self.counter == 0:
                     self.level = TeleportLevel(level1, self.screen, self.level.stage)
-                    pygame.mixer.music.load("resources/metronome.mp3")
-                    pygame.mixer.music.play(0)
-                    pygame.mixer.music.set_volume(0.5)
+                    # pygame.mixer.music.load("resources/metronome.mp3")
+                    # pygame.mixer.music.play(0)
+                    # pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
                     self.counter = 1
 
                 if self.level2picked:
@@ -335,15 +333,14 @@ class Game:
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(level1, self.screen, self.level.stage)
-                        pygame.mixer.music.load("resources/metronome.mp3")
-                        pygame.mixer.music.play(0)
-                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
                     elif self.level.back:
                         self.level2picked = False
                         self.informationPage2 = False
                         self.stageChooser2 = False
                         self.counter = 0
-                        pygame.mixer.music.stop()
+                        pygame.mixer.Channel(0).stop()
+                        pygame.mixer.Channel(1).stop()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
