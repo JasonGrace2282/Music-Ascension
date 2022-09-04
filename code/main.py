@@ -14,7 +14,7 @@ class Game:
 
         # Screen
         self.screen = pygame.display.set_mode((width, height))
-        self.level = TeleportLevel(level1, self.screen, 1)
+        self.level = TeleportLevel(teleportlevel1, self.screen, 1)
 
         # Background
         self.frontPage = pygame.image.load("resources/frontpage.png")
@@ -314,7 +314,7 @@ class Game:
                                 self.nextCounter = self.nextCounter + 1
                             
                 if self.level1picked and self.counter == 0:
-                    self.level = NoteLevel(level1, self.screen, self.level.stage)
+                    self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
@@ -327,7 +327,7 @@ class Game:
                         self.counter = 0
 
                 if self.level2picked and self.counter == 0:
-                    self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                    self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
                     self.counter = 1
 
@@ -336,7 +336,7 @@ class Game:
                     try:
                         self.level.run(self.end-self.start)
                     except:
-                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                         self.level2picked = False
                         self.informationPage2 = False
                         self.stageChooser2 = False
@@ -348,9 +348,9 @@ class Game:
                         while self.sleepCounter2 == 0:
                             time.sleep(1)
                             self.sleepCounter2 = 1
-                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:
-                        self.level = TeleportLevel(level1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                         pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
                     elif self.level.back:
                         self.level2picked = False
