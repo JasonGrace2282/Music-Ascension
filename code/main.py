@@ -329,7 +329,8 @@ class Game:
                         self.informationPage2 = False
                         self.stageChooser2 = False
                         self.counter = 0
-                        pygame.mixer.music.stop()
+                        pygame.mixer.Channel(0).stop()
+                        pygame.mixer.Channel(1).stop()
                     if self.level.reset and self.level.stagefinished:
                         self.level.run(self.end-self.start)
                         while self.sleepCounter2 == 0:

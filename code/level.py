@@ -249,6 +249,7 @@ class NoteLevel(TeleportLevel):
         super().__init__(level_data, surface, stage)
         self.chain = False
         self.draw_old = True
+        self.draw = True
         self.counter = 0
         self.counterclock = False
         self.playerdelivered = False
@@ -290,7 +291,7 @@ class NoteLevel(TeleportLevel):
         if self.playercoins == 1:
             self.display_surface.blit(self.pizzaWin, (0, 0))
             self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
-            # Remove Sprite
+            self.draw = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -304,7 +305,6 @@ class NoteLevel(TeleportLevel):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
             self.randomize_note()
-            # print(player.pos)
 
     def scroll(self):
         player = self.player.sprite
@@ -361,29 +361,30 @@ class NoteLevel(TeleportLevel):
         self.detect_collisions()
         self.on_ground()
 
-        self.player.draw(self.display_surface)
+        if self.draw:
+            self.player.draw(self.display_surface)
 
-        if self.note_text != None:
-            self.display_surface.blit(self.note_text, (0, 0))
-        if self.coin_text != None:
-            self.display_surface.blit(self.coin_text, (1000, 0))
+            if self.note_text != None:
+                self.display_surface.blit(self.note_text, (0, 0))
+            if self.coin_text != None:
+                self.display_surface.blit(self.coin_text, (1000, 0))
 
+            
+            if self.player.sprite.rect.topleft[1] == 672:
+                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
+                tile.add(self.ledger)
+            elif self.player.sprite.rect.topleft[1] == 96:
+                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile.add(self.ledger)
+            elif self.player.sprite.rect.topleft[1] == 48:
+                tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile.add(self.ledger)
+            elif self.player.sprite.rect.topleft[1] == 0:
+                tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
+                tile.add(self.ledger)
 
-        if self.player.sprite.rect.topleft[1] == 672:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]+22), (100, 20), False, False)
-            tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 96:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
-            tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 48:
-            tile = NoteTile((self.player.sprite.pos[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
-            tile.add(self.ledger)
-        elif self.player.sprite.rect.topleft[1] == 0:
-            tile = NoteTile((self.player.sprite.rect.topleft[0]-18, self.player.sprite.pos[1]-28), (100, 20), False, False)
-            tile.add(self.ledger)
-
-        if not self.player.sprite.ready:
-            self.ledger.draw(self.display_surface)
+            if not self.player.sprite.ready:
+                self.ledger.draw(self.display_surface)
         
         if self.counterclock:
             self.counter += 1
