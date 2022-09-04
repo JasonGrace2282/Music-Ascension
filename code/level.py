@@ -215,6 +215,7 @@ class TeleportLevel():
                         print("main menu")
                         self.back = True
                     if self.exitSettings.collidepoint(event.pos):
+                        print("settings exited")
                         self.settingsClicked = False
 
         if self.player.sprite.rect.topleft[1] > height:
@@ -283,7 +284,7 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins == 10:
+        if self.playercoins == 1:
             self.display_surface.blit(self.pizzaWin, (0, 0))
             self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
             # Remove Sprite
@@ -343,7 +344,7 @@ class NoteLevel(TeleportLevel):
         self.tiles.update(self.v_shift, "y")
         self.house.update(self.h_shift, "x")
         self.barrier.update(self.h_shift, "x")
-        self.tiles.draw(self.display_surface)
+        # self.tiles.draw(self.display_surface)
         self.house.draw(self.display_surface)
         if self.old_house != None and self.draw_old:
             self.old_house.update(self.h_shift, "x")
