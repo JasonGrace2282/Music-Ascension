@@ -276,13 +276,25 @@ class Game:
                         if self.nextButton.collidepoint(event.pos):
                             self.informationPage2 = True
                         elif self.play_1.collidepoint(event.pos):
-                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/quarter_note.mp3"))
+                            if not pygame.mixer.Channel(2).get_busy():
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/quarter_note.mp3"))
+                            elif pygame.mixer.Channel(2).get_busy:
+                                pygame.mixer.Channel(2).stop()
                         elif self.play_2.collidepoint(event.pos):
-                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/whole_note.mp3"))
+                            if not pygame.mixer.Channel(2).get_busy():
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/whole_note.mp3"))
+                            elif pygame.mixer.Channel(2).get_busy:
+                                pygame.mixer.Channel(2).stop()
                         elif self.play_3.collidepoint(event.pos):
-                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
+                            if not pygame.mixer.Channel(2).get_busy():
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
+                            elif pygame.mixer.Channel(2).get_busy:
+                                pygame.mixer.Channel(2).stop()
                         elif self.play_4.collidepoint(event.pos):
-                            pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
+                            if not pygame.mixer.Channel(2).get_busy():
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
+                            elif pygame.mixer.Channel(2).get_busy:
+                                pygame.mixer.Channel(2).stop()
 
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
