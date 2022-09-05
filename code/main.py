@@ -31,10 +31,12 @@ class Game:
         self.playButton = pygame.image.load("resources/play.png")
         self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
         self.backImage = pygame.image.load("resources/back2.png")
-        self.button = pygame.image.load("resources/button.jpg")
+        self.button = pygame.image.load("resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
         self.pizzaBackground = pygame.image.load("resources/pizzaBackground.png")
+        self.creditsImage = pygame.image.load("resources/creditsbackground.png")
+        self.copiedtxt = pygame.image.load("resources/copied.png")
 
         # Variables
         self.startGame = False
@@ -59,6 +61,7 @@ class Game:
         self.metronome_counter = False
         self.copied = False
         self.pizzaInfo2 = False
+        self.isInt = True
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.sleepCounter3 = 0
@@ -66,6 +69,7 @@ class Game:
         self.nextCounter = 0
         self.nextCounter2 = 0
         self.counter = 0
+        self.creditsCounter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
@@ -82,7 +86,7 @@ class Game:
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
         self.pizza_man_3 = pygame.Rect(1015, 340, 140, 215)
         self.backRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
-        self.copyClipboard = pygame.Rect(0, height/2-100, self.button.get_width(), self.button.get_width())
+        self.copyClipboard = pygame.Rect(600-self.button.get_width()/2, height/2-100, self.button.get_width(), self.button.get_width())
 
         self.start = 0
         self.end = 0
@@ -103,7 +107,7 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.end = time.time()
                         self.done = True
-                        print(self.end - self.start)
+                        print(round(self.end - self.start, 3))
 
             self.screen.fill(0)
             self.screen.blit(self.frontPage, (0, 0))
@@ -127,24 +131,20 @@ class Game:
 
             if not self.offCreditButton:
                 if self.creditsClicked:
+                    self.screen.fill((255, 255, 255))
+                    self.screen.blit(self.creditsImage, (0, 0))
+                    self.screen.blit(self.button, self.copyClipboard)
+                    self.screen.blit(self.backImage, self.backRect)
                     while self.sleepCounter3 == 0:
                         time.sleep(0.5)
                         self.sleepCounter3 = 1
-                    self.screen.fill((255, 255, 255))
-                    creditsText = pygame.font.SysFont(None, 30)
-                    creditsText = creditsText.render('Credits:', True, 0)
-                    creditsText2 = (pygame.font.SysFont(None, 30)).render('Click the button to copy', True, 100)
-                    self.screen.blit(self.button, self.copyClipboard)
-                    self.screen.blit(creditsText, (0, 0))
-                    self.screen.blit(creditsText2, (0, 100))
-                    self.screen.blit(self.backImage, self.backRect)
                     # self.screen.fill((255, 0, 0), self.copyClipboard)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.creditsClicked = False
                             self.copied = False
-                        if self.copyClipboard.collidepoint(event.pos):
+                        if self.copyClipboard.collidepoint(event.pos) and self.creditsCounter == 1:
                             clipboard = tkinter.Tk()
                             clipboard.withdraw()
                             clipboard.clipboard_clear()
@@ -153,10 +153,13 @@ class Game:
                             clipboard.destroy()
                             print("Copied to clipboard")
                             self.copied = True
+                    if event.type == pygame.MOUSEBUTTONDOWN and self.creditsCounter != 1 and self.copyClipboard.collidepoint(event.pos):
+                        self.creditsCounter = 1
 
                     if self.copied:
-                        text = (pygame.font.SysFont(None, 30)).render("Copied link to Clipboard", True, 0)
-                        self.screen.blit(text, (600, 400))
+                        # self.screen.blit(self.copiedtxt, (600-self.copiedtxt.get_width()/2, height/2-100))
+                        copiedtext = (pygame.font.Font("resources/PressStart2P.ttf", 40)).render('Link copied to Clipboard', True, (0, 0, 255))
+                        self.screen.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.levelConfirm:
@@ -293,7 +296,7 @@ class Game:
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
-                                
+
                         elif self.eighthnoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
