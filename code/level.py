@@ -1,4 +1,3 @@
-from asyncio import events
 import pygame
 import sys
 import random
@@ -15,6 +14,7 @@ class TeleportLevel():
         self.display_surface = surface
         self.stage = stage
         self.note_text = None
+        self.complete = False
         self.setup_level(level_data)
         self.h_shift = 0
         self.v_shift = 0
@@ -36,7 +36,6 @@ class TeleportLevel():
         self.stagefinished = False
         self.reset = False
         self.back = False
-        self.complete = False
         self.note = "G"
 
     def on_ground(self):
@@ -253,20 +252,19 @@ class NoteLevel(TeleportLevel):
         self.counterclock = False
         self.playerdelivered = False
         self.playercoins = 0
+        self.level_data = level_data
 
 
     def setup_level(self, layout):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
 
-        pos = (0, 240)
-        for i in range(1, 6):
-            tile = NoteTile(pos, (9000, 20), False, False)
-            self.tiles.add(tile)
-            pos = (pos[0], pos[1]+96)
-
         player_sprite = NotePlayer((192, 528), self.display_surface)
         self.player.add(player_sprite)
+        try:
+            self.player.sprite.difficulty_time = layout[self.stage-1]
+        except:
+            self.complete = True
 
         self.randomize_note()
 
@@ -274,31 +272,23 @@ class NoteLevel(TeleportLevel):
         player = self.player.sprite
         player.rect.centerx += player.direction.x * player.speed
 
-        if self.house.sprite.rect.colliderect(player.rect):
+        if self.house.sprite.rect.colliderect(player.rect) and self.note == self.player.sprite.note:
             print("it worked")
             self.draw_old = False
             self.playerdelivered = True
-
             if self.coincounter == 0:
-                self.player.sprite.coins = self.playercoins + 1
+                self.player.sprite.coins = self.playercoins + random.randint(5, 8)
                 self.playercoins = self.player.sprite.coins
                 self.coincounter = 1
         else:
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins == 10:
-            self.display_surface.blit(self.pizzaWin, (0, 0))
-            self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
-            self.draw = False
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.pizzaFinishedMenu.collidepoint(event.pos):
-                        self.back = True
-
+        if self.playercoins >= 30:
+            self.stage += 1
+            self.stagefinished = True
+            self.reset = True
+            self.playercoins = 0
 
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
@@ -329,6 +319,7 @@ class NoteLevel(TeleportLevel):
         note = random.choice(notes)
         font = pygame.font.SysFont(None, 30)
         self.note_text = font.render(note, True, (255, 255, 255))
+        self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
 
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
@@ -340,7 +331,6 @@ class NoteLevel(TeleportLevel):
         self.barrier.add(barrier)
 
     def run(self):
-
         # level tiles
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
@@ -399,7 +389,22 @@ class NoteLevel(TeleportLevel):
                 self.counterclock = False
                 self.counter = 0
                 self.player.update()
+                self.player.sprite.difficulty_time = self.level_data[self.stage-1]
                 if not self.playerdelivered:
                     self.player.sprite.delivered = True
                     self.player.update()
                     self.playerdelivered = False
+
+        if self.complete:
+            self.counter += 1
+            if self.counter >= 20:
+                self.display_surface.blit(self.pizzaWin, (0, 0))
+                self.display_surface.blit(self.settingsImage, (1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height()))
+                self.draw = False
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.pizzaFinishedMenu.collidepoint(event.pos):
+                            self.back = True

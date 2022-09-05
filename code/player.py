@@ -176,7 +176,8 @@ class NotePlayer(TeleportPlayer):
         self.chain = False
         self.delivered = False
         self.coins = 0
-
+        self.difficulty_time = 10
+        
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -239,15 +240,21 @@ class NotePlayer(TeleportPlayer):
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/maxC.wav"))
     
     def set_image(self):
-
         image = self.image
         if self.facing_right:
             self.image = image
         else:
             flipped_image = pygame.transform.flip(image, True, False)
             self.image = flipped_image
-            
+    
+    def find_note(self):
+        noteY = [720, 672, 624, 576, 528, 480, 432, 384, 336, 288, 240, 192, 144, 96, 48]
+        notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "Hi C", "Hi D", "Hi E", "Hi F", "Hi G", "Hi A", "Hi B", "Max C"]
+
+        self.note = notes[noteY.index(self.pos[1])]
+                    
     def update(self):
+        self.find_note()
         if self.delivered:
             self.coins += random.randint(5, 8)
             self.delivered = False
@@ -262,7 +269,7 @@ class NotePlayer(TeleportPlayer):
         else:
             self.direction.x = 0
         self.end = time.time()
-        if self.end - self.start >= 100:
+        if self.end - self.start >= self.difficulty_time:
             self.ready = True
         if self.end - self.start >= 100:
             self.chain = True

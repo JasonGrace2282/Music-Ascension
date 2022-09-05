@@ -65,6 +65,7 @@ class Game:
         self.sleepCounter4 = 0
         self.nextCounter = 0
         self.nextCounter2 = 0
+        self.completecounter = 0
         self.counter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
@@ -325,7 +326,13 @@ class Game:
                     self.screen.fill("black")
                     self.screen.blit(self.pizzaBackground, (0, 0))
                     self.level.run()
-                    if self.level.chain:
+                    if self.level.reset and self.level.stagefinished:
+                        self.completecounter += 1
+                        if self.completecounter >= 20:
+                            self.level.run()
+                            self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.completecounter = 0
+                    elif self.level.chain:
                         self.level1picked = False
                         self.stageChooser = False
                         self.counter = 0
@@ -352,6 +359,7 @@ class Game:
                         while self.sleepCounter2 == 0:
                             time.sleep(1)
                             self.sleepCounter2 = 1
+                        
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
@@ -367,9 +375,6 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
                             self.level.settingsClicked = True
-
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            #     print(pygame.mouse.get_pos())
 
             # Update Screen
             pygame.display.update()
