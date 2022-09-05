@@ -233,19 +233,35 @@ class Game:
 
                 if self.DurationStage2:
                     self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 2 of note duration
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.DurationStage2 = False
 
                 if self.DurationStage3:
                     self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 3 of note duration minigame
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.DurationStage3 = False
 
                 if self.pizzaMan2:
                     self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
                     # Insert code for stage 2 of pizza man minigame
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.pizzaMan2 = False
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.pizzaMan3 = False
                 
                 if self.stageChooser:
                     self.screen.blit(self.pizzaNotes1, (0, 0))
