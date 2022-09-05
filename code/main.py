@@ -30,7 +30,7 @@ class Game:
         self.NDhow2play = pygame.image.load("resources/NDdirections.png")
         self.playButton = pygame.image.load("resources/play.png")
         self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
-        self.backImage = pygame.image.load("resources/back2.png")
+        self.backImage = pygame.image.load("resources/back3.png")
         self.button = pygame.image.load("resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
