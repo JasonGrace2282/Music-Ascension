@@ -22,7 +22,7 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
 
-        self.background4Settings = pygame.image.load("resources/BlackBlank.jpg")
+        self.background4Settings = pygame.image.load("resources/blank.jpg")
         self.restartImage = pygame.image.load("resources/retry2.png")
         self.mainmenuImage = pygame.image.load("resources/quit2.png")
         self.settingsImage = pygame.image.load("resources/menu.png")
