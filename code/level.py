@@ -224,6 +224,7 @@ class TeleportLevel():
                     if self.restart.collidepoint(event.pos):
                         print("reset")
                         self.reset = True
+                        pygame.mixer.Channel(3).stop()
                     if self.mainmenu.collidepoint(event.pos):
                         print("main menu")
                         self.back = True
@@ -244,6 +245,7 @@ class TeleportLevel():
                     if self.restart.collidepoint(event.pos):
                         print("reset")
                         self.reset = True
+                        pygame.mixer.Channel(3).stop()
                     if self.mainmenu.collidepoint(event.pos):
                         print("main menu")
                         self.back = True

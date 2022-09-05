@@ -62,12 +62,12 @@ class Game:
         self.metronome_counter = False
         self.copied = False
         self.pizzaInfo2 = False
-        self.noteBoolean1= False
+        self.noteBoolean1= True
         self.noteBoolean2 = False
         self.noteBoolean3 = False
-        self.noteBoolean4 = False
         self.isInt = True
-        self.spaceCounter1 = 0
+        self.NDaudioBool = False
+        self.spaceCounter1 = 1
         self.spaceCounter2 = 0
         self.spaceCounter3 = 0
         self.sleepCounter1 = 0
@@ -118,12 +118,50 @@ class Game:
                         self.done = True
                         print(round(self.end - self.start, 3))
 
-                if event.type == pygame.KEYDOWN and self.level2picked:
-                    if teleportlevel1[0][0][1] == "G":
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and self.level2picked:
+                    self.NDaudioBool = True
+                    self.spaceCounter1+=1
+                    if self.spaceCounter1 == 2:
+                        self.spaceCounter1-= 1
+                        self.spaceCounter2+=1
+                    if self.noteBoolean1 and self.spaceCounter2 == 6:
+                        self.noteBoolean1 = False
+                        self.noteBoolean2 = True
+                        self.spaceCounter2 = 0
+                        self.spaceCounter3+=1
+                    elif self.noteBoolean2 and self.spaceCounter2 == 14:
+                        self.noteBoolean2 = False
+                        self.noteBoolean3 = True
+                        self.spaceCounter2 = 0
+                        self.spaceCounter3+=1
+                    elif self.noteBoolean3 and self.spaceCounter2 == 14:
+                        self.noteBoolean3 = False
+                        self.spaceCounter2 = 0
+                        self.spaceCounter3+=1
+                if self.NDaudioBool:
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "G":
                         if not pygame.mixer.Channel(3).get_busy():
                             pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longG.wav"))
-                if pygame.mixer.Channel(3).get_busy() and event.type == pygame.KEYUP and self.level2picked:
-                    pygame.mixer.Channel(3).stop()
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "A":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longA.wav"))
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "B":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longB.wav"))
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "C":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longC.wav"))
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "D":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longD.wav"))
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "E":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longE.wav"))
+                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "F":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longF.wav"))
+                    if pygame.mixer.Channel(3).get_busy() and event.type == pygame.KEYUP and self.level2picked:
+                        pygame.mixer.Channel(3).stop()
 
             self.screen.fill(0)
             self.screen.blit(self.frontPage, (0, 0))
@@ -420,6 +458,7 @@ class Game:
                         self.counter = 0
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
+                        pygame.mixer.Channel(3).stop()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
