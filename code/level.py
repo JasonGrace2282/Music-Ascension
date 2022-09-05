@@ -28,7 +28,7 @@ class TeleportLevel():
         self.settingsImage = pygame.image.load("resources/menu.png")
         self.backImage = pygame.image.load("resources/back2.png")
         self.pizzaWin = pygame.image.load("resources/pizza_delivered.png")
-        self.coins = pygame.image.load("resources/coins4.png")
+        self.coins = pygame.image.load("resources/coins5.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())

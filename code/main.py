@@ -34,7 +34,7 @@ class Game:
         self.button = pygame.image.load("resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
-        self.pizzaBackground = pygame.image.load("resources/pizzabackground4.png")
+        self.pizzaBackground = pygame.image.load("resources/pizzaBackground.png")
         self.creditsImage = pygame.image.load("resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("resources/copied.png")
         self.starbackground = pygame.image.load("resources/starbg.png")
