@@ -62,7 +62,14 @@ class Game:
         self.metronome_counter = False
         self.copied = False
         self.pizzaInfo2 = False
+        self.noteBoolean1= False
+        self.noteBoolean2 = False
+        self.noteBoolean3 = False
+        self.noteBoolean4 = False
         self.isInt = True
+        self.spaceCounter1 = 0
+        self.spaceCounter2 = 0
+        self.spaceCounter3 = 0
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.sleepCounter3 = 0
@@ -110,6 +117,13 @@ class Game:
                         self.end = time.time()
                         self.done = True
                         print(round(self.end - self.start, 3))
+
+                if event.type == pygame.KEYDOWN and self.level2picked:
+                    if teleportlevel1[0][0][1] == "G":
+                        if not pygame.mixer.Channel(3).get_busy():
+                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longG.wav"))
+                if pygame.mixer.Channel(3).get_busy() and event.type == pygame.KEYUP and self.level2picked:
+                    pygame.mixer.Channel(3).stop()
 
             self.screen.fill(0)
             self.screen.blit(self.frontPage, (0, 0))
