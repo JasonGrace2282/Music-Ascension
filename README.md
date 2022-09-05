@@ -21,9 +21,9 @@ After completing the game, you will be transported back to the main menu, where 
 
 <hi>Downloading and running the program</h1>
 There are two ways you can download, and run the program.
-<ol><li>Download the .exe file.
+<ol><li>Download the .exe file.<br>
 This is the simplest way to download the program. All you need to do is go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>, and look in the code folder. You should find a .exe file called MusicAscension.exe. Download that file. Once it has finished downloading, all you have to do is open the file and it will run the program!</li>
-<li>Clone the git repository
+<li>Clone the git repository<br>
 Another way you can run the program is by cloning the git repository. To do that, you first go to our git repositry, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>, and click on code. Underneath, you will find an option that says download ZIP. Click that and put the folder in a location that is easy to remember where it is. Right click on the folder and click extract all, and choose your extraction location. After that, you can open your IDE of choice, and open up the extracted files. It will have two important folders: code and resources. Opening the resources folder shows you the images and audio in the game. However, to run the code, you must open the code folder and open main.py . Running that file will run the program. Enjoy!</li></ol>
 
 <h1> Tools and libraries used</h1>
