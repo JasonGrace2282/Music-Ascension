@@ -255,9 +255,6 @@ class NotePlayer(TeleportPlayer):
                     
     def update(self):
         self.find_note()
-        if self.delivered:
-            self.coins += random.randint(5, 8)
-            self.delivered = False
         pos = self.pos
         self.input()
         self.update_status()
