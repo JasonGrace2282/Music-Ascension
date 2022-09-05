@@ -27,6 +27,7 @@ class TeleportLevel():
         self.settingsImage = pygame.image.load("resources/menu.png")
         self.backImage = pygame.image.load("resources/back2.png")
         self.pizzaWin = pygame.image.load("resources/pizza_delivered.png")
+        self.coins = pygame.image.load("resources/coins4.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
@@ -284,7 +285,7 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins >= 30:
+        if self.playercoins >= 40:
             self.stage += 1
             self.stagefinished = True
             self.reset = True
@@ -317,7 +318,7 @@ class NoteLevel(TeleportLevel):
         notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "Hi C", "Hi D", "Hi E", "Hi F", "Hi G", "Hi A", "Hi B", "Max C"]
 
         note = random.choice(notes)
-        font = pygame.font.SysFont(None, 30)
+        font = pygame.font.SysFont(None, 55)
         self.note_text = font.render(note, True, (255, 255, 255))
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
@@ -356,6 +357,7 @@ class NoteLevel(TeleportLevel):
             if self.note_text != None:
                 self.display_surface.blit(self.note_text, (0, 0))
             if self.coin_text != None:
+                self.display_surface.blit(self.coins, (960, 0))
                 self.display_surface.blit(self.coin_text, (1000, 0))
 
             
