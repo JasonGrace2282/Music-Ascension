@@ -160,6 +160,8 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.creditsClicked = False
                             self.copied = False
+                            self.creditsCounter = 0
+                            self.sleepCounter3 = 0
                         if self.copyClipboard.collidepoint(event.pos) and self.creditsCounter == 1:
                             clipboard = tkinter.Tk()
                             clipboard.withdraw()
@@ -173,7 +175,6 @@ class Game:
                         self.creditsCounter = 1
 
                     if self.copied:
-                        # self.screen.blit(self.copiedtxt, (600-self.copiedtxt.get_width()/2, height/2-100))
                         copiedtext = (pygame.font.Font("resources/PressStart2P.ttf", 40)).render('Link copied to Clipboard', True, (0, 0, 255))
                         self.screen.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
 
