@@ -15,6 +15,7 @@ class TeleportLevel():
         self.stage = stage
         self.note_text = None
         self.complete = False
+        self.note = "G"
         self.setup_level(level_data)
         self.h_shift = 0
         self.v_shift = 0
@@ -41,7 +42,6 @@ class TeleportLevel():
         self.reset = False
         self.back = False
         self.back2 = False
-        self.note = "G"
 
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -162,10 +162,6 @@ class TeleportLevel():
                     sprite.is_last = False
                 note = pygame.font.SysFont(None, 30)
                 self.note_text = note.render(self.note, True, (255, 255, 255))
-                if self.note == sprite.note:
-                    self.player.sprite.correctnote = True
-                else:
-                    self.player.sprite.correctnote = False
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -189,7 +185,6 @@ class TeleportLevel():
 
         # player
         self.player.update(delta, self.h_shift)
-        self.note = self.player.sprite.level_note
         self.detect_collisions(delta)
         self.on_ground()
         self.player.draw(self.display_surface)
