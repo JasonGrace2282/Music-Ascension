@@ -43,6 +43,9 @@ class TeleportLevel():
         self.reset = False
         self.back = False
         self.back2 = False
+        self.staff = pygame.sprite.GroupSingle()
+        if self.stage == 1:
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/twinklenotesimage.png"))
 
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -124,6 +127,7 @@ class TeleportLevel():
 
             player_sprite = TeleportPlayer((192, 512), self.display_surface)
             self.player.add(player_sprite)
+
         except:
             self.complete = True
 
@@ -162,7 +166,7 @@ class TeleportLevel():
                     self.stagefinished = True
                     sprite.is_last = False
                 note = pygame.font.SysFont(None, 30)
-                self.note_text = note.render(self.note, True, (255, 255, 255))
+                self.note_text = note.render(self.player.sprite.level_note, True, (255, 255, 255))
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -171,6 +175,11 @@ class TeleportLevel():
                     player.rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceiling = True
+
+                if sprite.note == self.player.sprite.level_note:
+                    self.player.sprite.correctnote = True
+                else:
+                    self.player.sprite.correctnote = False
 
             if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
                 player.on_ground = False
@@ -182,6 +191,8 @@ class TeleportLevel():
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
         self.tiles.draw(self.display_surface)
+        self.staff.update(self.h_shift, "x")
+        self.staff.draw(self.display_surface)
         self.scroll()
 
         # player
@@ -196,7 +207,7 @@ class TeleportLevel():
 
         if self.note_text != None:
             self.display_surface.blit(self.note_text, (0, 0))
-
+        
         self.display_surface.blit(self.settingsImage, (100, 0))
 
         if self.settingsClicked:
