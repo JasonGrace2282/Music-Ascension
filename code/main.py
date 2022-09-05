@@ -118,50 +118,7 @@ class Game:
                         self.done = True
                         print(round(self.end - self.start, 3))
 
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and self.level2picked:
-                    self.NDaudioBool = True
-                    self.spaceCounter1+=1
-                    if self.spaceCounter1 == 2:
-                        self.spaceCounter1-= 1
-                        self.spaceCounter2+=1
-                    if self.noteBoolean1 and self.spaceCounter2 == 6:
-                        self.noteBoolean1 = False
-                        self.noteBoolean2 = True
-                        self.spaceCounter2 = 0
-                        self.spaceCounter3+=1
-                    elif self.noteBoolean2 and self.spaceCounter2 == 14:
-                        self.noteBoolean2 = False
-                        self.noteBoolean3 = True
-                        self.spaceCounter2 = 0
-                        self.spaceCounter3+=1
-                    elif self.noteBoolean3 and self.spaceCounter2 == 14:
-                        self.noteBoolean3 = False
-                        self.spaceCounter2 = 0
-                        self.spaceCounter3+=1
-                if self.NDaudioBool:
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "G":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longG.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "A":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longA.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "B":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longB.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "C":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longC.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "D":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longD.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "E":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longE.wav"))
-                    if teleportlevel1[self.spaceCounter3][self.spaceCounter2][self.spaceCounter1] == "F":
-                        if not pygame.mixer.Channel(3).get_busy():
-                            pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/longF.wav"))
-                    if pygame.mixer.Channel(3).get_busy() and event.type == pygame.KEYUP and self.level2picked:
-                        pygame.mixer.Channel(3).stop()
+                # Forever rest in piece, 200 lines of code deleted because they did the wrong thing
 
             self.screen.fill(0)
             self.screen.blit(self.frontPage, (0, 0))
