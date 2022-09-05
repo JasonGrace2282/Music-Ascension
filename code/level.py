@@ -45,7 +45,13 @@ class TeleportLevel():
         self.back2 = False
         self.staff = pygame.sprite.GroupSingle()
         if self.stage == 1:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/twinklenotesimage.png"))
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/beginnerstaff.png"))
+        elif self.stage == 2:
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/odetojoystaff.png"))
+        elif self.stage == 3:
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/wheelsstaff.png"))
+        elif self.stage == 4:
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/twinklestaff.png"))
 
     def on_ground(self):
         if self.player.sprite.on_ground:
