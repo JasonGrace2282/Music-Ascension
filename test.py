@@ -1,36 +1,7 @@
-import pygame, sys
-import tkinter as tk
-from tkinter import ttk
+list = [698+22, 650+22, 602+22, 554+22, 506+22, 458+22, 410+22, 362+22, 314+22, 266+22, 218+22, 170+22, 122+22, 74+22, 26+22]
+new = []
 
+for thing in list:
+    new.append(thing)
 
-def copy2clipboard(self):
-    variable = tk.Tk()
-    variable.withdraw()
-    variable.clipboard_clear()
-    variable.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
-    variable.update()
-    variable.destroy()
-    print("Copied to clipboard")
-
-
-
-# root window
-root = pygame.display.set_mode(300, 200)
-root.geometry('300x200') #Window size
-root.resizable(False, False)
-root.title('Button Demo')
-
-# exit button
-exit_button = ttk.Button(
-    root,
-    text='Exit',
-    command=lambda: root.quit()
-)
-
-exit_button.pack(
-    ipadx=5,
-    ipady=5,
-    expand=True
-)
-
-root.mainloop()
+print(new)
