@@ -351,6 +351,8 @@ class Game:
                         self.level1picked = False
                         self.stageChooser = False
                         self.pizzaInfo2 = False
+                        self.level.back2 = False
+                        self.level.settingsClicked2 = False
 
                 if self.level2picked and self.counter == 0:
                     self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
