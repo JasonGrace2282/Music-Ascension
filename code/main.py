@@ -34,9 +34,10 @@ class Game:
         self.button = pygame.image.load("resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
-        self.pizzaBackground = pygame.image.load("resources/pizzaBackground.png")
+        self.pizzaBackground = pygame.image.load("resources/pizzabackground3.png")
         self.creditsImage = pygame.image.load("resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("resources/copied.png")
+        self.starbackground = pygame.image.load("resources/starbg.png")
 
         # Variables
         self.startGame = False
@@ -333,6 +334,7 @@ class Game:
 
                 if self.level1picked:
                     self.screen.fill("black")
+                    self.screen.blit(self.starbackground, (0, 0))
                     self.screen.blit(self.pizzaBackground, (0, 0))
                     self.level.run()
                     if self.level.reset and self.level.stagefinished:
