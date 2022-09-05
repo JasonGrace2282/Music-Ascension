@@ -205,6 +205,12 @@ class Game:
                 if self.advancedMap:
                     self.screen.fill("white")
                     self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.advClicked = False
+                            self.advancedMap = False
 
                 if self.nextClicked:
                     self.screen.blit(self.beginnerMap, (0, 0))
