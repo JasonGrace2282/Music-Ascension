@@ -209,27 +209,6 @@ class TeleportLevel():
         self.player.draw(self.display_surface)
 
         # conditions
-        if self.player.sprite.level_note == 'C':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midC.wav"))
-        if self.player.sprite.level_note == 'D':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midD.wav"))
-        if self.player.sprite.level_note == 'E':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midE.wav"))
-        if self.player.sprite.level_note == 'F':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midD.wav"))
-        if self.player.sprite.level_note == 'G':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midG.wav"))
-        if self.player.sprite.level_note == 'A':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midA.wav"))
-        if self.player.sprite.level_note == 'B':
-            if not pygame.mixer.Channel(3).get_busy():
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound("resources/midB.wav"))
                 
         if self.stagefinished:
             self.reset = True
