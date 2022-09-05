@@ -30,6 +30,7 @@ class TeleportLevel():
         self.pizzaWin = pygame.image.load("resources/pizza_delivered.png")
         self.coins = pygame.image.load("resources/coins5.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
+        self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.mainmenu2 = pygame.Rect(0, self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
@@ -340,6 +341,17 @@ class NoteLevel(TeleportLevel):
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
                     print("settings clicked")
+                if event.type == pygame.MOUSEBUTTONDOWN and self.settings2:
+                    if self.mainmenu2.collidepoint(event.pos):
+                        print("main menu")
+                        self.back2 = True
+                    if self.exitSettings2.collidepoint(event.pos):
+                        print("settings exited")
+                        self.settingsClicked2 = False
+
+        if self.settingsClicked2:
+            self.display_surface.blit(self.backImage, (0, 0))
+            self.display_surface.blit(self.mainmenuImage, (0, self.backImage.get_height()))
 
         # level tiles
         self.tiles.update(self.h_shift, "x")
@@ -425,20 +437,3 @@ class NoteLevel(TeleportLevel):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            
-
-        if self.settingsClicked2:
-            self.display_surface.blit(self.backImage, (0, 0))
-            self.display_surface.blit(self.mainmenuImage, (0, self.backImage.get_height()))
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.mainmenu2.collidepoint(event.pos):
-                        print("main menu")
-                        self.back2 = True
-                    if self.exitSettings.collidepoint(event.pos):
-                        print("settings exited")
-                        self.settingsClicked = False
