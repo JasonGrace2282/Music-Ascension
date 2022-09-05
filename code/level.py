@@ -31,12 +31,16 @@ class TeleportLevel():
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
+        self.mainmenu2 = pygame.Rect(0, self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.settings2 = pygame.Rect(960-self.settingsImage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.pizzaFinishedMenu = pygame.Rect(1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height(), self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settingsClicked = False
+        self.settingsClicked2 = False
         self.stagefinished = False
         self.reset = False
         self.back = False
+        self.back2 = False
         self.note = "G"
 
     def on_ground(self):
@@ -332,6 +336,16 @@ class NoteLevel(TeleportLevel):
         self.barrier.add(barrier)
 
     def run(self):
+        # exit
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.settings2.collidepoint(event.pos):
+                    self.settingsClicked2 = True
+                    print("settings clicked")
+
         # level tiles
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
@@ -339,6 +353,7 @@ class NoteLevel(TeleportLevel):
         self.barrier.update(self.h_shift, "x")
         self.tiles.draw(self.display_surface)
         self.house.draw(self.display_surface)
+        self.display_surface.blit(self.settingsImage, (960-self.settingsImage.get_width(), 0))
         if self.old_house != None and self.draw_old:
             self.old_house.update(self.h_shift, "x")
             self.old_house.draw(self.display_surface)
@@ -409,4 +424,26 @@ class NoteLevel(TeleportLevel):
                         sys.exit()
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         if self.pizzaFinishedMenu.collidepoint(event.pos):
-                            self.back = True
+                            self.back2 = True
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            
+
+        if self.settingsClicked2:
+            self.display_surface.blit(self.backImage, (0, 0))
+            self.display_surface.blit(self.mainmenuImage, (0, self.backImage.get_height()))
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.mainmenu2.collidepoint(event.pos):
+                        print("main menu")
+                        self.back2 = True
+                    if self.exitSettings.collidepoint(event.pos):
+                        print("settings exited")
+                        self.settingsClicked = False
