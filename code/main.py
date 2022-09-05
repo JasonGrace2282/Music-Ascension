@@ -17,27 +17,27 @@ class Game:
         self.level = TeleportLevel(teleportlevel1, self.screen, 1)
 
         # Background
-        self.frontPage = pygame.image.load("resources/frontpage.png")
-        self.levelBackground = pygame.image.load("resources/background.jpg")
-        self.AdvancedImage = pygame.image.load("resources/Advanced.png")
-        self.startButtonImage = pygame.image.load("resources/start.png")
-        self.creditsButtonImage = pygame.image.load("resources/credits.png")
-        self.nextButtonImage = pygame.image.load("resources/next3.png")
-        self.beginnerMap = pygame.image.load("resources/beginnermap2.png")
-        self.beginnerTopicsCovered = pygame.image.load("resources/beginnertopics.png")
-        self.beginnerImage = pygame.image.load("resources/beginner.png")
-        self.informationPage1 = pygame.image.load("resources/NDNotes.jpg")
-        self.NDhow2play = pygame.image.load("resources/NDdirections.png")
-        self.playButton = pygame.image.load("resources/play.png")
-        self.advMapImage = pygame.image.load("resources/WorkInProgress.jpg")
-        self.backImage = pygame.image.load("resources/back3.png")
-        self.button = pygame.image.load("resources/copybutton3.png")
-        self.pizzaNotes1 = pygame.image.load("resources/treble_notes.png")
-        self.pizzaPlay = pygame.image.load("resources/pizza_notes.png")
-        self.pizzaBackground = pygame.image.load("resources/backgroundpizza.png")
-        self.creditsImage = pygame.image.load("resources/creditsbackground.png")
-        self.copiedtxt = pygame.image.load("resources/copied.png")
-        self.starbackground = pygame.image.load("resources/starbg.png")
+        self.frontPage = pygame.image.load("../resources/frontpage.png")
+        self.levelBackground = pygame.image.load("../resources/background.jpg")
+        self.AdvancedImage = pygame.image.load("../resources/Advanced.png")
+        self.startButtonImage = pygame.image.load("../resources/start.png")
+        self.creditsButtonImage = pygame.image.load("../resources/credits.png")
+        self.nextButtonImage = pygame.image.load("../resources/next3.png")
+        self.beginnerMap = pygame.image.load("../resources/beginnermap2.png")
+        self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
+        self.beginnerImage = pygame.image.load("../resources/beginner.png")
+        self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
+        self.NDhow2play = pygame.image.load("../resources/NDdirections.png")
+        self.playButton = pygame.image.load("../resources/play.png")
+        self.advMapImage = pygame.image.load("../resources/WorkInProgress.jpg")
+        self.backImage = pygame.image.load("../resources/back3.png")
+        self.button = pygame.image.load("../resources/copybutton3.png")
+        self.pizzaNotes1 = pygame.image.load("../resources/treble_notes.png")
+        self.pizzaPlay = pygame.image.load("../resources/pizza_notes.png")
+        self.pizzaBackground = pygame.image.load("../resources/backgroundpizza.png")
+        self.creditsImage = pygame.image.load("../resources/creditsbackground.png")
+        self.copiedtxt = pygame.image.load("../resources/copied.png")
+        self.starbackground = pygame.image.load("../resources/starbg.png")
 
         # Variables
         self.startGame = False
@@ -170,7 +170,7 @@ class Game:
                         self.creditsCounter = 1
 
                     if self.copied:
-                        copiedtext = (pygame.font.Font("resources/PressStart2P.ttf", 40)).render('Link copied to Clipboard', True, (0, 0, 255))
+                        copiedtext = (pygame.font.Font("../resources/PressStart2P.ttf", 40)).render('Link copied to Clipboard', True, (0, 0, 255))
                         self.screen.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -315,25 +315,25 @@ class Game:
 
                         elif self.quarternoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
-                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/quarter_note.mp3"))
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/quarter_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.wholenoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
-                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/whole_note.mp3"))
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/whole_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.halfnoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
-                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/half_note.mp3"))
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/half_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.eighthnoteAudio.collidepoint(event.pos):
                             if not pygame.mixer.Channel(2).get_busy():
-                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("resources/eighth_note.mp3"))
+                                pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/eighth_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
@@ -383,7 +383,7 @@ class Game:
 
                 if self.level2picked and self.counter == 0:
                     self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
-                    pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
+                    pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.mp3'))
                     self.counter = 1
 
                 if self.level2picked:
@@ -407,7 +407,7 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
-                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('resources/metronome.mp3'))
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.mp3'))
                     elif self.level.back:
                         self.level2picked = False
                         self.informationPage2 = False

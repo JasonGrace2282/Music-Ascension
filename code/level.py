@@ -22,13 +22,13 @@ class TeleportLevel():
         self.current_x = 0
         self.player_on_ground = False
 
-        self.background4Settings = pygame.image.load("resources/blank.jpg")
-        self.restartImage = pygame.image.load("resources/retry2.png")
-        self.mainmenuImage = pygame.image.load("resources/quit2.png")
-        self.settingsImage = pygame.image.load("resources/menu.png")
-        self.backImage = pygame.image.load("resources/back2.png")
-        self.pizzaWin = pygame.image.load("resources/pizza_delivered.png")
-        self.coins = pygame.image.load("resources/coins5.png")
+        self.background4Settings = pygame.image.load("../resources/blank.jpg")
+        self.restartImage = pygame.image.load("../resources/retry2.png")
+        self.mainmenuImage = pygame.image.load("../resources/quit2.png")
+        self.settingsImage = pygame.image.load("../resources/menu.png")
+        self.backImage = pygame.image.load("../resources/back2.png")
+        self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
+        self.coins = pygame.image.load("../resources/coins5.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
@@ -45,13 +45,13 @@ class TeleportLevel():
         self.back2 = False
         self.staff = pygame.sprite.GroupSingle()
         if self.stage == 1:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/beginnerstaff.png"))
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
         elif self.stage == 2:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/odetojoystaff.png"))
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/odetojoystaff.png"))
         elif self.stage == 3:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/wheelsstaff.png"))
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/wheelsstaff.png"))
         elif self.stage == 4:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "resources/twinklestaff.png"))
+            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/twinklestaff.png"))
 
     def on_ground(self):
         if self.player.sprite.on_ground:
@@ -347,7 +347,7 @@ class NoteLevel(TeleportLevel):
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
         yResult = noteY[notes.index(note)]
-        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "resources/house.png")
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "../resources/house.png")
         self.house.add(house)
         barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, False)
         self.barrier.add(barrier)
