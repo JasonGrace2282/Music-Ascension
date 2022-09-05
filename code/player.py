@@ -60,18 +60,32 @@ class TeleportPlayer(pygame.sprite.Sprite):
 
         if keys[pygame.K_c]:
             self.level_note = "C"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midC.wav"))
         elif keys[pygame.K_d]:
             self.level_note = "D"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midD.wav"))
         elif keys[pygame.K_e]:
             self.level_note = "E"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midE.wav"))
         elif keys[pygame.K_f]:
             self.level_note = "F"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midF.wav"))
         elif keys[pygame.K_g]:
             self.level_note = "G"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midG.wav"))
         elif keys[pygame.K_a]:
             self.level_note = "A"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midA.wav"))
         elif keys[pygame.K_b]:
             self.level_note = "B"
+            while not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midB.wav"))
 
         self.teleport()
 
@@ -154,29 +168,93 @@ class TeleportPlayer(pygame.sprite.Sprite):
 class NotePlayer(TeleportPlayer):
     def __init__(self, pos, surface):
         super().__init__(pos, surface)
+        self.image = pygame.image.load("resources/player.png")
+        self.rect_image = pygame.image.load("resources/hitbox.png")
+        self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
         self.start = time.time()
         self.chain = False
         self.delivered = False
         self.coins = 0
-
+        self.difficulty_time = 10
+        
     def input(self):
         keys = pygame.key.get_pressed()
 
         if not self.counter:
             time.sleep(0.2)
             self.counter = True
-        elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-50 > 0:
+        elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
             print("hi")
-            self.pos = (self.pos[0], self.pos[1]-50)
+            self.pos = (self.pos[0], self.pos[1]-48)
             self.counter = False
         elif keys[pygame.K_DOWN] and self.counter and not self.ready and self.pos[1]+114 < height:
-            self.pos = (self.pos[0], self.pos[1]+50)
+            self.pos = (self.pos[0], self.pos[1]+48)
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
+            if self.pos[1] == 720:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midC.wav"))
+            if self.pos[1] == 672:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midD.wav"))
+            if self.pos[1] == 624:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midE.wav"))
+            if self.pos[1] == 576:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midF.wav"))
+            if self.pos[1] == 528:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midG.wav"))
+            if self.pos[1] == 480:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midA.wav"))
+            if self.pos[1] == 432:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/midB.wav"))
+            if self.pos[1] == 384:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highC.wav"))
+            if self.pos[1] == 336:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highD.wav"))
+            if self.pos[1] == 288:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highE.wav"))
+            if self.pos[1] == 240:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highF.wav"))
+            if self.pos[1] == 192:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highG.wav"))
+            if self.pos[1] == 144:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highA.wav"))
+            if self.pos[1] == 96:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/highB.wav"))
+            if self.pos[1] == 48:
+                while not pygame.mixer.Channel(1).get_busy():
+                    pygame.mixer.Channel(1).play(pygame.mixer.Sound("resources/maxC.wav"))
+    
+    def set_image(self):
+        image = self.image
+        if self.facing_right:
+            self.image = image
+        else:
+            flipped_image = pygame.transform.flip(image, True, False)
+            self.image = flipped_image
+    
+    def find_note(self):
+        noteY = [720, 672, 624, 576, 528, 480, 432, 384, 336, 288, 240, 192, 144, 96, 48]
+        notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "Hi C", "Hi D", "Hi E", "Hi F", "Hi G", "Hi A", "Hi B", "Max C"]
 
+        self.note = notes[noteY.index(self.pos[1])]
+                    
     def update(self):
+        self.find_note()
         if self.delivered:
             self.coins += random.randint(5, 8)
             self.delivered = False
@@ -185,13 +263,13 @@ class NotePlayer(TeleportPlayer):
         self.update_status()
         self.set_image()
         if self.pos != pos:
-            self.rect = self.image.get_rect(topleft=self.pos)
+            self.rect = self.image.get_rect(center=self.pos)
         if self.ready:
-            self.direction.x = 0.5
+            self.direction.x = 1
         else:
             self.direction.x = 0
         self.end = time.time()
-        if self.end - self.start >= 5:
+        if self.end - self.start >= self.difficulty_time:
             self.ready = True
         if self.end - self.start >= 100:
             self.chain = True
