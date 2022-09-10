@@ -21,6 +21,7 @@ class TeleportLevel():
         self.h_shift = 0
         self.v_shift = 0
         self.current_x = 0
+        self.musicCounter = 0
         self.player_on_ground = False
 
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
@@ -28,6 +29,7 @@ class TeleportLevel():
         self.mainmenuImage = pygame.image.load("../resources/quit2.png")
         self.settingsImage = pygame.image.load("../resources/menu.png")
         self.backImage = pygame.image.load("../resources/back2.png")
+        self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
         self.coins = pygame.image.load("../resources/coins5.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
@@ -37,10 +39,12 @@ class TeleportLevel():
         self.mainmenu2 = pygame.Rect(0, self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settings2 = pygame.Rect(960-self.settingsImage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.musicRect2 = pygame.Rect(0, self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
         self.pizzaFinishedMenu = pygame.Rect(1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height(), self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
+        self.backgroundmusic = True
         self.reset = False
         self.back = False
         self.back2 = False
@@ -377,10 +381,31 @@ class NoteLevel(TeleportLevel):
                     if self.exitSettings2.collidepoint(event.pos):
                         print("settings exited")
                         self.settingsClicked2 = False
+                    if self.musicRect2.collidepoint(event.pos):
+                        if self.musicCounter == 0:
+                            self.musicCounter+=1
+                            self.backgroundmusic = False
+                            print("Physics ", self.musicCounter)
+                            pygame.time.delay(1000)
+                if event.type == pygame.MOUSEBUTTONDOWN and self.settings2 and self.musicRect2.collidepoint(event.pos):
+                    if self.musicCounter == 1:
+                        self.musicCounter-=1
+                        self.backgroundmusic = True
+                        print("Feynman is cool ", self.musicCounter)
+        
+        if self.backgroundmusic:
+            while not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load("../resources/moonlight.wav")
+                pygame.mixer.music.set_volume(0.2)
+                pygame.mixer.music.play()
+
+        elif not self.backgroundmusic:
+            pygame.mixer.music.stop()
 
         if self.settingsClicked2:
             self.display_surface.blit(self.backImage, (0, 0))
             self.display_surface.blit(self.mainmenuImage, (0, self.backImage.get_height()))
+            self.display_surface.blit(self.musicbutton, (0, self.backImage.get_height()+self.mainmenuImage.get_height()))
 
         # level tiles
         while not pygame.mixer.music.get_busy():
