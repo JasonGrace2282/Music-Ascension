@@ -345,8 +345,8 @@ class NoteLevel(TeleportLevel):
         notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "Hi C", "Hi D", "Hi E", "Hi F", "Hi G", "Hi A", "Hi B", "Max C"]
 
         note = random.choice(notes)
-        font = pygame.font.SysFont("resources/PressStart2P.ttf", 55)
-        self.font3 = pygame.font.SysFont("resources/PressStart2P.ttf", 55)
+        font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
+        self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note_text = font.render(note, True, (255, 255, 255))
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
