@@ -386,7 +386,6 @@ class NoteLevel(TeleportLevel):
                             self.musicCounter+=1
                             self.backgroundmusic = False
                             print("Physics ", self.musicCounter)
-                            pygame.time.delay(1000)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.settings2 and self.musicRect2.collidepoint(event.pos):
                     if self.musicCounter == 1:
                         self.musicCounter-=1
