@@ -182,7 +182,7 @@ class NotePlayer(TeleportPlayer):
         keys = pygame.key.get_pressed()
 
         if not self.counter:
-            time.sleep(0.2)
+            time.sleep(0.1)
             self.counter = True
         elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
             print("hi")
