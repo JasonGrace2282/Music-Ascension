@@ -382,15 +382,24 @@ class NoteLevel(TeleportLevel):
                         print("settings exited")
                         self.settingsClicked2 = False
                     if self.musicRect2.collidepoint(event.pos):
-                        if self.musicCounter == 0:
-                            self.musicCounter+=1
-                            self.backgroundmusic = False
-                            print("Physics ", self.musicCounter)
-                if event.type == pygame.MOUSEBUTTONDOWN and self.settings2 and self.musicRect2.collidepoint(event.pos):
-                    if self.musicCounter == 1:
-                        self.musicCounter-=1
-                        self.backgroundmusic = True
-                        print("Feynman is cool ", self.musicCounter)
+                        if self.backgroundmusic:
+                            if self.musicCounter == 1:
+                                self.musicCounter-=1
+                                self.backgroundmusic = True
+                                print("Feynman is cool ", self.musicCounter)
+                            if self.musicCounter == 0:
+                                self.musicCounter+=1
+                                self.backgroundmusic = False
+                                print("Physics ", self.musicCounter)
+                        elif not self.backgroundmusic:
+                            if self.musicCounter == 0:
+                                self.musicCounter+=1
+                                self.backgroundmusic = False
+                                print("Physics ", self.musicCounter)
+                            if self.musicCounter == 1:
+                                self.musicCounter-=1
+                                self.backgroundmusic = True
+                                print("Feynman is cool ", self.musicCounter)
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
