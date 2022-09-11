@@ -207,10 +207,6 @@ class TeleportLevel():
         self.staff.update(self.h_shift, "x")
         self.staff.draw(self.display_surface)
         self.scroll()
-        print(self.player.sprite.level_note)
-        # while not pygame.mixer.music.get_busy():
-        #     pygame.mixer.music.load("../resources/moonlight.wav")
-        #     pygame.mixer.music.set_volume(0.2)
 
         # player
         self.player.update(delta, self.h_shift)
