@@ -35,8 +35,10 @@ class TeleportLevel():
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
+        self.middle_restart = pygame.Rect(width/2-self.restartImage.get_width()/2, 350-self.restartImage.get_height()/2, self.backImage.get_width(), self.backImage.get_height())
         self.mainmenu = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.mainmenu2 = pygame.Rect(0, self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
+        self.middle_mainmenu = pygame.Rect(width/2-self.mainmenuImage.get_width()/2, 450-self.mainmenuImage.get_height()/2, self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.settings2 = pygame.Rect(960-self.settingsImage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.musicRect2 = pygame.Rect(0, self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
@@ -250,20 +252,19 @@ class TeleportLevel():
                         self.settingsClicked = False
 
         if self.player.sprite.rect.topleft[1] > height:
-            self.display_surface.blit(self.background4Settings, (0, 0))
-            self.display_surface.blit(self.restartImage, (0, 100))
-            self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
+            self.display_surface.blit(self.restartImage, self.middle_restart)
+            self.display_surface.blit(self.mainmenuImage, self.middle_mainmenu)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.restart.collidepoint(event.pos):
+                    if self.middle_restart.collidepoint(event.pos):
                         print("reset")
                         self.reset = True
                         pygame.mixer.Channel(3).stop()
-                    if self.mainmenu.collidepoint(event.pos):
+                    if self.middle_mainmenu.collidepoint(event.pos):
                         print("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
