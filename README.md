@@ -1,6 +1,6 @@
 # Music Ascension
-by Captains of Code <br/>
-
+by the Captains of Code: <br/>
+Aarush Deshpande, Mihir Nimkar, Anika Dureja and Ayush Rao<br>
 <h1>Game: Music Ascension </h1>
 Problem Statement
 People in class were struggling with music due to lack of music training earlier, or need a different style of teaching then classroom style - other apps may cost money or have ads, or aren’t engaging-so we created this game to make learning music theory more fun.
@@ -19,7 +19,7 @@ At this point, you can navigate to whichever level you want and play any level y
 
 After completing the game, you will be transported back to the main menu, where you can choose a different topic to learn and have fun with. Enjoy!
 
-<h1>Downloading and running the program</h1>
+<h2>Downloading and running the program</h2><br>
 There are two ways you can download, and run the program.
 <ol><li>Download the .exe file.<br>
 This is the simplest way to download the program. All you need to do is go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>, and look in the code folder. You should find a .exe file called MusicAscension.exe. Download that file. Once it has finished downloading, all you have to do is open the file and it will run the program!</li>
