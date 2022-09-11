@@ -381,6 +381,7 @@ class Game:
                         self.level.settingsClicked2 = False
                         self.counter = 0
                         self.level.backgroundmusic = True
+                        pygame.mixer.music.stop()
 
                 if self.level2picked and self.counter == 0:
                     self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
@@ -414,6 +415,10 @@ class Game:
                         self.informationPage2 = False
                         self.stageChooser2 = False
                         self.counter = 0
+                        self.DurationStage2 = False
+                        self.DurationStage3 = False
+                        self.pizzaMan2 = False
+                        self.pizzaMan3 = False
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
