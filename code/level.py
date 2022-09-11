@@ -383,19 +383,11 @@ class NoteLevel(TeleportLevel):
                         self.settingsClicked2 = False
                     if self.musicRect2.collidepoint(event.pos):
                         if self.backgroundmusic:
-                            if self.musicCounter == 1:
-                                self.musicCounter-=1
-                                self.backgroundmusic = True
-                                print("Feynman is cool ", self.musicCounter)
                             if self.musicCounter == 0:
                                 self.musicCounter+=1
                                 self.backgroundmusic = False
                                 print("Physics ", self.musicCounter)
                         elif not self.backgroundmusic:
-                            if self.musicCounter == 0:
-                                self.musicCounter+=1
-                                self.backgroundmusic = False
-                                print("Physics ", self.musicCounter)
                             if self.musicCounter == 1:
                                 self.musicCounter-=1
                                 self.backgroundmusic = True
@@ -416,10 +408,6 @@ class NoteLevel(TeleportLevel):
             self.display_surface.blit(self.musicbutton, (0, self.backImage.get_height()+self.mainmenuImage.get_height()))
 
         # level tiles
-        while not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load("../resources/backgroundmusic.wav")
-            pygame.mixer.music.set_volume(0.5)
-            pygame.mixer.music.play()
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
         self.house.update(self.h_shift, "x")
