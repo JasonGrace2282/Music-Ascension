@@ -200,13 +200,13 @@ class Game:
                                 self.home_musiccounter+=1
                                 self.homeMusic = False
                                 print("Music is Sine waves ", self.home_musiccounter)
-                                time.sleep(0.15)
+                                pygame.time.delay(200)
                         elif not self.homeMusic:
                             if self.home_musiccounter == 1:
                                 self.home_musiccounter-=1
                                 self.homeMusic = True
                                 print("Chaos Theory is fluid mechanics ", self.home_musiccounter)
-                                time.sleep(0.15)
+                                pygame.time.delay(200)
 
                 if self.advClicked:
                     self.screen.fill((255, 255, 255))
