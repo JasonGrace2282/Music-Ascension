@@ -39,4 +39,5 @@ Another way you can run the program is by cloning the git repository. To do that
 <ul><li>Some Audio files do not work</li>
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
-<li>You may have to click a button several times for it to work<li></ul>
+<li>You may have to click a button several times for it to work<li>
+<li>Turning metronome on and off is still a little buggy</li></ul>
