@@ -403,8 +403,8 @@ class NoteLevel(TeleportLevel):
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load("../resources/moonlight.wav")
-                pygame.mixer.music.set_volume(0.2)
+                pygame.mixer.music.load("../resources/backgroundmusic.wav")
+                pygame.mixer.music.set_volume(0.5)
                 pygame.mixer.music.play()
 
         elif not self.backgroundmusic:
@@ -417,8 +417,8 @@ class NoteLevel(TeleportLevel):
 
         # level tiles
         while not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load("../resources/moonlight.wav")
-            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.load("../resources/backgroundmusic.wav")
+            pygame.mixer.music.set_volume(0.5)
             pygame.mixer.music.play()
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
