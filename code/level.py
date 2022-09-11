@@ -43,6 +43,7 @@ class TeleportLevel():
         self.settings2 = pygame.Rect(960-self.settingsImage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.musicRect2 = pygame.Rect(0, self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
         self.pizzaFinishedMenu = pygame.Rect(1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height(), self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.metronomeRect = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
@@ -50,6 +51,7 @@ class TeleportLevel():
         self.reset = False
         self.back = False
         self.back2 = False
+        self.playMetronome = True
         self.staff = pygame.sprite.GroupSingle()
         if self.stage == 1:
             self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
@@ -229,6 +231,7 @@ class TeleportLevel():
             self.display_surface.blit(self.backImage, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 100))
             self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
+            self.display_surface.blit(self.musicbutton, self.metronomeRect)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -246,6 +249,14 @@ class TeleportLevel():
                     if self.exitSettings.collidepoint(event.pos):
                         print("settings exited")
                         self.settingsClicked = False
+                    if self.metronomeRect.collidepoint(event.pos) and self.playMetronome:
+                        self.playMetronome = False
+                        print("Metronome off")
+                        pygame.time.delay(200)
+                    elif self.metronomeRect.collidepoint(event.pos) and not self.playMetronome:
+                        self.playMetronome = True
+                        print("Metronome on")
+                        pygame.time.delay(200)
 
         if self.player.sprite.rect.topleft[1] > height:
             self.display_surface.blit(self.restartImage, self.middle_restart)
