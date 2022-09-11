@@ -245,33 +245,45 @@ class Game:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 2 of note duration
+                    while not pygame.mixer.Channel(4).get_busy():
+                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage2 = False
+                            pygame.mixer.Channel(4).stop()
 
                 if self.DurationStage3:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 3 of note duration minigame
+                    while not pygame.mixer.Channel(4).get_busy():
+                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage3 = False
+                            pygame.mixer.Channel(4).stop()
 
                 if self.pizzaMan2:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert code for stage 2 of pizza man minigame
+                    while not pygame.mixer.Channel(4).get_busy():
+                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan2 = False
+                            pygame.mixer.Channel(4).stop()
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
+                    while not pygame.mixer.Channel(4).get_busy():
+                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan3 = False
+                            pygame.mixer.Channel(4).stop()
                 
                 if self.stageChooser:
                     self.screen.blit(self.pizzaNotes1, (0, 0))
