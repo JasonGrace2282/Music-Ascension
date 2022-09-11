@@ -38,6 +38,7 @@ class Game:
         self.creditsImage = pygame.image.load("../resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("../resources/copied.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
+        self.musicbutton = pygame.image.load("../resources/musicbutton.png")
 
         # Variables
         self.startGame = False
@@ -67,6 +68,7 @@ class Game:
         self.noteBoolean3 = False
         self.isInt = True
         self.NDaudioBool = False
+        self.homeMusic = True
         self.spaceCounter1 = 1
         self.spaceCounter2 = 0
         self.spaceCounter3 = 0
@@ -79,6 +81,7 @@ class Game:
         self.completecounter = 0
         self.counter = 0
         self.creditsCounter = 0
+        self.home_musiccounter = 0
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
@@ -96,6 +99,7 @@ class Game:
         self.pizza_man_3 = pygame.Rect(1015, 340, 140, 215)
         self.backRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.copyClipboard = pygame.Rect(600-self.button.get_width()/2, height/2-100, self.button.get_width(), self.button.get_width())
+        self.musichitbox = pygame.Rect(0, height-self.musicbutton.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
 
         self.start = 0
         self.end = 0
@@ -120,6 +124,13 @@ class Game:
 
                 # Forever rest in piece, 200 lines of code deleted because they did the wrong thing
 
+            if self.homeMusic:
+                while not pygame.mixer.Channel(4).get_busy():
+                    pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
+            
+            if not self.homeMusic:
+                pygame.mixer.Channel(4).stop()
+
             self.screen.fill(0)
             self.screen.blit(self.frontPage, (0, 0))
             self.screen.blit(self.startButtonImage, (540, 200))
@@ -139,6 +150,7 @@ class Game:
                 self.screen.blit(self.levelBackground, (0, 0))
                 self.screen.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
                 self.screen.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
+                self.screen.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
 
             if not self.offCreditButton:
                 if self.creditsClicked:
@@ -149,7 +161,6 @@ class Game:
                     while self.sleepCounter3 == 0:
                         time.sleep(0.5)
                         self.sleepCounter3 = 1
-                    # self.screen.fill((255, 0, 0), self.copyClipboard)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
@@ -181,6 +192,22 @@ class Game:
                         self.beginnerClicked = True
 
             if self.levelConfirm:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.musichitbox.collidepoint(event.pos):
+                        print("Music Button Clicked")
+                        if self.homeMusic:
+                            if self.home_musiccounter == 0:
+                                self.home_musiccounter+=1
+                                self.homeMusic = False
+                                print("Music is Sine waves ", self.home_musiccounter)
+                                time.sleep(0.15)
+                        elif not self.homeMusic:
+                            if self.home_musiccounter == 1:
+                                self.home_musiccounter-=1
+                                self.homeMusic = True
+                                print("Chaos Theory is fluid mechanics ", self.home_musiccounter)
+                                time.sleep(0.15)
+
                 if self.advClicked:
                     self.screen.fill((255, 255, 255))
                     advTopicsText = pygame.font.SysFont(None, 40)
@@ -222,7 +249,6 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.advClicked = False
                             self.advancedMap = False
-
                 if self.nextClicked:
                     self.screen.blit(self.beginnerMap, (0, 0))
                     self.chooseBeginnerLevel = True
@@ -245,45 +271,33 @@ class Game:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 2 of note duration
-                    while not pygame.mixer.Channel(4).get_busy():
-                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage2 = False
-                            pygame.mixer.Channel(4).stop()
 
                 if self.DurationStage3:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 3 of note duration minigame
-                    while not pygame.mixer.Channel(4).get_busy():
-                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage3 = False
-                            pygame.mixer.Channel(4).stop()
 
                 if self.pizzaMan2:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert code for stage 2 of pizza man minigame
-                    while not pygame.mixer.Channel(4).get_busy():
-                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan2 = False
-                            pygame.mixer.Channel(4).stop()
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
-                    while not pygame.mixer.Channel(4).get_busy():
-                        pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan3 = False
-                            pygame.mixer.Channel(4).stop()
                 
                 if self.stageChooser:
                     self.screen.blit(self.pizzaNotes1, (0, 0))
@@ -326,24 +340,28 @@ class Game:
                             self.informationPage2 = True
 
                         elif self.quarternoteAudio.collidepoint(event.pos):
+                            self.homeMusic = False
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/quarter_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.wholenoteAudio.collidepoint(event.pos):
+                            self.homeMusic = False
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/whole_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.halfnoteAudio.collidepoint(event.pos):
+                            self.homeMusic = False
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/half_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).stop()
 
                         elif self.eighthnoteAudio.collidepoint(event.pos):
+                            self.homeMusic = False
                             if not pygame.mixer.Channel(2).get_busy():
                                 pygame.mixer.Channel(2).play(pygame.mixer.Sound("../resources/eighth_note.mp3"))
                             elif pygame.mixer.Channel(2).get_busy():
@@ -371,6 +389,7 @@ class Game:
                     self.counter = 1
 
                 if self.level1picked:
+                    self.homeMusic = False
                     self.screen.fill("black")
                     self.screen.blit(self.starbackground, (0, 0))
                     self.screen.blit(self.pizzaBackground, (0, 0))
@@ -393,6 +412,7 @@ class Game:
                         self.level.settingsClicked2 = False
                         self.counter = 0
                         self.level.backgroundmusic = True
+                        self.homeMusic = True
                         pygame.mixer.music.stop()
 
                 if self.level2picked and self.counter == 0:
@@ -401,6 +421,7 @@ class Game:
                     self.counter = 1
 
                 if self.level2picked:
+                    self.homeMusic = False
                     self.screen.fill("black")
                     try:
                         self.level.run(self.end-self.start)
@@ -431,6 +452,7 @@ class Game:
                         self.DurationStage3 = False
                         self.pizzaMan2 = False
                         self.pizzaMan3 = False
+                        self.homeMusic = True
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
