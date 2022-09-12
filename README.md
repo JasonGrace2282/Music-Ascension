@@ -10,6 +10,7 @@ When you open the file, you will be greeted with a screen that shows two buttons
 
 If you click beginner, you will see the topics covered in the beginner level (Note durations and Note on the staff).
 If you click Advanced, you will see the topics covered in the beginner level (Time signatures and Dynamics and Articulations)
+On the bottom-left corner, you will see a button called "Music". Clicking that will toggle on and off the background music
 
 Once you click next, a map will appear, with different GPS markers indicating different levels. On each GPS marker, there is a symbol that represents the topic covered. Once you click on the level and topic that you want to learn about, a page with the notes will appear. This page contains all the information you will need to pass the level. 
 
