@@ -39,6 +39,10 @@ class Game:
         self.copiedtxt = pygame.image.load("../resources/copied.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
+        self.helpbutton = pygame.image.load("../resources/help.png")
+
+        #font(s)
+        self.fontLevel = pygame.font.Font("../resources/PressStart2P.ttf", 20)
 
         # Variables
         self.startGame = False
@@ -68,6 +72,7 @@ class Game:
         self.noteBoolean3 = False
         self.isInt = True
         self.NDaudioBool = False
+        self.helpbool = False
         self.homeMusic = True
         self.spaceCounter1 = 1
         self.spaceCounter2 = 0
@@ -100,6 +105,7 @@ class Game:
         self.backRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.copyClipboard = pygame.Rect(600-self.button.get_width()/2, height/2-100, self.button.get_width(), self.button.get_width())
         self.musichitbox = pygame.Rect(0, height-self.musicbutton.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
+        self.helpRect = pygame.Rect(width-self.helpbutton.get_width(), self.helpbutton.get_height(), self.helpbutton.get_width(), self.helpbutton.get_height())
 
         self.start = 0
         self.end = 0
@@ -249,8 +255,14 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.advClicked = False
                             self.advancedMap = False
+
                 if self.nextClicked:
                     self.screen.blit(self.beginnerMap, (0, 0))
+                    ND1 = self.fontLevel.render("Note", True, 0)
+                    ND2 = self.fontLevel.render("Duration", True, 0)
+                    self.screen.blit(ND1, (50, 354))
+                    self.screen.blit(ND2, (20, 600))
+                    self.screen.blit(self.helpbutton, self.helpRect)
                     self.chooseBeginnerLevel = True
 
                 if event.type == pygame.MOUSEBUTTONDOWN and self.chooseBeginnerLevel:
@@ -266,6 +278,16 @@ class Game:
                         self.pizzaMan2 = True
                     elif self.pizza_man_3.collidepoint(event.pos):
                         self.pizzaMan3 = True
+                    elif self.helpRect.collidepoint(event.pos):
+                        self.helpbool = True
+                
+                # if self.helpbool:
+                #     self.screen.fill(0)
+                #     self.screen.blit(self.backImage, self.backRect)
+
+                #     if event.type == pygame.MOUSEBUTTONDOWN:
+                #         if self.backRect.collidepoint(event.pos):
+                #             self.helpbool = False
 
                 if self.DurationStage2:
                     self.screen.blit(self.advMapImage, (0, 0))
@@ -421,6 +443,7 @@ class Game:
 
                 if self.level2picked:
                     self.homeMusic = False
+                    self.level.playMetronome = True
                     self.screen.fill("black")
                     try:
                         self.level.run(self.end-self.start)
@@ -452,6 +475,7 @@ class Game:
                         self.DurationStage3 = False
                         self.pizzaMan2 = False
                         self.pizzaMan3 = False
+                        self.level.playMetronome = False
                         self.homeMusic = True
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
