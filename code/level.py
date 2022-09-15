@@ -32,6 +32,12 @@ class TeleportLevel():
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
         self.coins = pygame.image.load("../resources/coins5.png")
+        self.star1 = pygame.image.load("../resources/star1.png")
+        self.star2 = pygame.image.load("../resources/star2.png")
+        self.star3 = pygame.image.load("../resources/star3.png")
+        self.star4 = pygame.image.load("../resources/star4.png")
+        self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
+        self.starbackground = pygame.image.load("../resources/starbg.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
@@ -52,6 +58,7 @@ class TeleportLevel():
         self.back = False
         self.back2 = False
         self.playMetronome = True
+        self.starcounter = 0
         self.staff = pygame.sprite.GroupSingle()
         if self.stage == 1:
             self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
@@ -372,6 +379,9 @@ class NoteLevel(TeleportLevel):
         self.barrier.add(barrier)
 
     def run(self):
+        # background
+        self.display_surface.blit(self.starbackground, (0, 0))
+
         # exit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -409,6 +419,25 @@ class NoteLevel(TeleportLevel):
 
         elif not self.backgroundmusic:
             pygame.mixer.music.stop()
+        
+        if 0 <= self.starcounter < 10:
+            self.display_surface.blit(self.star1, (0, 0))
+            self.starcounter+=0.5
+        elif 10 <= self.starcounter < 20:
+            self.display_surface.blit(self.star2, (0, 0))
+            self.starcounter+=0.5
+        elif 20 <= self.starcounter < 30:
+            self.display_surface.blit(self.star3, (0, 0))
+            self.starcounter+=0.5
+        elif 30 <= self.starcounter < 40:
+            self.display_surface.blit(self.star4, (0, 0))
+            self.starcounter+=0.5
+        elif 40 <= self.starcounter < 50:
+            self.display_surface.blit(self.star3, (0, 0))
+            self.starcounter+=0.5
+        elif self.starcounter == 50:
+            self.display_surface.blit(self.star2, (0, 0))
+            self.starcounter = 10
 
         if self.settingsClicked2:
             self.display_surface.blit(self.backImage, (0, 0))
@@ -480,6 +509,8 @@ class NoteLevel(TeleportLevel):
                     self.player.sprite.delivered = True
                     self.player.update()
                     self.playerdelivered = False
+        
+        self.display_surface.blit(self.pizzaBackground, (0, 0))
 
         if self.complete:
             self.counter += 1

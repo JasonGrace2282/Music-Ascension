@@ -34,12 +34,11 @@ class Game:
         self.button = pygame.image.load("../resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("../resources/treble_notes.png")
         self.pizzaPlay = pygame.image.load("../resources/pizza_notes.png")
-        self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
         self.creditsImage = pygame.image.load("../resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("../resources/copied.png")
-        self.starbackground = pygame.image.load("../resources/starbg.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.helpbutton = pygame.image.load("../resources/help.png")
+        self.NDbackground = pygame.image.load("../resources/NDbackground2.png")
 
         #font(s)
         self.fontLevel = pygame.font.Font("../resources/PressStart2P.ttf", 20)
@@ -283,6 +282,7 @@ class Game:
                         self.pizzaMan3 = True
                     elif self.helpRect.collidepoint(event.pos):
                         self.helpbool = True
+                        self.sleepCounter6 == 0
                 
                 if self.helpbool:
                     self.screen.fill(0)
@@ -333,7 +333,7 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            if self.chooseBeginnerLevel:
+                            if self.choosebeginnerlevel:
                                 self.pizzaInfo2 = True
                                 while self.sleepCounter4 == 0:
                                     time.sleep(0.2)
@@ -346,7 +346,7 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            if self.chooseBeginnerLevel and self.nextCounter2 == 1:
+                            if self.choosebeginnerlevel and self.nextCounter2 == 1:
                                 self.level1picked = True
                     
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -405,7 +405,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
-                                if self.chooseBeginnerLevel:
+                                if self.choosebeginnerlevel:
                                     self.level2picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -419,8 +419,6 @@ class Game:
                 if self.level1picked:
                     self.homeMusic = False
                     self.screen.fill("black")
-                    self.screen.blit(self.starbackground, (0, 0))
-                    self.screen.blit(self.pizzaBackground, (0, 0))
                     self.level.run()
                     if self.level.reset and self.level.stagefinished:
                         self.completecounter += 1
@@ -451,6 +449,7 @@ class Game:
                     self.homeMusic = False
                     self.level.playMetronome = True
                     self.screen.fill("black")
+                    self.screen.blit(self.NDbackground, (0, 0))
                     try:
                         self.level.run(self.end-self.start)
                     except:
