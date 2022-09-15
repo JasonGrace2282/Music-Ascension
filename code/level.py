@@ -235,6 +235,8 @@ class TeleportLevel():
 
         if self.settingsClicked:
             self.display_surface.blit(self.background4Settings, (0, 0))
+            self.display_surface.blit(self.background4Settings, (0, self.background4Settings.get_height()))
+            self.display_surface.blit(self.background4Settings, (0, 2*self.background4Settings.get_height()))
             self.display_surface.blit(self.backImage, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 100))
             self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
