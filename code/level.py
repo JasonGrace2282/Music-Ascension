@@ -422,22 +422,24 @@ class NoteLevel(TeleportLevel):
         
         if 0 <= self.starcounter < 10:
             self.display_surface.blit(self.star1, (0, 0))
-            self.starcounter+=0.5
+            self.starcounter+=0.49
         elif 10 <= self.starcounter < 20:
             self.display_surface.blit(self.star2, (0, 0))
-            self.starcounter+=0.5
+            self.starcounter+=0.49
         elif 20 <= self.starcounter < 30:
             self.display_surface.blit(self.star3, (0, 0))
-            self.starcounter+=0.5
+            self.starcounter+=0.49
         elif 30 <= self.starcounter < 40:
             self.display_surface.blit(self.star4, (0, 0))
-            self.starcounter+=0.5
+            self.starcounter+=0.49
         elif 40 <= self.starcounter < 50:
             self.display_surface.blit(self.star3, (0, 0))
-            self.starcounter+=0.5
-        elif self.starcounter == 50:
+            self.starcounter+=0.49
+        elif self.starcounter >= 50:
             self.display_surface.blit(self.star2, (0, 0))
             self.starcounter = 10
+
+        self.display_surface.blit(self.pizzaBackground, (0, 0))
 
         if self.settingsClicked2:
             self.display_surface.blit(self.backImage, (0, 0))
@@ -509,8 +511,6 @@ class NoteLevel(TeleportLevel):
                     self.player.sprite.delivered = True
                     self.player.update()
                     self.playerdelivered = False
-        
-        self.display_surface.blit(self.pizzaBackground, (0, 0))
 
         if self.complete:
             self.counter += 1
