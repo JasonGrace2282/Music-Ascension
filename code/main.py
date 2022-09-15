@@ -37,8 +37,9 @@ class Game:
         self.creditsImage = pygame.image.load("../resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("../resources/copied.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
-        self.helpbutton = pygame.image.load("../resources/help.png")
+        self.helpbutton = pygame.image.load("../resources/help2.png")
         self.NDbackground = pygame.image.load("../resources/NDbackground2.png")
+        self.helpbg = pygame.image.load("../resources/helpbg.png")
 
         #font(s)
         self.fontLevel = pygame.font.Font("../resources/PressStart2P.ttf", 20)
@@ -258,10 +259,6 @@ class Game:
 
                 if self.choosebeginnerlevel:
                     self.screen.blit(self.beginnerMap, (0, 0))
-                    ND1 = self.fontLevel.render("Note", True, 0)
-                    ND2 = self.fontLevel.render("Duration", True, 0)
-                    self.screen.blit(ND1, (50, 354))
-                    self.screen.blit(ND2, (20, 600))
                     self.screen.blit(self.helpbutton, self.helpRect)
                     while self.sleepCounter5 == 0:
                         time.sleep(0.3)
@@ -286,6 +283,7 @@ class Game:
                 
                 if self.helpbool:
                     self.screen.fill(0)
+                    self.screen.blit(self.helpbg, (0, 0))
                     self.screen.blit(self.backImage, self.backRect)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
