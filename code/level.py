@@ -38,6 +38,7 @@ class TeleportLevel():
         self.star4 = pygame.image.load("../resources/star4.png")
         self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
+        self.stageimage = pygame.image.load("../resources/stagefinished.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
@@ -60,6 +61,7 @@ class TeleportLevel():
         self.playMetronome = True
         self.starcounter = 0
         self.staff = pygame.sprite.GroupSingle()
+        self.stagetimer = 0
         if self.stage == 1:
             self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
         elif self.stage == 2:
@@ -333,11 +335,18 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins >= 30:
-            self.stage += 1
-            self.stagefinished = True
-            self.reset = True
-            self.playercoins = 0
+        if self.playercoins >= 5:
+            if self.stagetimer <= 50:
+                self.stagetimer += 1
+                self.display_surface.blit(self.stageimage, (0, 0))
+                print("Feynman is cool ", self.stagetimer)
+            else:
+                self.stagetimer = 0
+                self.stage += 1
+                self.stagefinished = True
+                self.reset = True
+                self.playercoins = 0
+                self.display_surface.blit(self.pizzaBackground, (0, 0))
 
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
