@@ -41,9 +41,6 @@ class Game:
         self.NDbackground = pygame.image.load("../resources/NDbackground2.png")
         self.helpbg = pygame.image.load("../resources/helpbg.png")
 
-        #font(s)
-        self.fontLevel = pygame.font.Font("../resources/PressStart2P.ttf", 20)
-
         # Variables
         self.startGame = False
         self.advClicked = False

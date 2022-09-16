@@ -383,10 +383,6 @@ class NoteLevel(TeleportLevel):
     def run(self):
         # background
         self.display_surface.blit(self.starbackground, (0, 0))
-        self.display_surface.blit(self.star1, (0, 0))
-        self.display_surface.blit(self.star2, (0, 0))
-        self.display_surface.blit(self.star3, (0, 0))
-        self.display_surface.blit(self.star4, (0, 0))
 
         # exit
         for event in pygame.event.get():
