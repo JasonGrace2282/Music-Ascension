@@ -333,7 +333,7 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins >= 40:
+        if self.playercoins >= 30:
             self.stage += 1
             self.stagefinished = True
             self.reset = True
@@ -363,7 +363,7 @@ class NoteLevel(TeleportLevel):
 
     def randomize_note(self):
         noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
-        notes = ["Middle C", "Middle D", "Middle E", "Middle F", "Middle G", "Middle A", "Middle B", "High C", "High D", "High E", "High F", "High G", "High A", "High B", "Max C"]
+        notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "High C", "High D", "High E", "High F", "High G", "High A", "High B", "Max C"]
 
         note = random.choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
@@ -383,6 +383,10 @@ class NoteLevel(TeleportLevel):
     def run(self):
         # background
         self.display_surface.blit(self.starbackground, (0, 0))
+        self.display_surface.blit(self.star1, (0, 0))
+        self.display_surface.blit(self.star2, (0, 0))
+        self.display_surface.blit(self.star3, (0, 0))
+        self.display_surface.blit(self.star4, (0, 0))
 
         # exit
         for event in pygame.event.get():
@@ -422,24 +426,24 @@ class NoteLevel(TeleportLevel):
         elif not self.backgroundmusic:
             pygame.mixer.music.stop()
         
-        if 0 <= self.starcounter < 10:
-            self.display_surface.blit(self.star1, (0, 0))
-            self.starcounter+=0.49
-        elif 10 <= self.starcounter < 20:
-            self.display_surface.blit(self.star2, (0, 0))
-            self.starcounter+=0.49
-        elif 20 <= self.starcounter < 30:
-            self.display_surface.blit(self.star3, (0, 0))
-            self.starcounter+=0.49
-        elif 30 <= self.starcounter < 40:
-            self.display_surface.blit(self.star4, (0, 0))
-            self.starcounter+=0.49
-        elif 40 <= self.starcounter < 50:
-            self.display_surface.blit(self.star3, (0, 0))
-            self.starcounter+=0.49
-        elif self.starcounter >= 50:
-            self.display_surface.blit(self.star2, (0, 0))
-            self.starcounter = 10
+        # if 0 <= self.starcounter < 10:
+        #     self.display_surface.blit(self.star1, (0, 0))
+        #     self.starcounter+=0.49
+        # elif 10 <= self.starcounter < 20:
+        #     self.display_surface.blit(self.star2, (0, 0))
+        #     self.starcounter+=0.49
+        # elif 20 <= self.starcounter < 30:
+        #     self.display_surface.blit(self.star3, (0, 0))
+        #     self.starcounter+=0.49
+        # elif 30 <= self.starcounter < 40:
+        #     self.display_surface.blit(self.star4, (0, 0))
+        #     self.starcounter+=0.49
+        # elif 40 <= self.starcounter < 50:
+        #     self.display_surface.blit(self.star3, (0, 0))
+        #     self.starcounter+=0.49
+        # elif self.starcounter >= 50:
+        #     self.display_surface.blit(self.star2, (0, 0))
+        #     self.starcounter = 10
 
         self.display_surface.blit(self.pizzaBackground, (0, 0))
 
