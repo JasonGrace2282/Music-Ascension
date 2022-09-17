@@ -131,6 +131,7 @@ class Game:
             if self.homeMusic:
                 while not pygame.mixer.Channel(4).get_busy():
                     pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic3.wav"))
+                    pygame.mixer.Channel(4).set_volume(10)
             
             if not self.homeMusic:
                 pygame.mixer.Channel(4).stop()
@@ -158,6 +159,7 @@ class Game:
 
             if not self.offCreditButton:
                 if self.creditsClicked:
+                    self.homeMusic = False
                     self.screen.fill((255, 255, 255))
                     self.screen.blit(self.creditsImage, (0, 0))
                     self.screen.blit(self.button, self.copyClipboard)
@@ -165,13 +167,19 @@ class Game:
                     while self.sleepCounter3 == 0:
                         time.sleep(0.5)
                         self.sleepCounter3 = 1
+                    while not pygame.mixer.music.get_busy():
+                        pygame.mixer.music.load("../resources/backgroundmusic2.wav")
+                        pygame.mixer.music.set_volume(0.3)
+                        pygame.mixer.music.play()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.creditsClicked = False
                             self.copied = False
+                            self.homeMusic = True
                             self.creditsCounter = 0
                             self.sleepCounter3 = 0
+                            pygame.mixer.music.stop()
                         if self.copyClipboard.collidepoint(event.pos) and self.creditsCounter == 1:
                             clipboard = tkinter.Tk()
                             clipboard.withdraw()
