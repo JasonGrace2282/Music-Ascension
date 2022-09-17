@@ -27,7 +27,7 @@ class TeleportLevel():
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
         self.mainmenuImage = pygame.image.load("../resources/quit2.png")
-        self.settingsImage = pygame.image.load("../resources/menu.png")
+        self.settingsImage = pygame.image.load("../resources/menubutton2.png")
         self.backImage = pygame.image.load("../resources/back2.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
@@ -242,7 +242,6 @@ class TeleportLevel():
             self.display_surface.blit(self.backImage, (0, 0))
             self.display_surface.blit(self.restartImage, (0, 100))
             self.display_surface.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
-            self.display_surface.blit(self.musicbutton, self.metronomeRect)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -260,14 +259,6 @@ class TeleportLevel():
                     if self.exitSettings.collidepoint(event.pos):
                         print("settings exited")
                         self.settingsClicked = False
-                    if self.metronomeRect.collidepoint(event.pos) and self.playMetronome:
-                        self.playMetronome = False
-                        print("Metronome off")
-                        pygame.time.delay(200)
-                    elif self.metronomeRect.collidepoint(event.pos) and not self.playMetronome:
-                        self.playMetronome = True
-                        print("Metronome on")
-                        pygame.time.delay(200)
 
         if self.player.sprite.rect.topleft[1] > height:
             self.display_surface.blit(self.restartImage, self.middle_restart)

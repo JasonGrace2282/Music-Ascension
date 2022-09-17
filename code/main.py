@@ -23,7 +23,7 @@ class Game:
         self.startButtonImage = pygame.image.load("../resources/start.png")
         self.creditsButtonImage = pygame.image.load("../resources/credits.png")
         self.nextButtonImage = pygame.image.load("../resources/next3.png")
-        self.beginnerMap = pygame.image.load("../resources/beginnermap2.png")
+        self.beginnerMap = pygame.image.load("../resources/beginnermap.png")
         self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
         self.beginnerImage = pygame.image.load("../resources/beginner.png")
         self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
@@ -130,7 +130,7 @@ class Game:
 
             if self.homeMusic:
                 while not pygame.mixer.Channel(4).get_busy():
-                    pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic2.wav"))
+                    pygame.mixer.Channel(4).play(pygame.mixer.Sound("../resources/backgroundmusic3.wav"))
             
             if not self.homeMusic:
                 pygame.mixer.Channel(4).stop()
