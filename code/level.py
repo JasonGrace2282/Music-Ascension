@@ -27,7 +27,7 @@ class TeleportLevel():
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
         self.mainmenuImage = pygame.image.load("../resources/quit2.png")
-        self.settingsImage = pygame.image.load("../resources/menubutton2.png")
+        self.settingsImage = pygame.image.load("../resources/menubutton3.png")
         self.backImage = pygame.image.load("../resources/back2.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
@@ -326,7 +326,7 @@ class NoteLevel(TeleportLevel):
             self.coincounter = 0
             self.player.sprite.coins = self.playercoins
         
-        if self.playercoins >= 5:
+        if self.playercoins >= 30:
             if self.stagetimer <= 50:
                 self.stagetimer += 1
                 self.display_surface.blit(self.stageimage, (0, 0))
@@ -369,6 +369,7 @@ class NoteLevel(TeleportLevel):
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note_text = font.render(note, True, (255, 255, 255))
+        self.noteselected_text = font.render("Find ", True, (255, 255, 255))
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
 
@@ -421,25 +422,6 @@ class NoteLevel(TeleportLevel):
 
         elif not self.backgroundmusic:
             pygame.mixer.music.stop()
-        
-        # if 0 <= self.starcounter < 10:
-        #     self.display_surface.blit(self.star1, (0, 0))
-        #     self.starcounter+=0.49
-        # elif 10 <= self.starcounter < 20:
-        #     self.display_surface.blit(self.star2, (0, 0))
-        #     self.starcounter+=0.49
-        # elif 20 <= self.starcounter < 30:
-        #     self.display_surface.blit(self.star3, (0, 0))
-        #     self.starcounter+=0.49
-        # elif 30 <= self.starcounter < 40:
-        #     self.display_surface.blit(self.star4, (0, 0))
-        #     self.starcounter+=0.49
-        # elif 40 <= self.starcounter < 50:
-        #     self.display_surface.blit(self.star3, (0, 0))
-        #     self.starcounter+=0.49
-        # elif self.starcounter >= 50:
-        #     self.display_surface.blit(self.star2, (0, 0))
-        #     self.starcounter = 10
 
         self.display_surface.blit(self.pizzaBackground, (0, 0))
 
@@ -470,9 +452,10 @@ class NoteLevel(TeleportLevel):
 
         if self.draw:
             self.player.draw(self.display_surface)
-
+            notemiddle = 700-self.note_text.get_width()/2
             if self.note_text != None:
-                self.display_surface.blit(self.note_text, (0, 0))
+                self.display_surface.blit(self.note_text, (notemiddle, 200))
+                self.display_surface.blit(self.noteselected_text, (notemiddle-self.noteselected_text.get_width(), 200))
             if self.coin_text != None:
                 self.display_surface.blit(self.coins, (960, 0))
                 self.display_surface.blit(self.coin_text, (1000, 0))

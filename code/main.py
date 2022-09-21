@@ -10,6 +10,7 @@ class Game:
         # Class which includes all variables
         pygame.init()
         pygame.mixer.init()
+        pygame.display.set_caption("Music Ascension")
         
 
         # Screen
@@ -169,7 +170,6 @@ class Game:
                         self.sleepCounter3 = 1
                     while not pygame.mixer.music.get_busy():
                         pygame.mixer.music.load("../resources/backgroundmusic2.wav")
-                        pygame.mixer.music.set_volume(0.3)
                         pygame.mixer.music.play()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -401,19 +401,19 @@ class Game:
                 if self.informationPage2:
                     self.screen.blit(self.NDhow2play, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
-                    while self.sleepCounter1 == 0:
+                    if self.sleepCounter1 == 0:
                         time.sleep(0.2)
                         self.sleepCounter1 = 1
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
-                                if self.choosebeginnerlevel:
-                                    self.level2picked = True
+                                print("Next Counter :", self.nextCounter)
+                                self.level2picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            if self.nextCounter != 1:
-                                self.nextCounter = self.nextCounter + 1
+                            if self.nextCounter == 0:
+                                self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
                     self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
