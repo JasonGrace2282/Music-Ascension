@@ -36,7 +36,8 @@ class TeleportLevel():
         self.star2 = pygame.image.load("../resources/star2.png")
         self.star3 = pygame.image.load("../resources/star3.png")
         self.star4 = pygame.image.load("../resources/star4.png")
-        self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
+        # self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
+        self.pizzaBackground = pygame.image.load("../resources/treblestaff.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
         self.stageimage = pygame.image.load("../resources/stagefinished.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
@@ -561,3 +562,27 @@ class NoteLevel(TeleportLevel):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+class BassNoteLevel(NoteLevel):
+    def __init__(self, level_data, surface, stage):
+        super().__init__(level_data, surface, stage)
+    
+    def randomize_note(self):
+        noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
+        notes = ["Min C", "Min D", "Min E", "Min F", "Min G", "Min A", "Min B", "Low C", "Low D", "Low E", "Low F", "Low G", "Low A", "Low B", "Mid C"]
+
+        note = random.choice(notes)
+        font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
+        self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
+        self.note_text = font.render(note, True, (255, 255, 255))
+        self.noteselected_text = font.render("Find ", True, (255, 255, 255))
+        self.note = note
+        self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
+
+        self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
+
+        yResult = noteY[notes.index(note)]
+        house = NoteTile((self.player.sprite.pos[0] + 1200, yResult), (64, 64), True, True, "../resources/house.png")
+        self.house.add(house)
+        barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, False)
+        self.barrier.add(barrier)

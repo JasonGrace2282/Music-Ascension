@@ -1,6 +1,6 @@
 import pygame, sys, time, tkinter
 from setup import *
-from level import TeleportLevel, NoteLevel
+from level import TeleportLevel, BassNoteLevel
 
 # Main class
 
@@ -416,7 +416,7 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
@@ -427,7 +427,7 @@ class Game:
                         self.completecounter += 1
                         if self.completecounter >= 20:
                             self.level.run()
-                            self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level1picked = False
