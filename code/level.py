@@ -568,6 +568,14 @@ class BassNoteLevel(NoteLevel):
         super().__init__(level_data, surface, stage)
     
     def randomize_note(self):
+        noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
+
+        """pos = (0, 100)
+        for i in range(1, 6):
+            tile = NoteTile(pos, (9000, 20), "G", False)
+            self.tiles.add(tile)
+            pos = (pos[0], pos[1]+100"""
+
         noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
         notes = ["Min C", "Min D", "Min E", "Min F", "Min G", "Min A", "Min B", "Low C", "Low D", "Low E", "Low F", "Low G", "Low A", "Low B", "Mid C"]
 
