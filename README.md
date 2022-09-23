@@ -1,13 +1,13 @@
 # Music Ascension
 by the Captains of Code: <br/>
 Aarush Deshpande, Mihir Nimkar, Anika Dureja and Ayush Rao<br>
-<h1>Problem Statement</h1>
+<h2>Problem Statement</h2>
 People in music classes are struggling with music theory or notation, and need a different style of learning and practicing other than the typical classroom style. While there are other apps that do similiar things, they may cost money which low-income families cannot afford, have ads, or aren’t as fun to use. This motivated us to create this game as a way to make learning music theory more fun, while staying free! It is meant to supplement the information learned in school and to be used as a fun way to practice and develop music reading skills.
 
-<h1>Who is it for? What can I run it on?</h1>
+<h2>Who is it for? What can I run it on?</h2>
 As mentioned previously, the game is meant for students learning basic music theory in school. It is meant to be used as a supplementary tool to the learning happening in school, and can also be used as a practice tool to practice concepts learned. The program is designed for Windows; the game may not work as it is intended to on other operating systems.
 
-<h1> How to Play?</h1>
+<h2> How to Play?</h2>
 When you open the file, you will be greeted with a screen that shows two buttons, Start and Credits. If you click on credits, you can see a button. When you click the button, the link to our image credits (so that we aren't plagerizing) is copied to your clipboard. The credits can also be found <link href='https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing'>here</link>. However in order to start the game, you must click on the start button. 
 
 After that, you can choose the level of experience you have with music theory. 
@@ -31,12 +31,12 @@ This is the simplest way to download the program. All you need to do is go to ou
 <li>Clone the git repository<br>
 Another way you can run the program is by cloning the git repository. To do that, you first go to our git repositry, linked <link href='https://github.com/JasonGrace2282/Music-Ascension'>here</link>, and click on code. Underneath, you will find an option that says download ZIP. Click that and put the folder in an easy to remember location. Right click on the folder and click extract all, and choose your extraction location. After that, you can open the IDE of your choice, and open up the extracted files. It will have two important folders: code and resources. Opening the resources folder shows you the images and audio in the game. However, to run the code, you must open the code folder and open main.py. Running main.py will launch the game. Enjoy!</li></ol>
 
-<h1>Troubleshooting</h1>
+<h2>Troubleshooting</h2>
 <ul><li>If the program could not access the location of an image, you might need to go into your IDE's run configuration and add the folder "<b style="font-family:Consolas">code</b>" to the end of it. Alternatively, if your IDE has a terminal (like VSCode for example), all you need to do is go into the terminal and type "<b style="font-family:Consolas"><a style="color:orange">cd code</a></b>"</li>
 <li>If the buttons are not working, do not worry! You should just spam click the button until it works</li>
 <li>After running the program, if the pygame window is larger than your computer/monitors screen size, you will need to adjust your screen scale and layout. On windows the process is as follows: Go to your settings. Click Display and scroll down to Scale and Layout. The first option in scale and layout is a percentage (The title is "Change the size of text, apps, and other items). If the pygame window is larger than your screen, you will typically need to adjust that percentage to about 100%. However, adjust this percentage until the pygame window fits in your screen.</li></ul>
 
-<h1> Tools and libraries used</h1>
+<h2> Tools and libraries used</h2>
 <ul><li>Python 3.10</li>
 <li>Github</li>
 <li>Pygame Library</li>
@@ -44,7 +44,7 @@ Another way you can run the program is by cloning the git repository. To do that
 <li>Time Library</li>
 <li>tkinter Library</li></ul>
 
-<h1>Known Errors</h1>
+<h2>Known Errors</h2>
 <ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and runnign the program") and comment out (using hastings #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
