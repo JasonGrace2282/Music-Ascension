@@ -390,19 +390,19 @@ class NoteLevel(TeleportLevel):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
                     print("settings clicked")
-                if event.type == pygame.MOUSEBUTTONDOWN and self.settings2:
+                elif event.type == pygame.MOUSEBUTTONDOWN and self.settings2:
                     if self.mainmenu2.collidepoint(event.pos):
                         print("main menu")
                         self.back2 = True
                         pygame.mixer.music.stop()
-                    if self.exitSettings2.collidepoint(event.pos):
+                    elif self.exitSettings2.collidepoint(event.pos):
                         print("settings exited")
                         self.settingsClicked2 = False
-                    if self.musicRect2.collidepoint(event.pos):
+                    elif self.musicRect2.collidepoint(event.pos):
                         if self.backgroundmusic:
                             if self.musicCounter == 0:
                                 self.musicCounter+=1
@@ -438,6 +438,7 @@ class NoteLevel(TeleportLevel):
         self.tiles.draw(self.display_surface)
         self.house.draw(self.display_surface)
         self.display_surface.blit(self.settingsImage, (960-self.settingsImage.get_width(), 0))
+
         if self.old_house != None and self.draw_old:
             self.old_house.update(self.h_shift, "x")
             self.old_house.draw(self.display_surface)
@@ -514,46 +515,46 @@ class NoteLevel(TeleportLevel):
         if self.player.sprite.pos[1] == 720 and self.stage == 1:
             note_helper = self.font3.render("Mid C", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 672 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 672 and self.stage == 1:
             note_helper = self.font3.render("Mid D", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 624 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 624 and self.stage == 1:
             note_helper = self.font3.render("Mid E", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 576 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 576 and self.stage == 1:
             note_helper = self.font3.render("Mid F", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 528 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 528 and self.stage == 1:
             note_helper = self.font3.render("Mid G", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 480 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 480 and self.stage == 1:
             note_helper = self.font3.render("Mid A", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 432 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 432 and self.stage == 1:
             note_helper = self.font3.render("Mid B", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 384 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 384 and self.stage == 1:
             note_helper = self.font3.render("High C", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 336 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 336 and self.stage == 1:
             note_helper = self.font3.render("High D", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 288 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 288 and self.stage == 1:
             note_helper = self.font3.render("High E", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 240 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 240 and self.stage == 1:
             note_helper = self.font3.render("High F", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 192 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 192 and self.stage == 1:
             note_helper = self.font3.render("High G", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 144 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 144 and self.stage == 1:
             note_helper = self.font3.render("High A", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 96 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 96 and self.stage == 1:
             note_helper = self.font3.render("High B", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
-        if self.player.sprite.pos[1] == 48 and self.stage == 1:
+        elif self.player.sprite.pos[1] == 48 and self.stage == 1:
             note_helper = self.font3.render("Max C", True, (255, 255, 255))
             self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
 
