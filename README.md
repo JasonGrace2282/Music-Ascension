@@ -45,7 +45,7 @@ Another way you can run the program is by cloning the git repository. To do that
 <li>tkinter Library</li></ul>
 
 <h2>Known Errors</h2>
-<ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and runnign the program") and comment out (using hastings #) the audio files that are causing the program to crash.</li></ul></li>
+<ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and runnign the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
 <li>You may have to click a button several times for it to work</li></ul>
