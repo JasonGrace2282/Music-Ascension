@@ -32,7 +32,8 @@ Another way you can run the program is by cloning the git repository. To do that
 
 <h1>Troubleshooting</h1>
 <ul><li>If the program could not access the location of an image, you might need to go into your IDE's run configuration and add the folder "<b style="font-family:Consolas">code</b>" to the end of it. Alternatively, if your IDE has a terminal (like VSCode for example), all you need to do is go into the terminal and type "<b style="font-family:Consolas"><a style="color:orange">cd code</a>"</li>
-<li>If the buttons are not working, do not worry! You should just spam click the button until it works</li></ul>
+<li>If the buttons are not working, do not worry! You should just spam click the button until it works</li>
+<li>After running the program, if the pygame window is larger than your computer/monitors screen size, you will need to adjust your screen scale and layout. On windows the process is as follows: Go to your settings. Click Display and scroll down to Scale and Layout. The first option in scale and layout is a percentage (The title is "Change the size of text, apps, and other items). If the pygame window is larger than your screen, you will typically need to adjust that percentage to about 100%. However, adjust this percentage until the pygame window fits in your screen.</li></ul>
 
 <h1> Tools and libraries used</h1>
 <ul><li>Python 3.10</li>
