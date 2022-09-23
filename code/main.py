@@ -1,6 +1,6 @@
 import pygame, sys, time, tkinter
 from setup import *
-from level import TeleportLevel, BassNoteLevel
+from level import TeleportLevel, NoteLevel, BassNoteLevel
 
 # Main class
 
@@ -55,11 +55,11 @@ class Game:
         self.stageChooser2 = False
         self.level1picked = False
         self.level2picked = False
+        self.level3picked = False
         self.informationPage2 = False
         self.advancedMap = False
         self.DurationStage2 = False
         self.DurationStage3 = False
-        self.pizzaMan2 = False
         self.pizzaMan3 = False
         self.metronome_counter = False
         self.copied = False
@@ -97,7 +97,7 @@ class Game:
         self.wholenoteAudio = pygame.Rect(461, 330, self.playButton.get_width(), self.playButton.get_height())
         self.halfnoteAudio = pygame.Rect(1038, 65, self.playButton.get_width(), self.playButton.get_height())
         self.eighthnoteAudio = pygame.Rect(1038, 330, self.playButton.get_width(), self.playButton.get_height())
-        self.NDstage2 = pygame.Rect(400, 340, 140, 215)
+        self.level3 = pygame.Rect(400, 340, 140, 215)
         self.pizza_man_2 = pygame.Rect(605, 340, 140, 215)
         self.NDstage3 = pygame.Rect(830, 340, 140, 215)
         self.pizza_man_3 = pygame.Rect(1015, 340, 140, 215)
@@ -274,12 +274,12 @@ class Game:
                         self.stageChooser = True
                     elif self.noteDurationStage2.collidepoint(event.pos):
                         self.stageChooser2 = True
-                    elif self.NDstage2.collidepoint(event.pos):
-                        self.DurationStage2 = True
+                    elif self.level3.collidepoint(event.pos):
+                        self.level3picked = True
                     elif self.NDstage3.collidepoint(event.pos):
                         self.DurationStage3 = True
                     elif self.pizza_man_2.collidepoint(event.pos):
-                        self.pizzaMan2 = True
+                        self.level3picked = True
                     elif self.pizza_man_3.collidepoint(event.pos):
                         self.pizzaMan3 = True
                     elif self.helpRect.collidepoint(event.pos):
@@ -314,13 +314,35 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage3 = False
 
-                if self.pizzaMan2:
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
-                    # Insert code for stage 2 of pizza man minigame
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.backRect.collidepoint(event.pos):
-                            self.pizzaMan2 = False
+                if self.level3picked and self.counter == 0:
+                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                    self.counter = 1
+                    print("e")
+
+                if self.level3picked:
+                    self.homeMusic = False
+                    self.screen.fill("black")
+                    self.level.run()
+                    if self.level.reset and self.level.stagefinished:
+                        self.completecounter += 1
+                        if self.completecounter >= 20:
+                            self.level.run()
+                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.completecounter = 0
+                    elif self.level.chain:
+                        self.level1picked = False
+                        self.stageChooser = False
+                        self.counter = 0
+                    if self.level.back3 == True:
+                        self.level3picked = False
+                        self.stageChooser = False
+                        self.pizzaInfo2 = False
+                        self.level.back3 = False
+                        self.level.settingsClicked2 = False
+                        self.counter = 0
+                        self.level.backgroundmusic = True
+                        self.homeMusic = True
+                        pygame.mixer.music.stop()
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
@@ -416,7 +438,7 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                    self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
@@ -427,7 +449,7 @@ class Game:
                         self.completecounter += 1
                         if self.completecounter >= 20:
                             self.level.run()
-                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level1picked = False
@@ -481,7 +503,7 @@ class Game:
                         self.counter = 0
                         self.DurationStage2 = False
                         self.DurationStage3 = False
-                        self.pizzaMan2 = False
+                        self.level3clicked = False
                         self.pizzaMan3 = False
                         self.level.playMetronome = False
                         self.homeMusic = True

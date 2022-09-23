@@ -36,8 +36,7 @@ class TeleportLevel():
         self.star2 = pygame.image.load("../resources/star2.png")
         self.star3 = pygame.image.load("../resources/star3.png")
         self.star4 = pygame.image.load("../resources/star4.png")
-        # self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
-        self.pizzaBackground = pygame.image.load("../resources/treblestaff.png")
+        self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
         self.stageimage = pygame.image.load("../resources/stagefinished.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
@@ -59,6 +58,7 @@ class TeleportLevel():
         self.reset = False
         self.back = False
         self.back2 = False
+        self.back3 = False
         self.playMetronome = True
         self.starcounter = 0
         self.staff = pygame.sprite.GroupSingle()
@@ -567,6 +567,7 @@ class NoteLevel(TeleportLevel):
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage):
         super().__init__(level_data, surface, stage)
+        self.pizzaBackground = pygame.image.load("../resources/bassclef.png")
     
     def randomize_note(self):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
