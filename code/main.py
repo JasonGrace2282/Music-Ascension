@@ -34,7 +34,7 @@ class Game:
         self.backImage = pygame.image.load("../resources/back3.png")
         self.button = pygame.image.load("../resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("../resources/treble_notes.png")
-        self.pizzaPlay = pygame.image.load("../resources/pizza_notes.png")
+        self.pizzaplaynotes = pygame.image.load("../resources/pizza_notes.png")
         self.creditsImage = pygame.image.load("../resources/creditsbackground.png")
         self.copiedtxt = pygame.image.load("../resources/copied.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
@@ -366,7 +366,7 @@ class Game:
                 
                 if self.pizzaInfo2:
                     self.screen.fill(0)
-                    self.screen.blit(self.pizzaPlay, (0, 0))
+                    self.screen.blit(self.pizzaplaynotes, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:

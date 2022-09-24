@@ -27,19 +27,18 @@ class TeleportLevel():
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
         self.mainmenuImage = pygame.image.load("../resources/quit2.png")
-        self.settingsImage = pygame.image.load("../resources/menubutton3.png")
+        self.settingsImage = pygame.image.load("../resources/menubutton2.png")
         self.backImage = pygame.image.load("../resources/back2.png")
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
         self.coins = pygame.image.load("../resources/coins5.png")
-        self.star1 = pygame.image.load("../resources/star1.png")
-        self.star2 = pygame.image.load("../resources/star2.png")
-        self.star3 = pygame.image.load("../resources/star3.png")
-        self.star4 = pygame.image.load("../resources/star4.png")
         self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
         self.stageimage = pygame.image.load("../resources/stagefinished.png")
-        self.pizzaBackground = pygame.image.load("../resources/bassclef.png")
+        self.pizzaBackground2 = pygame.image.load("../resources/bassclef.png")
+        self.helpimage = pygame.image.load("../resources/help2.png")
+        self.helpbg = pygame.image.load("../resources/pizza_notes.png")
+        self.pizzaBackground2 = pygame.image.load("../resources/bassclef.png")
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
@@ -48,10 +47,13 @@ class TeleportLevel():
         self.mainmenu2 = pygame.Rect(0, self.backImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.middle_mainmenu = pygame.Rect(width/2-self.mainmenuImage.get_width()/2, 450-self.mainmenuImage.get_height()/2, self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.settings = pygame.Rect(100, 0, self.settingsImage.get_width(), self.settingsImage.get_height())
-        self.settings2 = pygame.Rect(1200-self.settingsImage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
+        self.settings2 = pygame.Rect(1200-self.settingsImage.get_width()-self.helpimage.get_width(), 0, self.settingsImage.get_width(), self.settingsImage.get_height())
         self.musicRect2 = pygame.Rect(0, self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
         self.pizzaFinishedMenu = pygame.Rect(1200-self.settingsImage.get_width(), 790-self.settingsImage.get_height(), self.settingsImage.get_width(), self.settingsImage.get_height())
         self.metronomeRect = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height()+self.mainmenuImage.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
+        self.helpRect = pygame.Rect(width-self.helpimage.get_width(), 0, self.helpimage.get_width(), self.helpimage.get_height())
+        self.backbuttonRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
+        self.helpbool = False
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
@@ -317,7 +319,6 @@ class NoteLevel(TeleportLevel):
         player.rect.centerx += player.direction.x * player.speed
 
         if self.house.sprite.rect.colliderect(player.rect) and self.note == self.player.sprite.note:
-            print("it worked")
             self.draw_old = False
             self.playerdelivered = True
             if self.coincounter == 0:
@@ -396,7 +397,7 @@ class NoteLevel(TeleportLevel):
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
                     print("settings clicked")
-                if self.settingsClicked2:
+                elif self.settingsClicked2:
                     if self.mainmenu2.collidepoint(event.pos):
                         print("main menu")
                         self.back2 = True
@@ -415,6 +416,11 @@ class NoteLevel(TeleportLevel):
                                 self.musicCounter-=1
                                 self.backgroundmusic = True
                                 print("Feynman is cool ", self.musicCounter)
+                elif self.helpRect.collidepoint(event.pos):
+                    self.helpbool = True
+                elif self.backbuttonRect.collidepoint(event.pos):
+                    if self.helpbool:
+                        self.helpbool = False
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
@@ -440,6 +446,7 @@ class NoteLevel(TeleportLevel):
         self.tiles.draw(self.display_surface)
         self.house.draw(self.display_surface)
         self.display_surface.blit(self.settingsImage, self.settings2)
+        self.display_surface.blit(self.helpimage, self.helpRect)
 
         if self.old_house != None and self.draw_old:
             self.old_house.update(self.h_shift, "x")
@@ -561,6 +568,10 @@ class NoteLevel(TeleportLevel):
             elif self.player.sprite.pos[1] == 48:
                 note_helper = self.font3.render("Max C", True, (255, 255, 255))
                 self.display_surface.blit(note_helper, (952, self.player.sprite.pos[1]))
+        
+        if self.helpbool:
+            self.display_surface.blit(self.helpbg, (0, 0))
+            self.display_surface.blit(self.backImage, self.backbuttonRect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

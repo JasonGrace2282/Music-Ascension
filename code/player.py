@@ -200,6 +200,7 @@ class NotePlayer(TeleportPlayer):
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
+            pygame.mixer.Channel(1).set_volume(0.4)
             if self.pos[1] == 720:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midC.wav"))
