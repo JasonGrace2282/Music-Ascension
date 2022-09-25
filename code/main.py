@@ -111,7 +111,7 @@ class Game:
         self.end = 0
         self.done = False
 
-        #infinity variable
+        #infinity loop variable. (for loops are faster than while loops)
         self.inf_loop = [0]
 
     def run(self):
