@@ -115,7 +115,7 @@ class Game:
         self.inf_loop = [0]
 
     def run(self):
-        for value in self.inf_loop:
+        for infvalue in self.inf_loop:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
@@ -530,6 +530,6 @@ class Game:
                 self.start = 0
                 self.end = 0
             if not self.stop:
-                self.inf_loop.append(value+1)
+                self.inf_loop.append(infvalue+1)
 
 Game().run()
