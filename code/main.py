@@ -1,4 +1,4 @@
-import pygame, sys, time, tkinter
+import pygame, sys, time, tkinter, math
 from setup import *
 from level import TeleportLevel, NoteLevel, BassNoteLevel
 
@@ -70,6 +70,7 @@ class Game:
         self.isInt = True
         self.NDaudioBool = False
         self.helpbool = False
+        self.stop = False
         self.homeMusic = True
         self.spaceCounter1 = 1
         self.spaceCounter2 = 0
@@ -110,11 +111,15 @@ class Game:
         self.end = 0
         self.done = False
 
+        #infinity variable
+        self.inf_loop = [0]
+
     def run(self):
-        while True:
+        for value in self.inf_loop:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
+                    self.stop = True
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
@@ -126,8 +131,6 @@ class Game:
                         self.end = time.time()
                         self.done = True
                         print(round(self.end - self.start, 3))
-
-                # Forever rest in piece, 200 lines of code deleted because they did the wrong thing
 
             if self.homeMusic:
                 while not pygame.mixer.Channel(4).get_busy():
@@ -526,7 +529,7 @@ class Game:
             if self.done:
                 self.start = 0
                 self.end = 0
+            if not self.stop:
+                self.inf_loop.append(value+1)
 
-
-game = Game()
-game.run()
+Game().run()

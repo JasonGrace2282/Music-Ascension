@@ -1,7 +1,6 @@
-list = [698+22, 650+22, 602+22, 554+22, 506+22, 458+22, 410+22, 362+22, 314+22, 266+22, 218+22, 170+22, 122+22, 74+22, 26+22]
-new = []
-
-for thing in list:
-    new.append(thing)
-
-print(new)
+my_list = [0]
+for i in my_list:
+    print(i)
+    if i==10:
+        exit(0)
+    my_list.append(i+1)
