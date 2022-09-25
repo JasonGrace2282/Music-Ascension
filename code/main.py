@@ -527,6 +527,6 @@ class Game:
                 self.start = 0
                 self.end = 0
             if not self.stop:
-                self.inf_loop.append(infvalue+1)
+                self.inf_loop.append('Richard Feynman is cool')
 
 Game().run()
