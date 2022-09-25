@@ -168,9 +168,6 @@ class Game:
                     self.screen.blit(self.creditsImage, (0, 0))
                     self.screen.blit(self.button, self.copyClipboard)
                     self.screen.blit(self.backImage, self.backRect)
-                    while self.sleepCounter3 == 0:
-                        time.sleep(0.5)
-                        self.sleepCounter3 = 1
                     while not pygame.mixer.music.get_busy():
                         pygame.mixer.music.load("../resources/backgroundmusic2.wav")
                         pygame.mixer.music.play()
