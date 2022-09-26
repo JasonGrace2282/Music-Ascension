@@ -398,7 +398,7 @@ class NoteLevel(TeleportLevel):
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
                     print("settings clicked")
-                elif self.settingsClicked2:
+                if self.settingsClicked2:
                     if self.mainmenu2.collidepoint(event.pos):
                         print("main menu")
                         self.back2 = True
