@@ -179,7 +179,7 @@ class NotePlayer(TeleportPlayer):
         self.rect_image = pygame.image.load("../resources/hitbox.png")
         self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
-        self.start = time.time()
+        self.start = time.perf_counter()
         self.chain = False
         self.delivered = False
         self.coins = 0
@@ -273,7 +273,7 @@ class NotePlayer(TeleportPlayer):
             self.direction.x = 1
         else:
             self.direction.x = 0
-        self.end = time.time()
+        self.end = time.perf_counter()
         if self.end - self.start >= self.difficulty_time:
             self.ready = True
         if self.end - self.start >= 100:

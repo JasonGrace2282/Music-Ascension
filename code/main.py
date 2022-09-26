@@ -1,3 +1,4 @@
+from itertools import cycle
 import pygame, sys, time, tkinter, math
 from setup import *
 from level import TeleportLevel, NoteLevel, BassNoteLevel
@@ -70,7 +71,6 @@ class Game:
         self.isInt = True
         self.NDaudioBool = False
         self.helpbool = False
-        self.stop = False
         self.homeMusic = True
         self.spaceCounter1 = 1
         self.spaceCounter2 = 0
@@ -111,24 +111,20 @@ class Game:
         self.end = 0
         self.done = False
 
-        #infinity loop variable. (for loops are faster than while loops)
-        self.inf_loop = [0]
-
     def run(self):
-        for infvalue in self.inf_loop:
+        for repeater1 in cycle((1, 1)):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
-                    self.stop = True
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.start = time.time()
+                        self.start = time.perf_counter()
                         self.done = False
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
-                        self.end = time.time()
+                        self.end = time.perf_counter()
                         self.done = True
                         print(round(self.end - self.start, 3))
 
@@ -526,7 +522,5 @@ class Game:
             if self.done:
                 self.start = 0
                 self.end = 0
-            if not self.stop:
-                self.inf_loop.append('Richard Feynman is cool')
 
 Game().run()
