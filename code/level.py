@@ -33,6 +33,7 @@ class TeleportLevel():
         self.pizzaWin = pygame.image.load("../resources/pizza_delivered.png")
         self.coins = pygame.image.load("../resources/coins5.png")
         self.pizzaBackground = pygame.image.load("../resources/backgroundpizza2.png")
+        self.pizzaBackground2 = pygame.image.load("../resources/bassclef.png")
         self.starbackground = pygame.image.load("../resources/starbg.png")
         self.stageimage = pygame.image.load("../resources/stagefinished.png")
         self.pizzaBackground2 = pygame.image.load("../resources/bassclef.png")
@@ -195,7 +196,7 @@ class TeleportLevel():
                     self.stagefinished = True
                     sprite.is_last = False
                 note = pygame.font.Font("../resources/PressStart2P.ttf", 40)
-                self.note_text = note.render(self.player.sprite.level_note, True, (255, 255, 255))
+                self.note_text = note.render(f'{self.player.sprite.level_note}', True, (255, 255, 255))
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -325,6 +326,7 @@ class NoteLevel(TeleportLevel):
             if self.coincounter == 0:
                 self.player.sprite.coins = self.playercoins + random.randint(5, 8)
                 self.playercoins = self.player.sprite.coins
+                pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
                 self.coincounter = 1
         else:
             self.coincounter = 0
@@ -372,7 +374,7 @@ class NoteLevel(TeleportLevel):
         note = random.choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
-        self.note_text = font.render(note, True, (255, 255, 255))
+        self.note_text = font.render(f'Find {note}', True, (255, 255, 255))
         self.noteselected_text = font.render("Find ", True, (255, 255, 255))
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
@@ -467,10 +469,8 @@ class NoteLevel(TeleportLevel):
 
         if self.draw:
             self.player.draw(self.display_surface)
-            notemiddle = 700-self.note_text.get_width()/2
             if self.note_text != None:
-                self.display_surface.blit(self.note_text, (notemiddle, 200))
-                self.display_surface.blit(self.noteselected_text, (notemiddle-self.noteselected_text.get_width(), 200))
+                self.display_surface.blit(self.note_text, (700-self.note_text.get_width()/2, 200))
             if self.coin_text != None:
                 self.display_surface.blit(self.coins, (self.settingsImage.get_width(), 0))
                 self.display_surface.blit(self.coin_text, (self.settingsImage.get_width()+self.coins.get_width(), 0))
@@ -610,8 +610,6 @@ class BassNoteLevel(NoteLevel):
         note = random.choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
-        self.note_text = font.render(note, True, (255, 255, 255))
-        self.noteselected_text = font.render("Find ", True, (255, 255, 255))
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
 

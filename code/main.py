@@ -271,10 +271,11 @@ class Game:
                     elif self.noteDurationStage2.collidepoint(event.pos):
                         self.stageChooser2 = True
                     elif self.level3.collidepoint(event.pos):
-                        self.level3picked = True
+                        print("trial")
                     elif self.NDstage3.collidepoint(event.pos):
                         self.DurationStage3 = True
                     elif self.pizza_man_2.collidepoint(event.pos):
+                        print("Warning: File May Glitch.\nThis game is not finsished yet")
                         self.level3picked = True
                     elif self.pizza_man_3.collidepoint(event.pos):
                         self.pizzaMan3 = True
@@ -309,36 +310,6 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage3 = False
-
-                if self.level3picked and self.counter == 0:
-                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
-                    self.counter = 1
-                    print("e")
-
-                if self.level3picked:
-                    self.homeMusic = False
-                    self.screen.fill("black")
-                    self.level.run()
-                    if self.level.reset and self.level.stagefinished:
-                        self.completecounter += 1
-                        if self.completecounter >= 20:
-                            self.level.run()
-                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
-                            self.completecounter = 0
-                    elif self.level.chain:
-                        self.level1picked = False
-                        self.stageChooser = False
-                        self.counter = 0
-                    if self.level.back3 == True:
-                        self.level3picked = False
-                        self.stageChooser = False
-                        self.pizzaInfo2 = False
-                        self.level.back3 = False
-                        self.level.settingsClicked2 = False
-                        self.counter = 0
-                        self.level.backgroundmusic = True
-                        self.homeMusic = True
-                        pygame.mixer.music.stop()
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
@@ -510,17 +481,46 @@ class Game:
                     if self.level.playMetronome:
                         if not pygame.mixer.Channel(0).get_busy():
                             pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
-                    elif not self.level.playMetronome:
-                        pygame.mixer.Channel(0).stop()
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):
                             self.level.settingsClicked = True
+                    
+                if self.level3picked and self.counter == 0:
+                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                    self.counter = 1
+                    print("e")
+
+                if self.level3picked:
+                    self.homeMusic = False
+                    self.screen.fill("black")
+                    self.level.run()
+                    if self.level.reset and self.level.stagefinished:
+                        self.completecounter += 1
+                        if self.completecounter >= 20:
+                            self.level.run()
+                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.completecounter = 0
+                    elif self.level.chain:
+                        self.level1picked = False
+                        self.stageChooser = False
+                        self.counter = 0
+                    if self.level.back3 == True:
+                        self.level3picked = False
+                        self.stageChooser = False
+                        self.pizzaInfo2 = False
+                        self.level.back3 = False
+                        self.level.settingsClicked2 = False
+                        self.counter = 0
+                        self.level.backgroundmusic = True
+                        self.homeMusic = True
+                        pygame.mixer.music.stop()
 
             # Update Screen
             pygame.display.update()
             if self.done:
                 self.start = 0
                 self.end = 0
-
-Game().run()
+                
+if __name__ == '__main__':
+    Game().run()
