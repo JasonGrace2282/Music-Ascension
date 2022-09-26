@@ -105,10 +105,17 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.rect.y += self.direction.y
 
     def teleport(self):
+        self.delta = round(self.delta, 2)
+
+        if not self.correctnote:
+            print("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
+        elif self.correctnote:
+            print("You correctly chose the note on the staff!")
+        
         if self.delta <= 0:
             pass
         elif 0.1 <= self.delta < 0.4:
-            print("mission failed, we'll get e'm next time")
+            print("Aww, you needed to hold it a little bit longer!")
         elif 0.4 <= self.delta < 0.6 and self.correctnote:
             print("0.5")
             self.direction.y -= 32
@@ -116,7 +123,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.y += 32
             self.direction.x += 16
         elif 0.6 <= self.delta < 0.9:
-            print("mission failed, we'll get e'm next time")
+            print("Aww, you didn't hold it for the right amount of time")
         elif 0.9 <= self.delta < 1.1 and self.correctnote:
             print("1")
             self.direction.y -= 64
@@ -124,7 +131,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.y += 64
             self.direction.x += 24
         elif 1.1 <= self.delta < 1.4:
-            print("mission failed, we'll get e'm next time")
+            print("mission failed successfully.")
         elif 1.4 <= self.delta < 1.6 and self.correctnote:
             print("1.5")
             self.direction.y -= 96
@@ -172,7 +179,7 @@ class NotePlayer(TeleportPlayer):
         self.rect_image = pygame.image.load("../resources/hitbox.png")
         self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
-        self.start = time.time()
+        self.start = time.perf_counter()
         self.chain = False
         self.delivered = False
         self.coins = 0
@@ -182,7 +189,7 @@ class NotePlayer(TeleportPlayer):
         keys = pygame.key.get_pressed()
 
         if not self.counter:
-            time.sleep(0.2)
+            time.sleep(0.1)
             self.counter = True
         elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
             print("hi")
@@ -193,49 +200,50 @@ class NotePlayer(TeleportPlayer):
             self.counter = False
         elif keys[pygame.K_SPACE]:
             self.ready = True
+            pygame.mixer.Channel(1).set_volume(0.4)
             if self.pos[1] == 720:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midC.wav"))
-            if self.pos[1] == 672:
+            elif self.pos[1] == 672:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midD.wav"))
-            if self.pos[1] == 624:
+            elif self.pos[1] == 624:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midE.wav"))
-            if self.pos[1] == 576:
+            elif self.pos[1] == 576:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midF.wav"))
-            if self.pos[1] == 528:
+            elif self.pos[1] == 528:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midG.wav"))
-            if self.pos[1] == 480:
+            elif self.pos[1] == 480:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midA.wav"))
-            if self.pos[1] == 432:
+            elif self.pos[1] == 432:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/midB.wav"))
-            if self.pos[1] == 384:
+            elif self.pos[1] == 384:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highC.wav"))
-            if self.pos[1] == 336:
+            elif self.pos[1] == 336:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highD.wav"))
-            if self.pos[1] == 288:
+            elif self.pos[1] == 288:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highE.wav"))
-            if self.pos[1] == 240:
+            elif self.pos[1] == 240:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highF.wav"))
-            if self.pos[1] == 192:
+            elif self.pos[1] == 192:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highG.wav"))
-            if self.pos[1] == 144:
+            elif self.pos[1] == 144:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highA.wav"))
-            if self.pos[1] == 96:
+            elif self.pos[1] == 96:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/highB.wav"))
-            if self.pos[1] == 48:
+            elif self.pos[1] == 48:
                 while not pygame.mixer.Channel(1).get_busy():
                     pygame.mixer.Channel(1).play(pygame.mixer.Sound("../resources/maxC.wav"))
     
@@ -249,7 +257,7 @@ class NotePlayer(TeleportPlayer):
     
     def find_note(self):
         noteY = [720, 672, 624, 576, 528, 480, 432, 384, 336, 288, 240, 192, 144, 96, 48]
-        notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "Hi C", "Hi D", "Hi E", "Hi F", "Hi G", "Hi A", "Hi B", "Max C"]
+        notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "High C", "High D", "High E", "High F", "High G", "High A", "High B", "Max C"]
 
         self.note = notes[noteY.index(self.pos[1])]
                     
@@ -265,7 +273,7 @@ class NotePlayer(TeleportPlayer):
             self.direction.x = 1
         else:
             self.direction.x = 0
-        self.end = time.time()
+        self.end = time.perf_counter()
         if self.end - self.start >= self.difficulty_time:
             self.ready = True
         if self.end - self.start >= 100:
