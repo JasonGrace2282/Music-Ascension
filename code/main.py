@@ -1,5 +1,5 @@
 from itertools import cycle
-import pygame, sys, time, tkinter, math
+import pygame, sys, time, tkinter
 from setup import *
 from level import TeleportLevel, NoteLevel, BassNoteLevel
 
