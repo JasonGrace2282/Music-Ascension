@@ -258,6 +258,7 @@ class NotePlayer(TeleportPlayer):
     def find_note(self):
         noteY = [720, 672, 624, 576, 528, 480, 432, 384, 336, 288, 240, 192, 144, 96, 48]
         notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "High C", "High D", "High E", "High F", "High G", "High A", "High B", "Max C"]
+        notes = ["Min C", "Min D", "Min E", "Min F", "Min G", "Min A", "Min B", "Low C", "Low D", "Low E", "Low F", "Low G", "Low A", "Low B", "Mid C"]
 
         self.note = notes[noteY.index(self.pos[1])]
                     

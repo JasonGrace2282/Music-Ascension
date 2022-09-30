@@ -42,7 +42,8 @@ Another way you can run the program is by cloning the git repository. To do that
 <li>Pygame Library</li>
 <li>Sys Library</li>
 <li>Time Library</li>
-<li>tkinter Library</li></ul>
+<li>tkinter Library</li>
+<li>Cycle from itertools Library</li></ul>
 
 <h2>Known Errors</h2>
 <ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and runnign the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
