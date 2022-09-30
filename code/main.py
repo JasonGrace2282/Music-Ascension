@@ -271,7 +271,7 @@ class Game:
                     elif self.noteDurationStage2.collidepoint(event.pos):
                         self.stageChooser2 = True
                     elif self.level3.collidepoint(event.pos):
-                        print("trial")
+                        self.level3picked = True
                     elif self.NDstage3.collidepoint(event.pos):
                         self.DurationStage3 = True
                     elif self.pizza_man_2.collidepoint(event.pos):
@@ -487,7 +487,7 @@ class Game:
                             self.level.settingsClicked = True
                     
                 if self.level3picked and self.counter == 0:
-                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage, True)
                     self.counter = 1
                     print("e")
 
@@ -502,14 +502,14 @@ class Game:
                             self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
                             self.completecounter = 0
                     elif self.level.chain:
-                        self.level1picked = False
+                        self.level3picked = False
                         self.stageChooser = False
                         self.counter = 0
-                    if self.level.back3 == True:
+                    if self.level.back2 == True:
                         self.level3picked = False
                         self.stageChooser = False
                         self.pizzaInfo2 = False
-                        self.level.back3 = False
+                        self.level.back2 = False
                         self.level.settingsClicked2 = False
                         self.counter = 0
                         self.level.backgroundmusic = True

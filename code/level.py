@@ -286,7 +286,7 @@ class TeleportLevel():
 
 
 class NoteLevel(TeleportLevel):
-    def __init__(self, level_data, surface, stage):
+    def __init__(self, level_data, surface, stage, bass=False):
         self.ledger = pygame.sprite.GroupSingle()
         self.house = pygame.sprite.GroupSingle()
         self.old_house = pygame.sprite.GroupSingle()
@@ -301,6 +301,7 @@ class NoteLevel(TeleportLevel):
         self.playerdelivered = False
         self.playercoins = 0
         self.level_data = level_data
+        self.bass = bass
 
 
     def setup_level(self, layout):
@@ -527,7 +528,7 @@ class NoteLevel(TeleportLevel):
                             self.back2 = True
                             pygame.mixer.music.stop()
                             
-        if self.stage <= 1:
+        if self.stage <= 1 and not self.bass:
             if self.player.sprite.pos[1] == 720:
                 note_helper = self.font3.render("Mid C", True, (255, 255, 255))
                 self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
@@ -582,6 +583,61 @@ class NoteLevel(TeleportLevel):
                     maxC = 850-note_helper.get_width()
                 self.display_surface.blit(note_helper, (maxC, self.player.sprite.pos[1]))
         
+        if self.stage <= 1 and self.bass:
+            if self.player.sprite.pos[1] == 720:
+                note_helper = self.font3.render("Min C", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 672:
+                note_helper = self.font3.render("Min D", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 624:
+                note_helper = self.font3.render("Min E", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 576:
+                note_helper = self.font3.render("Min F", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 528:
+                note_helper = self.font3.render("Min G", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 480:
+                note_helper = self.font3.render("Min A", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 432:
+                note_helper = self.font3.render("Min B", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 384:
+                note_helper = self.font3.render("Low C", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 336:
+                note_helper = self.font3.render("Low D", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 288:
+                note_helper = self.font3.render("Low E", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 240:
+                note_helper = self.font3.render("Low F", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 192:
+                note_helper = self.font3.render("Low G", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 144:
+                note_helper = self.font3.render("Low A", True, (255, 255, 255))
+                self.display_surface.blit(note_helper, (956, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 96:
+                note_helper = self.font3.render("Low B", True, (255, 255, 255))
+                lowB = 932-note_helper.get_width()
+                if self.spaceclicked:
+                    print("lowB changed")
+                    lowB = 850-note_helper.get_width()
+                self.display_surface.blit(note_helper, (lowB, self.player.sprite.pos[1]))
+            elif self.player.sprite.pos[1] == 48:
+                note_helper = self.font3.render("Mid C", True, (255, 255, 255))
+                midC = 900-note_helper.get_width()
+                if self.spaceclicked:
+                    print("midC changed")
+                    midC = 850-note_helper.get_width()
+                self.display_surface.blit(note_helper, (midC, self.player.sprite.pos[1]))
+        
         if self.helpbool:
             self.display_surface.blit(self.helpbg, (0, 0))
             self.display_surface.blit(self.backImage, self.backbuttonRect)
@@ -592,8 +648,8 @@ class NoteLevel(TeleportLevel):
                 sys.exit()
 
 class BassNoteLevel(NoteLevel):
-    def __init__(self, level_data, surface, stage):
-        super().__init__(level_data, surface, stage)
+    def __init__(self, level_data, surface, stage, bass):
+        super().__init__(level_data, surface, stage, bass)
     
     def randomize_note(self):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
@@ -612,6 +668,7 @@ class BassNoteLevel(NoteLevel):
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, (255, 255, 255))
+        self.note_text = font.render(f'Find {note}', True, (255, 255, 255))
 
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
