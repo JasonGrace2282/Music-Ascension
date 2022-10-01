@@ -262,6 +262,7 @@ class NotePlayer(TeleportPlayer):
         notes2 = ["Min C", "Min D", "Min E", "Min F", "Min G", "Min A", "Min B", "Low C", "Low D", "Low E", "Low F", "Low G", "Low A", "Low B", "Mid C"]
 
         self.note = notes[noteY.index(self.pos[1])]
+        self.bassnote = notes2[noteY.index(self.pos[1])]
                     
     def update(self):
         self.find_note()
