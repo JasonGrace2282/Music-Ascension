@@ -1,6 +1,6 @@
 import pygame
-import sys
-import random
+from sys import exit
+from random import randint, choice
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
 from player import TeleportPlayer, NotePlayer
@@ -253,7 +253,7 @@ class TeleportLevel():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
+                    exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
                         print("reset")
@@ -274,7 +274,7 @@ class TeleportLevel():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
+                    exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.middle_restart.collidepoint(event.pos):
                         print("reset")
@@ -328,7 +328,7 @@ class NoteLevel(TeleportLevel):
                 self.draw_old = False
                 self.playerdelivered = True
                 if self.coincounter == 0:
-                    self.player.sprite.coins = self.playercoins + random.randint(5, 8)
+                    self.player.sprite.coins = self.playercoins + randint(5, 8)
                     self.playercoins = self.player.sprite.coins
                     pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
                     self.coincounter = 1
@@ -377,7 +377,7 @@ class NoteLevel(TeleportLevel):
         noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
         notes = ["Mid C", "Mid D", "Mid E", "Mid F", "Mid G", "Mid A", "Mid B", "High C", "High D", "High E", "High F", "High G", "High A", "High B", "Max C"]
 
-        note = random.choice(notes)
+        note = choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note_text = font.render(f'Find {note}', True, (255, 255, 255))
@@ -401,7 +401,7 @@ class NoteLevel(TeleportLevel):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
@@ -527,7 +527,7 @@ class NoteLevel(TeleportLevel):
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
-                        sys.exit()
+                        exit()
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         if self.pizzaFinishedMenu.collidepoint(event.pos):
                             self.back2 = True
@@ -650,7 +650,7 @@ class NoteLevel(TeleportLevel):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                exit()
 
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):
@@ -668,7 +668,7 @@ class BassNoteLevel(NoteLevel):
         noteY = [698, 650, 602, 554, 506, 458, 410, 362, 314, 266, 218, 170, 122, 74, 26]
         notes = ["Min C", "Min D", "Min E", "Min F", "Min G", "Min A", "Min B", "Low C", "Low D", "Low E", "Low F", "Low G", "Low A", "Low B", "Mid C"]
 
-        note = random.choice(notes)
+        note = choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note = note

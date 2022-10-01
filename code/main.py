@@ -1,5 +1,8 @@
+import pygame
 from itertools import cycle
-import pygame, sys, time, tkinter
+from sys import exit
+from time import sleep, perf_counter
+from tkinter import Tk
 from setup import *
 from level import TeleportLevel, NoteLevel, BassNoteLevel
 
@@ -117,14 +120,14 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     pygame.quit()
-                    sys.exit()
+                    exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.start = time.perf_counter()
+                        self.start = perf_counter()
                         self.done = False
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
-                        self.end = time.perf_counter()
+                        self.end = perf_counter()
                         self.done = True
                         print(round(self.end - self.start, 3))
 
@@ -144,7 +147,7 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startRect.collidepoint(event.pos):
                     self.startGame = True
-                    time.sleep(0.5)
+                    sleep(0.5)
                     self.levelConfirm = True
                     self.offCreditButton = True
                 if self.creditsButton.collidepoint(event.pos):
@@ -177,7 +180,7 @@ class Game:
                             self.sleepCounter3 = 0
                             pygame.mixer.music.stop()
                         if self.copyClipboard.collidepoint(event.pos) and self.creditsCounter == 1:
-                            clipboard = tkinter.Tk()
+                            clipboard = Tk()
                             clipboard.withdraw()
                             clipboard.clipboard_clear()
                             clipboard.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
@@ -262,7 +265,7 @@ class Game:
                     self.screen.blit(self.beginnerMap, (0, 0))
                     self.screen.blit(self.helpbutton, self.helpRect)
                     while self.sleepCounter5 == 0:
-                        time.sleep(0.3)
+                        sleep(0.3)
                         self.sleepCounter5+=1
 
                 if event.type == pygame.MOUSEBUTTONDOWN and self.choosebeginnerlevel:
@@ -324,7 +327,7 @@ class Game:
                             if self.choosebeginnerlevel:
                                 self.pizzaInfo2 = True
                                 while self.sleepCounter4 == 0:
-                                    time.sleep(0.2)
+                                    sleep(0.2)
                                     self.sleepCounter4 = 1
                 
                 if self.pizzaInfo2:
@@ -387,7 +390,7 @@ class Game:
                     self.screen.blit(self.NDhow2play, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
                     if self.sleepCounter1 == 0:
-                        time.sleep(0.2)
+                        sleep(0.2)
                         self.sleepCounter1 = 1
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -451,7 +454,7 @@ class Game:
                     if self.level.reset and self.level.stagefinished:
                         self.level.run(self.end-self.start)
                         while self.sleepCounter2 == 0:
-                            time.sleep(1)
+                            sleep(1)
                             self.sleepCounter2 = 1
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:

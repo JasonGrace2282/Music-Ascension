@@ -1,4 +1,5 @@
-import pygame, time, random
+import pygame
+from time import perf_counter, sleep
 from setup import height
 
 
@@ -179,7 +180,7 @@ class NotePlayer(TeleportPlayer):
         self.rect_image = pygame.image.load("../resources/hitbox.png")
         self.rect = self.image.get_rect(center=self.pos)
         self.ready = False
-        self.start = time.perf_counter()
+        self.start = perf_counter()
         self.chain = False
         self.delivered = False
         self.coins = 0
@@ -189,7 +190,7 @@ class NotePlayer(TeleportPlayer):
         keys = pygame.key.get_pressed()
 
         if not self.counter:
-            time.sleep(0.1)
+            sleep(0.1)
             self.counter = True
         elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
             print("hi")
@@ -275,7 +276,7 @@ class NotePlayer(TeleportPlayer):
             self.direction.x = 1
         else:
             self.direction.x = 0
-        self.end = time.perf_counter()
+        self.end = perf_counter()
         if self.end - self.start >= self.difficulty_time:
             self.ready = True
         if self.end - self.start >= 100:
