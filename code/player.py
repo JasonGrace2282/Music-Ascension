@@ -1,6 +1,5 @@
 import pygame, time, random
 from setup import height
-from main import Game
 
 
 class TeleportPlayer(pygame.sprite.Sprite):
