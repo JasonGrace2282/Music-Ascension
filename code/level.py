@@ -55,6 +55,7 @@ class TeleportLevel():
         self.helpRect = pygame.Rect(width-self.helpimage.get_width(), 0, self.helpimage.get_width(), self.helpimage.get_height())
         self.backbuttonRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.helpbool = False
+        self.infmode = False
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
@@ -321,30 +322,34 @@ class NoteLevel(TeleportLevel):
         player = self.player.sprite
         player.rect.centerx += player.direction.x * player.speed
 
-        if self.house.sprite.rect.colliderect(player.rect) and self.note == self.player.sprite.note:
-            self.draw_old = False
-            self.playerdelivered = True
-            if self.coincounter == 0:
-                self.player.sprite.coins = self.playercoins + random.randint(5, 8)
-                self.playercoins = self.player.sprite.coins
-                pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
-                self.coincounter = 1
-        else:
-            self.coincounter = 0
-            self.player.sprite.coins = self.playercoins
-        
-        if self.playercoins >= 30:
-            if self.stagetimer <= 50:
-                self.stagetimer += 1
-                self.display_surface.blit(self.stageimage, (0, 0))
-                print("Feynman is cool ", self.stagetimer)
+        print(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
+        if self.note == self.player.sprite.note:
+            if self.house.sprite.rect.colliderect(player.rect):
+                self.draw_old = False
+                self.playerdelivered = True
+                if self.coincounter == 0:
+                    self.player.sprite.coins = self.playercoins + random.randint(5, 8)
+                    self.playercoins = self.player.sprite.coins
+                    pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
+                    self.coincounter = 1
+                    print(f'Coins: {self.player.sprite.coins}')
             else:
-                self.stagetimer = 0
-                self.stage += 1
-                self.stagefinished = True
-                self.reset = True
-                self.playercoins = 0
-                self.display_surface.blit(self.pizzaBackground, (0, 0))
+                self.coincounter = 0
+                self.player.sprite.coins = self.playercoins
+
+        if not self.infmode:
+            if self.playercoins >= 30:
+                if self.stagetimer <= 50:
+                    self.stagetimer += 1
+                    self.display_surface.blit(self.stageimage, (0, 0))
+                    print("Feynman is cool ", self.stagetimer)
+                else:
+                    self.stagetimer = 0
+                    self.stage += 1
+                    self.stagefinished = True
+                    self.reset = True
+                    self.playercoins = 0
+                    self.display_surface.blit(self.pizzaBackground, (0, 0))
 
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True

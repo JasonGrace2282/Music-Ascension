@@ -60,7 +60,7 @@ class Game:
         self.informationPage2 = False
         self.advancedMap = False
         self.DurationStage2 = False
-        self.DurationStage3 = False
+        self.infclicked = False
         self.pizzaMan3 = False
         self.metronome_counter = False
         self.copied = False
@@ -273,7 +273,7 @@ class Game:
                     elif self.level3.collidepoint(event.pos):
                         self.level3picked = True
                     elif self.NDstage3.collidepoint(event.pos):
-                        self.DurationStage3 = True
+                        self.infclicked = True
                     elif self.pizza_man_2.collidepoint(event.pos):
                         print("Warning: File May Glitch.\nThis game is not finsished yet")
                         self.level3picked = True
@@ -303,13 +303,9 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage2 = False
 
-                if self.DurationStage3:
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
-                    # Insert Code to call stage 3 of note duration minigame
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.backRect.collidepoint(event.pos):
-                            self.DurationStage3 = False
+                if self.infclicked:
+                    self.level1picked = True
+                    self.level.infmode = True
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
@@ -469,7 +465,7 @@ class Game:
                         self.stageChooser2 = False
                         self.counter = 0
                         self.DurationStage2 = False
-                        self.DurationStage3 = False
+                        self.infclicked = False
                         self.level3clicked = False
                         self.pizzaMan3 = False
                         self.level.playMetronome = False
