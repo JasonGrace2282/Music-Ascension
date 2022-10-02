@@ -66,7 +66,7 @@ class TeleportLevel():
         self.back3 = False
         self.spaceclicked = False
         self.playMetronome = True
-        self.starcounter = 0
+        self.wrongcounter = 0
         self.staff = pygame.sprite.GroupSingle()
         self.stagetimer = 0
         if self.stage == 1:
@@ -322,7 +322,15 @@ class NoteLevel(TeleportLevel):
         player = self.player.sprite
         player.rect.centerx += player.direction.x * player.speed
 
-        print(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.wrongcounter = 0
+
+        # print(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
         if self.note == self.player.sprite.note:
             if self.house.sprite.rect.colliderect(player.rect):
                 self.draw_old = False
@@ -332,13 +340,14 @@ class NoteLevel(TeleportLevel):
                     self.playercoins = self.player.sprite.coins
                     pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
                     self.coincounter = 1
+                    self.wrongcounter = 1
                     print(f'Coins: {self.player.sprite.coins}')
             else:
                 self.coincounter = 0
                 self.player.sprite.coins = self.playercoins
 
         if not self.infmode:
-            if self.playercoins >= 30:
+            if self.playercoins >= 20:
                 if self.stagetimer <= 50:
                     self.stagetimer += 1
                     self.display_surface.blit(self.stageimage, (0, 0))
@@ -354,6 +363,10 @@ class NoteLevel(TeleportLevel):
         if self.barrier.sprite.rect.colliderect(player.rect):
             self.counterclock = True
             self.old_house.add(self.house.sprite)
+            if self.wrongcounter == 0:
+                wrong_audiofile = pygame.mixer.Sound('../resources/wrong2.wav')
+                wrong_audiofile.set_volume(0.2)
+                pygame.mixer.Channel(3).play(wrong_audiofile)
             self.randomize_note()
 
     def scroll(self):
@@ -433,7 +446,8 @@ class NoteLevel(TeleportLevel):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.spaceclicked = True
-                    print('self.spaceclicked = True')
+                    self.wrongcounter = 0
+                    print(f'self.spaceclicked = {self.spaceclicked}\nself.wrongcounter = {self.wrongcounter}')
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
