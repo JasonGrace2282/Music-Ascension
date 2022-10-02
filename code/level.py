@@ -421,10 +421,20 @@ class NoteLevel(TeleportLevel):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.spaceclicked = True
+                    self.wrongcounter = 0
+                    # print(f'self.spaceclicked = {self.spaceclicked}\nself.wrongcounter = {self.wrongcounter}')
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
                     print("settings clicked")
+                elif self.helpRect.collidepoint(event.pos):
+                    self.helpbool = True
+                elif self.backbuttonRect.collidepoint(event.pos):
+                    if self.helpbool:
+                        self.helpbool = False
                 if self.settingsClicked2:
                     if self.mainmenu2.collidepoint(event.pos):
                         print("main menu")
@@ -444,16 +454,6 @@ class NoteLevel(TeleportLevel):
                                 self.musicCounter-=1
                                 self.backgroundmusic = True
                                 print("Feynman is cool ", self.musicCounter)
-                elif self.helpRect.collidepoint(event.pos):
-                    self.helpbool = True
-                elif self.backbuttonRect.collidepoint(event.pos):
-                    if self.helpbool:
-                        self.helpbool = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.spaceclicked = True
-                    self.wrongcounter = 0
-                    print(f'self.spaceclicked = {self.spaceclicked}\nself.wrongcounter = {self.wrongcounter}')
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
