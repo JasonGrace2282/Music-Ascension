@@ -113,9 +113,10 @@ class Game:
         self.start = 0
         self.end = 0
         self.done = False
+        self.WHITE = (255, 255, 255)
 
     def run(self):
-        for repeater1 in cycle((1, 1)):
+        for _ in cycle((1, 1)):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
@@ -163,7 +164,7 @@ class Game:
             if not self.offCreditButton:
                 if self.creditsClicked:
                     self.homeMusic = False
-                    self.screen.fill((255, 255, 255))
+                    self.screen.fill(self.WHITE)
                     self.screen.blit(self.creditsImage, (0, 0))
                     self.screen.blit(self.button, self.copyClipboard)
                     self.screen.blit(self.backImage, self.backRect)
@@ -188,6 +189,7 @@ class Game:
                             clipboard.destroy()
                             print("Copied to clipboard")
                             self.copied = True
+                            
                     if event.type == pygame.MOUSEBUTTONDOWN and self.creditsCounter != 1 and self.copyClipboard.collidepoint(event.pos):
                         self.creditsCounter = 1
 
@@ -220,7 +222,7 @@ class Game:
                                 pygame.time.delay(200)
 
                 if self.advClicked:
-                    self.screen.fill((255, 255, 255))
+                    self.screen.fill(self.WHITE)
                     advTopicsText = pygame.font.SysFont(None, 40)
                     advTopicsText = advTopicsText.render('Topics Covered: ', True, 0)
                     self.screen.blit(advTopicsText, (0, 0))
@@ -240,7 +242,7 @@ class Game:
                             self.advClicked = False
 
                 if self.beginnerClicked:
-                    self.screen.fill((255, 255, 255))
+                    self.screen.fill(self.WHITE)
                     self.screen.blit(self.beginnerTopicsCovered, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
                     self.screen.blit(self.backImage, self.backRect)
@@ -346,7 +348,7 @@ class Game:
                                 self.nextCounter2 = 1
 
                 if self.stageChooser2:
-                    self.screen.fill((255, 255, 255))
+                    self.screen.fill(self.WHITE)
                     self.screen.blit(self.informationPage1, (0, 0))
                     self.screen.blit(self.playButton, self.quarternoteAudio)
                     self.screen.blit(self.playButton, self.wholenoteAudio)
