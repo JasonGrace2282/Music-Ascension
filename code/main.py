@@ -130,7 +130,7 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.end = perf_counter()
                         self.done = True
-                        print(round(self.end - self.start, 3))
+                        print(round(self.end - self.start, 1))
 
             if self.homeMusic:
                 while not pygame.mixer.Channel(4).get_busy():
