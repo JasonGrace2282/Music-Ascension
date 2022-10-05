@@ -495,7 +495,8 @@ class NoteLevel(TeleportLevel):
 
         if self.draw:
             self.player.draw(self.display_surface)
-            self.display_surface.blit(self.coins_needed_text, self.coins_needed[1])
+            if not self.infmode:
+                self.display_surface.blit(self.coins_needed_text, self.coins_needed[1])
             if self.note_text != None:
                 self.display_surface.blit(self.note_text, (700-self.note_text.get_width()/2, 200))
             if self.coin_text != None:
@@ -676,6 +677,8 @@ class NoteLevel(TeleportLevel):
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):
         super().__init__(level_data, surface, stage, bass)
+        smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
+        self.coins_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE)
     
     def randomize_note(self):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
