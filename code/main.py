@@ -1,5 +1,4 @@
 import pygame
-from itertools import cycle
 from sys import exit
 from time import sleep, perf_counter
 from tkinter import Tk
