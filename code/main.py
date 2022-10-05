@@ -297,7 +297,7 @@ class Game:
 
                 if self.inf_clicked:
                     self.level_1_picked = True
-                    self.level.infmode = True
+                    self.level.inf_mode = True
 
                 if self.pizza_level_3:
                     self.screen.blit(self.ADV_MAP_IMAGE, (0, 0))
@@ -400,7 +400,7 @@ class Game:
                     self.home_music = False
                     self.screen.fill("black")
                     self.level.run()
-                    if self.level.reset and self.level.stagefinished:
+                    if self.level.reset and self.level.stage_finished:
                         self.complete_counter += 1
                         if self.complete_counter >= 20:
                             self.level.run()
@@ -415,9 +415,9 @@ class Game:
                         self.pizza_notes = False
                         self.pizza_notes_2 = False
                         self.level.back2 = False
-                        self.level.settingsClicked2 = False
+                        self.level.settings_clicked2 = False
                         self.counter = 0
-                        self.level.backgroundmusic = True
+                        self.level.background_music = True
                         self.home_music = True
                         pygame.mixer.music.stop()
 
@@ -427,7 +427,7 @@ class Game:
 
                 if self.level_2_picked:
                     self.home_music = False
-                    self.level.playMetronome = True
+                    self.level.play_metronome = True
                     self.screen.fill("black")
                     self.screen.blit(self.NOTE_DURATION_BG, (0, 0))
                     try:
@@ -440,7 +440,7 @@ class Game:
                         self.counter = 0
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
-                    if self.level.reset and self.level.stagefinished:
+                    if self.level.reset and self.level.stage_finished:
                         self.level.run(self.end-self.start)
                         while self.sleep_counter_2 == 0:
                             sleep(1)
@@ -448,7 +448,7 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
-                        if self.level.playMetronome:
+                        if self.level.play_metronome:
                             if not pygame.mixer.Channel(0).get_busy():
                                 pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
                     elif self.level.back:
@@ -460,19 +460,19 @@ class Game:
                         self.inf_clicked = False
                         self.LVL_3_RECTclicked = False
                         self.pizza_level_3 = False
-                        self.level.playMetronome = False
+                        self.level.play_metronome = False
                         self.home_music = True
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
                     
-                    if self.level.playMetronome:
+                    if self.level.play_metronome:
                         if not pygame.mixer.Channel(0).get_busy():
                             pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.level.settings.collidepoint(event.pos):
-                            self.level.settingsClicked = True
+                        if self.level.SETTINGS_RECT.collidepoint(event.pos):
+                            self.level.settings_clicked = True
                     
                 if self.level_3_picked and self.counter == 0:
                     self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage, True)
@@ -483,7 +483,7 @@ class Game:
                     self.home_music = False
                     self.screen.fill("black")
                     self.level.run()
-                    if self.level.reset and self.level.stagefinished:
+                    if self.level.reset and self.level.stage_finished:
                         self.complete_counter += 1
                         if self.complete_counter >= 20:
                             self.level.run()
@@ -498,9 +498,9 @@ class Game:
                         self.pizza_notes = False
                         self.pizza_notes_2 = False
                         self.level.back2 = False
-                        self.level.settingsClicked2 = False
+                        self.level.settings_clicked2 = False
                         self.counter = 0
-                        self.level.backgroundmusic = True
+                        background_musicbackgroundmusic = True
                         self.home_music = True
                         pygame.mixer.music.stop()
 
