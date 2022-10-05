@@ -28,7 +28,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.end = 0
         self.counter = True
         self.delta = 0
-        self.correctnote = False
+        self.correct_note = False
         self.level_note = "G"
 
     def set_image(self):
@@ -108,16 +108,16 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def teleport(self):
         self.delta = round(self.delta, 2)
 
-        if not self.correctnote:
+        if not self.correct_note:
             print("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
-        elif self.correctnote:
+        elif self.correct_note:
             print("You correctly chose the note on the staff!")
         
         if self.delta <= 0:
             pass
         elif 0.1 <= self.delta < 0.4:
             print("Aww, you needed to hold it a little bit longer!")
-        elif 0.4 <= self.delta < 0.6 and self.correctnote:
+        elif 0.4 <= self.delta < 0.6 and self.correct_note:
             print("0.5")
             self.direction.y -= 32
             self.rect.y += self.direction.y
@@ -125,7 +125,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 16
         elif 0.6 <= self.delta < 0.9:
             print("Aww, you didn't hold it for the right amount of time")
-        elif 0.9 <= self.delta < 1.1 and self.correctnote:
+        elif 0.9 <= self.delta < 1.1 and self.correct_note:
             print("1")
             self.direction.y -= 64
             self.rect.y += self.direction.y
@@ -133,7 +133,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 24
         elif 1.1 <= self.delta < 1.4:
             print("mission failed successfully.")
-        elif 1.4 <= self.delta < 1.6 and self.correctnote:
+        elif 1.4 <= self.delta < 1.6 and self.correct_note:
             print("1.5")
             self.direction.y -= 96
             self.rect.y += self.direction.y
@@ -141,7 +141,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 32
         elif 1.6 <= self.delta < 1.9:
             print("mission failed, we'll get e'm next time")
-        elif 1.9 <= self.delta < 2.1 and self.correctnote:
+        elif 1.9 <= self.delta < 2.1 and self.correct_note:
             print("2")
             self.direction.y -= 128
             self.rect.y += self.direction.y
@@ -149,7 +149,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 40
         elif 2.1 <= self.delta < 2.9:
             print("mission failed, we'll get e'm next time")
-        elif 2.9 <= self.delta < 3.1 and self.correctnote:
+        elif 2.9 <= self.delta < 3.1 and self.correct_note:
             print("3")
             self.direction.y -= 192
             self.rect.y += self.direction.y
@@ -157,7 +157,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
             self.direction.x += 48
         elif 3.1 <= self.delta < 3.9:
             print("mission failed, we'll get e'm next time")
-        elif 3.9 <= self.delta < 4.1 and self.correctnote:
+        elif 3.9 <= self.delta < 4.1 and self.correct_note:
             print("4")
             self.direction.y -= 256
             self.rect.y += self.direction.y
