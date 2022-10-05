@@ -104,7 +104,7 @@ class Game:
         self.HELP_RECT = pygame.Rect(width-self.HELP_IMAGE.get_width(), 0, self.HELP_IMAGE.get_width(), self.HELP_IMAGE.get_height())
         self.WHITE_COLOR = (255, 255, 255)
 
-    def run(self):
+    def main(self):
         for _ in cycle((1, 1)):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -510,4 +510,4 @@ class Game:
                 self.end = 0
                 
 if __name__ == '__main__':
-    Game().run()
+    Game().main()
