@@ -79,7 +79,7 @@ class Game:
         self.complete_counter = 0
         self.counter = 0
         self.credits_counter = 0
-        self.home_musiccounter = 0
+        self.home_music_counter = 0
         self.start = 0
         self.end = 0
         # Constants
@@ -196,16 +196,16 @@ class Game:
                     if self.MUSIC_RECT.collidepoint(event.pos) and not self.help_bool:
                         print("Music Button Clicked")
                         if self.home_music and not self.beginner_clicked:
-                            if self.home_musiccounter == 0:
-                                self.home_musiccounter+=1
+                            if self.home_music_counter == 0:
+                                self.home_music_counter+=1
                                 self.home_music = False
-                                print("Music is Sine waves ", self.home_musiccounter)
+                                print("Music is Sine waves ", self.home_music_counter)
                                 pygame.time.delay(200)
                         elif not self.home_music:
-                            if self.home_musiccounter == 1:
-                                self.home_musiccounter-=1
+                            if self.home_music_counter == 1:
+                                self.home_music_counter-=1
                                 self.home_music = True
-                                print("Chaos Theory is fluid mechanics ", self.home_musiccounter)
+                                print("Chaos Theory is fluid mechanics ", self.home_music_counter)
                                 pygame.time.delay(200)
 
                 if self.adv_clicked:
