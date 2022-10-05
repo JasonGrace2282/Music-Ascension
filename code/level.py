@@ -406,8 +406,8 @@ class NoteLevel(TeleportLevel):
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
-        COINS_IMG_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
-        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {COINS_IMG_left}', True, self.WHITE_COLOR)
+        coins_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
+        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
         self.note_text = font.render(f'Find {note}', True, self.WHITE_COLOR)
         self.noteselected_text = font.render("Find ", True, self.WHITE_COLOR)
         self.note = note
@@ -686,8 +686,9 @@ class NoteLevel(TeleportLevel):
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):
         super().__init__(level_data, surface, stage, bass)
+        coins_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
         smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
-        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {COINS_IMG_left}', True, self.WHITE_COLOR)
+        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
     
     def randomize_note(self):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
