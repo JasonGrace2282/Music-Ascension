@@ -105,7 +105,7 @@ class Game:
         self.WHITE_COLOR = (255, 255, 255)
 
     def main(self):
-        for _ in cycle((1, 1)):
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
