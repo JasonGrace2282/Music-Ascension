@@ -10,12 +10,23 @@ while run:
     print(counter)
     counter+=1
     if counter == 10000:
-        run = False
+        break
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit(0)
+middle = perf_counter()
+for i in my_list:
+    print(counter)
+    counter+=1
+    my_list.append(i+1)
+    if counter == 20000:
+        break
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit(0)
 end = perf_counter()
-print('For loop: 1.489515')
-print(f'While Loop: {end-start}')
+print(f'For loop: {end-middle}')
+print(f'While Loop: {middle-start}')
 
