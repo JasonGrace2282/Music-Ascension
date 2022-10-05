@@ -31,6 +31,9 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.correct_note = False
         self.level_note = "G"
 
+        #other
+        self.print_counter = 0
+
     def set_image(self):
 
         image = self.image
@@ -108,10 +111,18 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def teleport(self):
         self.delta = round(self.delta, 2)
 
-        if not self.correct_note:
-            print("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
-        elif self.correct_note:
-            print("You correctly chose the note on the staff!")
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            elif event.type == pygame.KEYDOWN:
+                self.print_counter = 1
+        if self.print_counter == 1:
+            if not self.correct_note:
+                print("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
+            elif self.correct_note:
+                print("You correctly chose the note on the staff!")
+            self.print_counter = 0
         
         if self.delta <= 0:
             pass

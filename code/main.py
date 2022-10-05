@@ -385,7 +385,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.NEXT_RECT.collidepoint(event.pos):
                             if self.next_counter == 1:
-                                print("Next Counter :", self.next_counter)
+                                print(f"Next Counter : {self.next_counter}")
                                 self.level_2_picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.NEXT_RECT.collidepoint(event.pos):
@@ -500,7 +500,6 @@ class Game:
                         self.level.back2 = False
                         self.level.settings_clicked2 = False
                         self.counter = 0
-                        background_musicbackgroundmusic = True
                         self.home_music = True
                         pygame.mixer.music.stop()
 

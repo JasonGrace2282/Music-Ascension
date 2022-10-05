@@ -409,7 +409,6 @@ class NoteLevel(TeleportLevel):
         coins_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
         self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
         self.note_text = font.render(f'Find {note}', True, self.WHITE_COLOR)
-        self.noteselected_text = font.render("Find ", True, self.WHITE_COLOR)
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, self.WHITE_COLOR)
 
