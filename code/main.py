@@ -1,5 +1,4 @@
 import pygame
-from sys import exit
 from time import sleep, perf_counter
 from tkinter import Tk
 from setup import teleportlevel1, height, width, notelevel1
