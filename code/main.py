@@ -505,9 +505,8 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
-                        if self.level.play_metronome:
-                            if not pygame.mixer.Channel(0).get_busy():
-                                pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
+                        if not pygame.mixer.Channel(0).get_busy():
+                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
                     elif self.level.back:
                         self.level_2_picked = False
                         self.note_duration_notes_2 = False
@@ -523,9 +522,8 @@ class Game:
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
                     
-                    if self.level.play_metronome:
-                        if not pygame.mixer.Channel(0).get_busy():
-                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
+                    if not pygame.mixer.Channel(0).get_busy():
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.SETTINGS_RECT.collidepoint(event.pos):
