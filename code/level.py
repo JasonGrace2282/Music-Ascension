@@ -56,6 +56,7 @@ class TeleportLevel():
         
         #Variables
         #Booleans
+        self.stage_img_on = False
         self.complete = False
         self.player_on_ground = False
         self.help_bool = False
@@ -298,8 +299,9 @@ class TeleportLevel():
 
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface, stage, bass=False):
+        self.stage_time_left = 0
         self.WHITE_COLOR = (255, 255, 255)
-        self.COINS_IMG_needed = [30, (300, 10)]
+        self.coins_needed = [1, (300, 10)]
         self.ledger = pygame.sprite.GroupSingle()
         self.house = pygame.sprite.GroupSingle()
         self.old_house = pygame.sprite.GroupSingle()
@@ -312,7 +314,7 @@ class NoteLevel(TeleportLevel):
         self.counter = 0
         self.counterclock = False
         self.playerdelivered = False
-        self.playerCOINS_IMG = 0
+        self.player_coins = 0
         self.level_data = level_data
         self.bass = bass
 
@@ -348,28 +350,42 @@ class NoteLevel(TeleportLevel):
                 self.draw_old = False
                 self.playerdelivered = True
                 if self.coincounter == 0:
-                    self.player.sprite.coins = self.playerCOINS_IMG + randint(5, 8)
-                    self.playerCOINS_IMG = self.player.sprite.coins
+                    self.player.sprite.coins = self.player_coins + randint(5, 8)
+                    self.player_coins = self.player.sprite.coins
                     pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
                     self.coincounter = 1
                     self.wrong_counter = 1
                     print(f'Coins: {self.player.sprite.coins}')
             else:
                 self.coincounter = 0
-                self.player.sprite.coins = self.playerCOINS_IMG
+                self.player.sprite.coins = self.player_coins
 
         if not self.inf_mode:
-            if self.playerCOINS_IMG >= self.COINS_IMG_needed[0]:
+            if self.player_coins >= self.coins_needed[0]:
                 if self.stage_timer <= 50:
+                    if 0<=self.stage_timer<10:
+                        self.stage_time_left = 5
+                    elif 10<=self.stage_timer<20:
+                        self.stage_time_left = 4
+                    elif 20<=self.stage_timer<30:
+                        self.stage_time_left = 3
+                    elif 30<=self.stage_timer<40:
+                        self.stage_time_left = 2
+                    elif 40<=self.stage_timer:
+                        self.stage_time_left = 1
+                    self.time_left = (pygame.font.Font('../resources/PressStart2P.ttf', 25)).render((f'Next Stage starts in {self.stage_time_left}'), True, (255, 0, 0))
+                    self.stage_img_on = True
                     self.stage_timer += 1
                     self.DISPLAY_SURFACE.blit(self.STAGE_FINISHED_IMG, (0, 0))
-                    print("Feynman is cool ", self.stage_timer)
+                    self.DISPLAY_SURFACE.blit(self.time_left, (1100-self.time_left.get_width(), 775-self.time_left.get_height()))
+                    print(f"Feynman is cool {self.stage_timer}")
                 else:
                     self.stage_timer = 0
+                    self.stage_img_on = False
                     self.stage += 1
                     self.stage_finished = True
                     self.reset = True
-                    self.playerCOINS_IMG = 0
+                    self.player_coins = 0
                     self.DISPLAY_SURFACE.blit(self.TREBLE_CLEF_IMG, (0, 0))
 
         if self.barrier.sprite.rect.colliderect(player.rect):
@@ -406,8 +422,8 @@ class NoteLevel(TeleportLevel):
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
-        coins_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
-        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
+        coins_left = self.coins_needed[0]-self.player.sprite.coins
+        self.coins_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
         self.note_text = font.render(f'Find {note}', True, self.WHITE_COLOR)
         self.note = note
         self.coin_text = font.render(str(self.player.sprite.coins), True, self.WHITE_COLOR)
@@ -433,7 +449,6 @@ class NoteLevel(TeleportLevel):
                 if event.key == pygame.K_SPACE:
                     self.space_clicked = True
                     self.wrong_counter = 0
-                    # print(f'self.space_clicked = {self.space_clicked}\nself.wrong_counter = {self.wrong_counter}')
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.SETTINGS_RECT2.collidepoint(event.pos):
                     self.settings_clicked2 = True
@@ -474,7 +489,7 @@ class NoteLevel(TeleportLevel):
 
         self.DISPLAY_SURFACE.blit(self.TREBLE_CLEF_IMG, (0, 0))
 
-        if self.settings_clicked2:
+        if self.settings_clicked2 and not self.stage_img_on:
             self.DISPLAY_SURFACE.blit(self.BACK_IMG, (0, 0))
             self.DISPLAY_SURFACE.blit(self.QUIT_IMG, (0, self.BACK_IMG.get_height()))
             self.DISPLAY_SURFACE.blit(self.MUSIC_IMG, (0, self.BACK_IMG.get_height()+self.QUIT_IMG.get_height()))
@@ -484,27 +499,28 @@ class NoteLevel(TeleportLevel):
         self.tiles.update(self.v_shift, "y")
         self.house.update(self.h_shift, "x")
         self.barrier.update(self.h_shift, "x")
-        self.tiles.draw(self.DISPLAY_SURFACE)
-        self.house.draw(self.DISPLAY_SURFACE)
-        self.DISPLAY_SURFACE.blit(self.SETTINGS_IMG, self.SETTINGS_RECT2)
-        self.DISPLAY_SURFACE.blit(self.HELP_IMG, self.HELP_RECT)
+        if not self.stage_img_on:
+            self.tiles.draw(self.DISPLAY_SURFACE)
+            self.house.draw(self.DISPLAY_SURFACE)
+            self.DISPLAY_SURFACE.blit(self.SETTINGS_IMG, self.SETTINGS_RECT2)
+            self.DISPLAY_SURFACE.blit(self.HELP_IMG, self.HELP_RECT)
 
-        if self.old_house != None and self.draw_old:
-            self.old_house.update(self.h_shift, "x")
-            self.old_house.draw(self.DISPLAY_SURFACE)
-        elif not self.draw_old:
-            self.draw_old = True
-        self.scroll()
+            if self.old_house != None and self.draw_old:
+                self.old_house.update(self.h_shift, "x")
+                self.old_house.draw(self.DISPLAY_SURFACE)
+            elif not self.draw_old:
+                self.draw_old = True
+            self.scroll()
 
         # player
         self.player.update()
         self.detect_collisions()
         self.on_ground()
 
-        if self.draw:
+        if self.draw and not self.stage_img_on:
             self.player.draw(self.DISPLAY_SURFACE)
             if not self.inf_mode:
-                self.DISPLAY_SURFACE.blit(self.COINS_IMG_needed_text, self.COINS_IMG_needed[1])
+                self.DISPLAY_SURFACE.blit(self.coins_needed_text, self.coins_needed[1])
             if self.note_text != None:
                 self.DISPLAY_SURFACE.blit(self.note_text, (700-self.note_text.get_width()/2, 200))
             if self.coin_text != None:
@@ -563,7 +579,7 @@ class NoteLevel(TeleportLevel):
                             self.back2 = True
                             pygame.mixer.music.stop()
                             
-        if self.stage <= 1 and not self.bass:
+        if self.stage <= 1 and not self.bass and not self.stage_img_on:
             if self.player.sprite.pos[1] == 720:
                 note_helper = self.font3.render("Mid C", True, self.WHITE_COLOR)
                 self.DISPLAY_SURFACE.blit(note_helper, (956, self.player.sprite.pos[1]))
@@ -618,7 +634,7 @@ class NoteLevel(TeleportLevel):
                     maxC = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (maxC, self.player.sprite.pos[1]))
         
-        if self.stage <= 1 and self.bass:
+        if self.stage <= 1 and self.bass and not self.stage_img_on:
             if self.player.sprite.pos[1] == 720:
                 note_helper = self.font3.render("Min C", True, self.WHITE_COLOR)
                 self.DISPLAY_SURFACE.blit(note_helper, (956, self.player.sprite.pos[1]))
@@ -673,7 +689,7 @@ class NoteLevel(TeleportLevel):
                     midC = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (midC, self.player.sprite.pos[1]))
         
-        if self.help_bool:
+        if self.help_bool and not self.stage_img_on:
             self.DISPLAY_SURFACE.blit(self.HELP_BG, (0, 0))
             self.DISPLAY_SURFACE.blit(self.BACK_IMG, self.BACK_RECT)
 
@@ -685,9 +701,9 @@ class NoteLevel(TeleportLevel):
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):
         super().__init__(level_data, surface, stage, bass)
-        coins_left = self.COINS_IMG_needed[0]-self.player.sprite.coins
+        coins_left = self.coins_needed[0]-self.player.sprite.coins
         smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
-        self.COINS_IMG_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
+        self.coins_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE_COLOR)
     
     def randomize_note(self):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
