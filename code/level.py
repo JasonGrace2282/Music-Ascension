@@ -301,7 +301,7 @@ class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface, stage, bass=False):
         self.stage_time_left = 0
         self.WHITE_COLOR = (255, 255, 255)
-        self.coins_needed = [1, (300, 10)]
+        self.coins_needed = [30, (300, 10)]
         self.ledger = pygame.sprite.GroupSingle()
         self.house = pygame.sprite.GroupSingle()
         self.old_house = pygame.sprite.GroupSingle()
