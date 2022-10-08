@@ -122,7 +122,7 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.end = perf_counter()
                         self.done = True
-                        print(round(self.end - self.start, 1))
+                        lg.debug(round(self.end - self.start, 1))
 
             if self.home_music:
                 while not pygame.mixer.Channel(4).get_busy():
@@ -176,7 +176,7 @@ class Game:
                             clipboard.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
                             clipboard.update()
                             clipboard.destroy()
-                            print("Copied to clipboard")
+                            lg.info("Copied to clipboard")
                             self.copied = True
                             
                     if event.type == pygame.MOUSEBUTTONDOWN and self.credits_counter != 1 and self.COPY_RECT.collidepoint(event.pos):
@@ -194,23 +194,23 @@ class Game:
                         self.inf_clicked = True
                         self.level_1_picked = True
                         self.level.inf_mode = True
-                        print("e")              
+                        lg.debug("e")              
 
             if self.start_game:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.MUSIC_RECT.collidepoint(event.pos) and not self.help_bool:
-                        print("Music Button Clicked")
+                        lg.debug("Music Button Clicked")
                         if self.home_music and not self.beginner_clicked:
                             if self.home_music_counter == 0:
                                 self.home_music_counter+=1
                                 self.home_music = False
-                                print("Music is Sine waves ", self.home_music_counter)
+                                lg.debug("Music is Sine waves ", self.home_music_counter)
                                 pygame.time.delay(200)
                         elif not self.home_music:
                             if self.home_music_counter == 1:
                                 self.home_music_counter-=1
                                 self.home_music = True
-                                print("Chaos Theory is fluid mechanics ", self.home_music_counter)
+                                lg.debug("Chaos Theory is fluid mechanics ", self.home_music_counter)
                                 pygame.time.delay(200)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -252,23 +252,23 @@ class Game:
                     if self.LVL_1_RECT.collidepoint(event.pos):
                         self.pizza_notes = True
                         self.bass = False
-                        print("1")
+                        lg.debug("1")
                     elif self.LVL_2_RECT.collidepoint(event.pos):
                         self.note_duration_notes = True
                         self.bass = False
-                        print("2")
+                        lg.debug("2")
                     elif self.LVL_3_RECT.collidepoint(event.pos):
                         self.pizza_notes = True
                         self.bass = True
-                        print("3")
+                        lg.debug("3")
                     elif self.LVL_4_RECT.collidepoint(event.pos):
                         self.note_duration_notes = True
                         self.bass = True
-                        print("4")
+                        lg.debug("4")
                     elif self.HELP_RECT.collidepoint(event.pos):
                         self.help_bool = True
                         self.sleep_counter_5 == 0
-                        print("w")
+                        lg.debug("w")
                 
                 if self.pizza_notes:
                     self.SCREEN.blit(self.PIZZA_NOTES_IMG, (0, 0))
@@ -504,8 +504,6 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
-                        if not pygame.mixer.Channel(0).get_busy():
-                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
                     elif self.level.back:
                         self.level_2_picked = False
                         self.note_duration_notes_2 = False
@@ -522,7 +520,7 @@ class Game:
                         pygame.mixer.Channel(3).stop()
                     
                     if not pygame.mixer.Channel(0).get_busy():
-                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drum3.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.SETTINGS_RECT.collidepoint(event.pos):
