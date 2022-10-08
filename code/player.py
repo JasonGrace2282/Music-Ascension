@@ -111,13 +111,12 @@ class TeleportPlayer(pygame.sprite.Sprite):
     def teleport(self):
         self.delta = round(self.delta, 2)
 
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit(0)
-        elif event.type == pygame.KEYDOWN:
-            self.print_counter = 1
-            
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            elif event.type == pygame.KEYDOWN:
+                self.print_counter = 1
         if self.print_counter == 1:
             if not self.correct_note:
                 print("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")

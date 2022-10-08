@@ -261,40 +261,40 @@ class TeleportLevel():
             self.DISPLAY_SURFACE.blit(self.RESTART_IMG, (0, 100))
             self.DISPLAY_SURFACE.blit(self.QUIT_IMG, (0, self.RESTART_IMG.get_height()+self.BACK_IMG.get_height()))
 
-            event = pygame.event.wait()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if self.RESTART_RECT.collidepoint(event.pos):
-                    print("reset")
-                    self.reset = True
-                    pygame.mixer.Channel(3).stop()
-                if self.MAIN_MENU_RECT.collidepoint(event.pos):
-                    print("main menu")
-                    self.back = True
-                    pygame.mixer.music.stop()
-                if self.EXIT_SETTINGS_RECT.collidepoint(event.pos):
-                    print("SETTINGS_RECT exited")
-                    self.settings_clicked = False
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.RESTART_RECT.collidepoint(event.pos):
+                        print("reset")
+                        self.reset = True
+                        pygame.mixer.Channel(3).stop()
+                    if self.MAIN_MENU_RECT.collidepoint(event.pos):
+                        print("main menu")
+                        self.back = True
+                        pygame.mixer.music.stop()
+                    if self.EXIT_SETTINGS_RECT.collidepoint(event.pos):
+                        print("SETTINGS_RECT exited")
+                        self.settings_clicked = False
 
         if self.player.sprite.rect.topleft[1] > height:
             self.DISPLAY_SURFACE.blit(self.RESTART_IMG, self.MIDDLE_RESTART_RECT)
             self.DISPLAY_SURFACE.blit(self.QUIT_IMG, self.MIDDLE_MAIN_MENU_RECT)
 
-            event = pygame.event.wait()
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if self.MIDDLE_RESTART_RECT.collidepoint(event.pos):
-                    print("reset")
-                    self.reset = True
-                    pygame.mixer.Channel(3).stop()
-                if self.MIDDLE_MAIN_MENU_RECT.collidepoint(event.pos):
-                    print("main menu")
-                    self.back = True
-                    pygame.mixer.music.stop()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.MIDDLE_RESTART_RECT.collidepoint(event.pos):
+                        print("reset")
+                        self.reset = True
+                        pygame.mixer.Channel(3).stop()
+                    if self.MIDDLE_MAIN_MENU_RECT.collidepoint(event.pos):
+                        print("main menu")
+                        self.back = True
+                        pygame.mixer.music.stop()
 
 
 class NoteLevel(TeleportLevel):
@@ -336,13 +336,13 @@ class NoteLevel(TeleportLevel):
         player = self.player.sprite
         player.rect.centerx += player.direction.x * player.speed
 
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                self.wrong_counter = 0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.wrong_counter = 0
 
         # print(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
         if self.note == self.player.sprite.note:
@@ -441,42 +441,42 @@ class NoteLevel(TeleportLevel):
         self.DISPLAY_SURFACE.blit(self.GRADIENT_IMG, (0, 0))
 
         # exit
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                self.space_clicked = True
-                self.wrong_counter = 0
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if self.SETTINGS_RECT2.collidepoint(event.pos):
-                self.settings_clicked2 = True
-                print("SETTINGS_RECT clicked")
-            elif self.HELP_RECT.collidepoint(event.pos):
-                self.help_bool = True
-            elif self.BACK_RECT.collidepoint(event.pos):
-                if self.help_bool:
-                    self.help_bool = False
-            if self.settings_clicked2:
-                if self.MAIN_MENU_RECT2.collidepoint(event.pos):
-                    print("main menu")
-                    self.back2 = True
-                    pygame.mixer.music.stop()
-                elif self.EXIT_SETTINGS_RECT2.collidepoint(event.pos):
-                    print("SETTINGS_RECT exited")
-                    self.settings_clicked2 = False
-                elif self.MUSIC_RECT.collidepoint(event.pos):
-                    if self.background_music:
-                        if self.music_counter == 0:
-                            self.music_counter+=1
-                            self.background_music = False
-                            print("Physics ", self.music_counter)
-                    elif not self.background_music:
-                        if self.music_counter == 1:
-                            self.music_counter-=1
-                            self.background_music = True
-                            print("Feynman is cool ", self.music_counter)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.space_clicked = True
+                    self.wrong_counter = 0
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if self.SETTINGS_RECT2.collidepoint(event.pos):
+                    self.settings_clicked2 = True
+                    print("SETTINGS_RECT clicked")
+                elif self.HELP_RECT.collidepoint(event.pos):
+                    self.help_bool = True
+                elif self.BACK_RECT.collidepoint(event.pos):
+                    if self.help_bool:
+                        self.help_bool = False
+                if self.settings_clicked2:
+                    if self.MAIN_MENU_RECT2.collidepoint(event.pos):
+                        print("main menu")
+                        self.back2 = True
+                        pygame.mixer.music.stop()
+                    elif self.EXIT_SETTINGS_RECT2.collidepoint(event.pos):
+                        print("SETTINGS_RECT exited")
+                        self.settings_clicked2 = False
+                    elif self.MUSIC_RECT.collidepoint(event.pos):
+                        if self.background_music:
+                            if self.music_counter == 0:
+                                self.music_counter+=1
+                                self.background_music = False
+                                print("Physics ", self.music_counter)
+                        elif not self.background_music:
+                            if self.music_counter == 1:
+                                self.music_counter-=1
+                                self.background_music = True
+                                print("Feynman is cool ", self.music_counter)
         
         if self.background_music:
             while not pygame.mixer.music.get_busy():
@@ -570,14 +570,14 @@ class NoteLevel(TeleportLevel):
                 self.DISPLAY_SURFACE.blit(self.PIZZA_WIN_IMG, (0, 0))
                 self.DISPLAY_SURFACE.blit(self.SETTINGS_IMG, (1200-self.SETTINGS_IMG.get_width(), 790-self.SETTINGS_IMG.get_height()))
                 self.draw = False
-                event = pygame.event.wait()
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.PIZZA_FINISHED_RECT.collidepoint(event.pos):
-                        self.back2 = True
-                        pygame.mixer.music.stop()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.PIZZA_FINISHED_RECT.collidepoint(event.pos):
+                            self.back2 = True
+                            pygame.mixer.music.stop()
                             
         if self.stage <= 1 and not self.bass and not self.stage_img_on:
             if self.player.sprite.pos[1] == 720:
@@ -693,10 +693,10 @@ class NoteLevel(TeleportLevel):
             self.DISPLAY_SURFACE.blit(self.HELP_BG, (0, 0))
             self.DISPLAY_SURFACE.blit(self.BACK_IMG, self.BACK_RECT)
 
-        event = pygame.event.wait()
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
 
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):

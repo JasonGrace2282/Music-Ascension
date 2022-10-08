@@ -1,5 +1,4 @@
 import pygame
-from itertools import cycle
 from sys import exit
 from time import sleep, perf_counter
 from tkinter import Tk
@@ -18,8 +17,6 @@ class Game:
         # Screen
         self.SCREEN = pygame.display.set_mode((width, height))
         self.level = TeleportLevel(teleportlevel1, self.SCREEN, 1)
-        self.CLOCK = pygame.time.Clock()
-        self.CLOCK.tick(60)
 
         # Background/Constants
         self.FRONT_PAGE = pygame.image.load("../resources/frontpage.png")
@@ -70,7 +67,6 @@ class Game:
         self.note_duration_audio = False
         self.help_bool = False
         self.done = False
-        self.bass = False
         self.home_music = True
         # integers
         self.sleep_counter_1 = 0
@@ -86,6 +82,7 @@ class Game:
         self.home_music_counter = 0
         self.start = 0
         self.end = 0
+        self.bass = False
         # Constants
         self.BEGINNER_RECT = pygame.Rect(600-self.BEGINNER_IMAGE.get_width()/2, 50, self.BEGINNER_IMAGE.get_width(), self.BEGINNER_IMAGE.get_height())
         self.START_RECT = pygame.Rect(540, 200, self.START_BUTTON_IMAGE.get_width(), self.START_BUTTON_IMAGE.get_height())
@@ -108,22 +105,20 @@ class Game:
 
     def main(self):
         while True:
-            self.FPS = self.CLOCK.get_fps()
-
-            event = pygame.event.wait()
-            if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
-                pygame.quit()
-                exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.start = perf_counter()
-                    self.done = False
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    self.end = perf_counter()
-                    self.done = True
-                    print(round(self.end - self.start, 1))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
+                    pygame.quit()
+                    exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.start = perf_counter()
+                        self.done = False
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        self.end = perf_counter()
+                        self.done = True
+                        print(round(self.end - self.start, 1))
 
             if self.home_music:
                 while not pygame.mixer.Channel(4).get_busy():
@@ -427,6 +422,9 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
+                        if self.level.play_metronome:
+                            if not pygame.mixer.Channel(0).get_busy():
+                                pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
                     elif self.level.back:
                         self.level_2_picked = False
                         self.note_duration_notes_2 = False
@@ -442,7 +440,8 @@ class Game:
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
                     
-                    if not pygame.mixer.Channel(0).get_busy():
+                    if self.level.play_metronome:
+                        if not pygame.mixer.Channel(0).get_busy():
                             pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -506,7 +505,7 @@ class Game:
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                         if not pygame.mixer.Channel(0).get_busy():
-                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drumhit2.wav'))
+                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
                     elif self.level.back:
                         self.level_2_picked = False
                         self.note_duration_notes_2 = False
@@ -523,7 +522,7 @@ class Game:
                         pygame.mixer.Channel(3).stop()
                     
                     if not pygame.mixer.Channel(0).get_busy():
-                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drumhit2.wav'))
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/metronome.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.SETTINGS_RECT.collidepoint(event.pos):
