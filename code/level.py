@@ -1,5 +1,4 @@
 import pygame
-from sys import exit
 from random import randint, choice
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
