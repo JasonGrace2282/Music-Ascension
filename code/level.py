@@ -31,7 +31,7 @@ class TeleportLevel():
         self.TREBLE_CLEF_IMG = pygame.image.load("../resources/trebleclef.png")
         self.BASS_CLEF_IMG = pygame.image.load("../resources/bassclef.png")
         self.GRADIENT_IMG = pygame.image.load("../resources/starbg.png")
-        self.STAGE_FINISHED_IMG = pygame.image.load("../resources/pizza_delivered.png")
+        self.STAGE_FINISHED_IMG = pygame.image.load("../resources/stagefinished.png")
         self.HELP_IMG = pygame.image.load("../resources/help2.png")
         self.HELP_BG = pygame.image.load("../resources/pizza_notes.png")
 

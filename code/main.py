@@ -37,7 +37,6 @@ class Game:
         self.PIZZA_NOTES_IMG = pygame.image.load("../resources/treble_notes.png")
         self.PIZZA_NOTES_IMG_2 = pygame.image.load("../resources/pizza_notes.png")
         self.CREDITS_BG = pygame.image.load("../resources/creditsbackground.png")
-        self.COPIED_TEXT = pygame.image.load("../resources/copied.png")
         self.MUSIC_IMAGE = pygame.image.load("../resources/musicbutton.png")
         self.HELP_IMAGE = pygame.image.load("../resources/help2.png")
         self.NOTE_DURATION_BG = pygame.image.load("../resources/NDbackground2.png")
@@ -67,6 +66,7 @@ class Game:
         self.note_duration_audio = False
         self.help_bool = False
         self.done = False
+        self.bass = False
         self.home_music = True
         # integers
         self.sleep_counter_1 = 0
@@ -82,7 +82,6 @@ class Game:
         self.home_music_counter = 0
         self.start = 0
         self.end = 0
-        self.bass = False
         # Constants
         self.BEGINNER_RECT = pygame.Rect(600-self.BEGINNER_IMAGE.get_width()/2, 50, self.BEGINNER_IMAGE.get_width(), self.BEGINNER_IMAGE.get_height())
         self.START_RECT = pygame.Rect(540, 200, self.START_BUTTON_IMAGE.get_width(), self.START_BUTTON_IMAGE.get_height())
