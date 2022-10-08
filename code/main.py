@@ -1,10 +1,9 @@
 import pygame
-import logging
+import logging as lg
 from time import sleep, perf_counter
 from tkinter import Tk
 from setup import teleportlevel1, height, width, notelevel1
 from level import TeleportLevel, NoteLevel, BassNoteLevel
-
 
 # Main class
 
@@ -15,8 +14,8 @@ class Game:
         pygame.mixer.init()
         pygame.display.set_caption("Music Ascension")
 
-        # Logging
-        logging.basicConfig(level=logging.DEBUG)
+        # logging
+        lg.basicConfig(level=lg.DEBUG)
         
         # Screen
         self.SCREEN = pygame.display.set_mode((width, height))
@@ -107,7 +106,7 @@ class Game:
         self.WHITE_COLOR = (255, 255, 255)
 
     def main(self):
-        logging.info(f"\nHello and Welcome to Music Ascension! To enjoy the full game, please change your screen scale to 100% through Settings->Display->Scale and Layout.\
+        lg.info(f"\nHello and Welcome to Music Ascension! To enjoy the full game, please change your screen scale to 100% through Settings->Display->Scale and Layout.\
         \nThe dimensions of this window are {width}x{height}\nThis game is not finished yet, so some features may not work. Read the README.md file for more info.")
         while True:
             for event in pygame.event.get():
@@ -411,7 +410,7 @@ class Game:
                     try:
                         self.level.run(self.end-self.start)
                     except:
-                        logging.error(f'self.end-self.start failed. self.end-self.start={self.end-self.start}')
+                        lg.error(f'self.end-self.start failed. self.end-self.start={self.end-self.start}')
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                         self.level_2_picked = False
                         self.note_duration_notes_2 = False
@@ -452,7 +451,7 @@ class Game:
                 if self.level_3_picked and self.counter == 0:
                     self.level = BassNoteLevel(notelevel1, self.SCREEN, self.level.stage, True)
                     self.counter = 1
-                    print("e")
+                    lg.debug('e')
 
                 if self.level_3_picked:
                     self.home_music = False
