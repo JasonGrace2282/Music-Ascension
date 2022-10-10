@@ -1,4 +1,6 @@
 import pygame
+import logging
+from time import perf_counter
 from random import randint, choice
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
@@ -8,7 +10,11 @@ from player import TeleportPlayer, NotePlayer
 class TeleportLevel():
     def __init__(self, level_data, surface, stage):
 
+        pygame.init()
         pygame.mixer.init()
+
+        # logging
+        logging.basicConfig(level=logging.DEBUG)
 
         # level setup and unique variables
         self.DISPLAY_SURFACE = surface
@@ -55,29 +61,13 @@ class TeleportLevel():
         
         #Variables
         #Booleans
-        self.stage_img_on = False
-        self.complete = False
-        self.player_on_ground = False
-        self.help_bool = False
-        self.inf_mode = False
-        self.settings_clicked = False
-        self.settings_clicked2 = False
-        self.stage_finished = False
-        self.reset = False
-        self.back = False
-        self.back2 = False
-        self.back3 = False
-        self.space_clicked = False
-        self.background_music = True
-        self.play_metronome = True
+        booleans = [False]*13+[True]*3
+        self.stage_img_on, self.complete, self.player_on_ground, self.help_bool, self.inf_mode, self.settings_clicked, self.settings_clicked2, \
+            self.stage_finished, self.reset, self.back, self.back2, self.back3, self.space_clicked, self.background_music, \
+                self.play_metronome, self.done = booleans
 
         #Integers
-        self.wrong_counter = 0
-        self.h_shift = 0
-        self.v_shift = 0
-        self.current_x = 0
-        self.music_counter = 0
-        self.stage_timer = 0
+        self.wrong_counter, self.h_shift, self.v_shift, self.current_x, self.music_counter, self.stage_timer, self.start, self.end = [0]*8
 
         if self.stage == 1:
             self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
@@ -228,6 +218,25 @@ class TeleportLevel():
                 player.on_ceiling
 
     def run(self, delta):
+
+        if self.done:
+            self.start, self.end, self.delta = [0]*3
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.start = perf_counter()
+                    self.done = False
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    self.end = perf_counter()
+                    self.done = True
+                    self.delta = round(self.end-self.start, 1)
+                    logging.debug(self.delta)
+                    
         # tiles
         self.tiles.update(self.h_shift, "x")
         self.tiles.update(self.v_shift, "y")
@@ -274,7 +283,7 @@ class TeleportLevel():
                         self.back = True
                         pygame.mixer.music.stop()
                     if self.EXIT_SETTINGS_RECT.collidepoint(event.pos):
-                        print("SETTINGS_RECT exited")
+                        print("SETTINGS exited")
                         self.settings_clicked = False
 
         if self.player.sprite.rect.topleft[1] > height:

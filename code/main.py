@@ -46,45 +46,19 @@ class Game:
         self.HELP_BG = pygame.image.load("../resources/helpbg.png")
 
         # Variables
+
         # Booleans
-        self.start_game = False
-        self.adv_clicked = False
-        self.credits_clicked = False
-        self.off_credits = False
-        self.beginner_clicked = False
-        self.choose_beginner_lvl = False
-        self.pizza_notes = False
-        self.note_duration_notes = False
-        self.level_1_picked = False
-        self.level_2_picked = False
-        self.level_3_picked = False
-        self.level_4_picked = False
-        self.inf_clicked = False
-        self.note_duration_notes_2 = False
-        self.adv_map = False
-        self.note_duration_lvl_2 = False
-        self.pizza_level_3 = False
-        self.copied = False
-        self.pizza_notes_2 = False
-        self.note_duration_audio = False
-        self.help_bool = False
-        self.done = False
-        self.bass = False
-        self.home_music = True
+        booleans = [False]*23+[True]
+        self.start_game, self.adv_clicked, self.credits_clicked, self.off_credits, self.beginner_clicked, self.choose_beginner_lvl, self.pizza_notes, \
+            self.note_duration_notes, self.level_1_picked, self.level_2_picked, self.level_3_picked, self.level_4_picked, self.inf_clicked, \
+                self.note_duration_notes_2, self.adv_map, self.note_duration_lvl_2, self.pizza_level_3, self.copied, self.pizza_notes_2, \
+                    self.note_duration_audio, self.help_bool, self.done, self.bass, self.home_music = booleans
+
         # integers
-        self.sleep_counter_1 = 0
-        self.sleep_counter_2 = 0
-        self.sleep_counter_3 = 0
-        self.sleep_counter_4 = 0
-        self.sleep_counter_5 = 0
-        self.next_counter = 0
-        self.next_counter_2 = 0
-        self.complete_counter = 0
-        self.counter = 0
-        self.credits_counter = 0
-        self.home_music_counter = 0
-        self.start = 0
-        self.end = 0
+        zero = [0]*13
+        self.sleep_counter_1, self.sleep_counter_2, self.sleep_counter_3, self.sleep_counter_4, self.sleep_counter_5, self.next_counter, self.next_counter_2,\
+            self.complete_counter, self.counter, self.credits_counter, self.home_music_counter, self.start, self.end = zero
+        
         # Constants
         self.BEGINNER_RECT = pygame.Rect(600-self.BEGINNER_IMAGE.get_width()/2, 50, self.BEGINNER_IMAGE.get_width(), self.BEGINNER_IMAGE.get_height())
         self.START_RECT = pygame.Rect(540, 200, self.START_BUTTON_IMAGE.get_width(), self.START_BUTTON_IMAGE.get_height())
