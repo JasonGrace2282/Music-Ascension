@@ -16,7 +16,7 @@ class Game:
         pygame.display.set_caption("Music Ascension")
 
         # logging
-        filename = colored('main.py', 'red')
+        filename = colored('main.py', 'red', attrs=['underline'])
         lg.basicConfig(level=lg.DEBUG, format=(filename+'\n%(message)s'))
         
         # Screen
