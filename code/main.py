@@ -2,6 +2,7 @@ import pygame
 import logging as lg
 from time import sleep, perf_counter
 from tkinter import Tk
+from termcolor import colored
 from setup import teleportlevel1, height, width, notelevel1
 from level import TeleportLevel, NoteLevel, BassNoteLevel
 
@@ -15,7 +16,8 @@ class Game:
         pygame.display.set_caption("Music Ascension")
 
         # logging
-        lg.basicConfig(level=lg.DEBUG)
+        filename = colored('main.py', 'red')
+        lg.basicConfig(level=lg.DEBUG, format=(filename+'\n%(message)s'))
         
         # Screen
         self.SCREEN = pygame.display.set_mode((width, height))
@@ -78,10 +80,14 @@ class Game:
         self.MUSIC_RECT = pygame.Rect(0, height-self.MUSIC_IMAGE.get_height(), self.MUSIC_IMAGE.get_width(), self.MUSIC_IMAGE.get_height())
         self.HELP_RECT = pygame.Rect(width-self.HELP_IMAGE.get_width(), 0, self.HELP_IMAGE.get_width(), self.HELP_IMAGE.get_height())
         self.WHITE_COLOR = (255, 255, 255)
+        initial_msg_part_1 = colored("Hello and Welcome to Music Ascension!", 'red', attrs=['bold'])
+        initial_msg_part_2 = colored('\nTo enjoy the full game, please change your screen scale to 100% through Settings->Display->Scale and Layout.', 'yellow', attrs=['bold'])
+        initial_msg_part_3 = colored(f'\nThe dimensions of this window are {width}x{height}', 'green', attrs=['bold'])
+        initial_msg_part_4 = colored('\nThis game is not finished yet, so some features may not work. Read the README.md file for more info.', 'blue', attrs=['bold'])
+        self.INITIAL_PRINT_MSG = initial_msg_part_1+initial_msg_part_2+initial_msg_part_3+initial_msg_part_4
 
     def main(self):
-        lg.info(f"\nHello and Welcome to Music Ascension! To enjoy the full game, please change your screen scale to 100% through Settings->Display->Scale and Layout.\
-        \nThe dimensions of this window are {width}x{height}\nThis game is not finished yet, so some features may not work. Read the README.md file for more info.")
+        lg.info(colored(self.INITIAL_PRINT_MSG, 'red', attrs=['bold']))
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

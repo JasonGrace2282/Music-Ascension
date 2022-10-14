@@ -1,5 +1,6 @@
 import pygame
 import logging
+from termcolor import colored
 from time import perf_counter
 from random import randint, choice
 from tiles import TeleportTile, NoteTile
@@ -14,7 +15,8 @@ class TeleportLevel():
         pygame.mixer.init()
 
         # logging
-        logging.basicConfig(level=logging.DEBUG)
+        filename = colored('level.py', 'red')
+        logging.basicConfig(level=logging.DEBUG, format=(filename+'\n%(message)s'))
 
         # level setup and unique variables
         self.DISPLAY_SURFACE = surface

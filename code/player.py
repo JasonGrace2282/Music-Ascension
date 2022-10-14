@@ -1,5 +1,6 @@
 import pygame
 import logging
+from termcolor import colored
 from time import perf_counter, sleep
 from setup import height
 
@@ -26,7 +27,8 @@ class TeleportPlayer(pygame.sprite.Sprite):
 
         #other
         self.print_counter = 0
-        logging.basicConfig(level=logging.DEBUG)
+        filename = colored('player.py', 'red')
+        logging.basicConfig(level=logging.DEBUG, format=(filename+'\n%(message)s'))
 
     def set_image(self):
 
