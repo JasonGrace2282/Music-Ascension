@@ -1,3 +1,4 @@
+from telnetlib import GA
 import pygame
 import logging as lg
 from time import sleep, perf_counter
@@ -57,9 +58,9 @@ class Game:
                     self.note_duration_audio, self.help_bool, self.done, self.bass, self.home_music = booleans
 
         # integers
-        zero = [0]*13
+        zero = [0]*14
         self.sleep_counter_1, self.sleep_counter_2, self.sleep_counter_3, self.sleep_counter_4, self.sleep_counter_5, self.next_counter, self.next_counter_2,\
-            self.complete_counter, self.counter, self.credits_counter, self.home_music_counter, self.start, self.end = zero
+            self.complete_counter, self.counter, self.credits_counter, self.home_music_counter, self.start, self.end, self.delta = zero
         
         # Constants
         self.BEGINNER_RECT = pygame.Rect(600-self.BEGINNER_IMAGE.get_width()/2, 50, self.BEGINNER_IMAGE.get_width(), self.BEGINNER_IMAGE.get_height())
@@ -93,7 +94,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
                     pygame.quit()
-                    exit()
+                    return True
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.start = perf_counter()
@@ -102,7 +103,8 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.end = perf_counter()
                         self.done = True
-                        lg.debug(round(self.end - self.start, 1))
+                        self.delta = round(self.end - self.start, 1)
+                        lg.debug(self.delta)
 
             if self.home_music:
                 while not pygame.mixer.Channel(4).get_busy():
@@ -380,6 +382,7 @@ class Game:
 
                 if self.level_2_picked and self.counter == 0:
                     self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
+                    lg.debug('TeleportLevel inputs: CHECK!')
                     self.counter = 1
 
                 if self.level_2_picked:
@@ -389,6 +392,7 @@ class Game:
                     self.SCREEN.blit(self.NOTE_DURATION_BG, (0, 0))
                     try:
                         self.level.run(self.end-self.start)
+                        lg.debug(f"Mission successfully accomplished: {self.end-self.start}\ndelta: {self.delta}")
                     except:
                         lg.error(f'self.end-self.start failed. self.end-self.start={self.end-self.start}')
                         self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
@@ -511,6 +515,7 @@ class Game:
             if self.done:
                 self.start = 0
                 self.end = 0
-                
+if Game().main == True:
+    exit()               
 if __name__ == '__main__':
     Game().main()
