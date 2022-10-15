@@ -15,7 +15,7 @@ class TeleportLevel():
         pygame.mixer.init()
 
         # logging
-        filename = colored('level.py', 'red', attrs=['underline'])
+        filename = colored('level.py', 'grey', attrs=['underline'])
         logging.basicConfig(level=logging.DEBUG, format=(filename+'\n%(message)s'))
 
         # level setup and unique variables

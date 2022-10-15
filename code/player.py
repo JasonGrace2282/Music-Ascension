@@ -27,7 +27,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
 
         #other
         self.print_counter = 0
-        filename = colored('player.py', 'red', attrs=['underline'])
+        filename = colored('player.py', 'grey', attrs=['underline'])
         logging.basicConfig(level=logging.DEBUG, format=(filename+'\n%(message)s'))
 
     def set_image(self):
