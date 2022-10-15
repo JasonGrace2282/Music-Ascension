@@ -2,7 +2,6 @@ import pygame
 from itertools import cycle
 import logging
 from time import sleep, perf_counter
-from termcolor import colored
 from tkinter import Tk
 from setup import teleportlevel1, height, width, notelevel1
 from level import TeleportLevel, NoteLevel, BassNoteLevel
@@ -17,9 +16,6 @@ class Game:
         pygame.display.set_caption("Music Ascension")
         
 
-        # logging
-        filename = colored('main.py', 'grey', attrs=['underline'])
-        logging.basicConfig(level=logging.DEBUG, format=filename+'\n%(message)s')
 
         # Screen
         self.screen = pygame.display.set_mode((width, height))
