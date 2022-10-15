@@ -93,8 +93,6 @@ class Game:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.mixer.music.stop()
-                    pygame.quit()
                     return True
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -517,6 +515,8 @@ class Game:
                 self.start = 0
                 self.end = 0
 if Game().main == True:
+    pygame.mixer.music.stop()
+    pygame.quit()
     exit()               
 if __name__ == '__main__':
     Game().main()
