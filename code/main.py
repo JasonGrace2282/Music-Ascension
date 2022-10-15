@@ -1,6 +1,6 @@
-from telnetlib import GA
 import pygame
 import logging as lg
+from datetime import datetime, date, time
 from time import sleep, perf_counter
 from tkinter import Tk
 from termcolor import colored
@@ -88,6 +88,7 @@ class Game:
         self.INITIAL_PRINT_MSG = initial_msg_part_1+initial_msg_part_2+initial_msg_part_3+initial_msg_part_4
 
     def main(self):
+        lg.debug(colored(f'Program started on {((datetime.now()).replace(second=0, microsecond=0)).strftime("%m/%d/%Y, %I:%M %p")}', 'cyan'))
         lg.info(colored(self.INITIAL_PRINT_MSG, 'red', attrs=['bold']))
         while True:
             for event in pygame.event.get():
