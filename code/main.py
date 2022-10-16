@@ -1,6 +1,6 @@
 import pygame
 import logging as lg
-from datetime import datetime, date, time
+from datetime import datetime
 from time import sleep, perf_counter
 from tkinter import Tk
 from termcolor import colored
