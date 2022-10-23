@@ -49,8 +49,6 @@ class Game:
         self.startGame = False
         self.advClicked = False
         self.creditsClicked = False
-        self.offCreditButton = False
-        self.levelConfirm = False
         self.beginnerClicked = False
         self.choosebeginnerlevel = False
         self.getCoordinates = False
@@ -70,7 +68,6 @@ class Game:
         self.noteBoolean1= True
         self.noteBoolean2 = False
         self.noteBoolean3 = False
-        self.isInt = True
         self.NDaudioBool = False
         self.helpbool = False
         self.homeMusic = True
@@ -120,9 +117,7 @@ class Game:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.mixer.music.stop()
-                    pygame.quit()
-                    exit()
+                    return False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.start = perf_counter()
@@ -148,10 +143,8 @@ class Game:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startRect.collidepoint(event.pos):
+                    sleep(0.2)
                     self.startGame = True
-                    sleep(0.5)
-                    self.levelConfirm = True
-                    self.offCreditButton = True
                 if self.creditsButton.collidepoint(event.pos):
                     self.creditsClicked = True
 
@@ -162,7 +155,7 @@ class Game:
                 self.screen.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
                 self.screen.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
 
-            if not self.offCreditButton:
+            if not self.startGame:
                 if self.creditsClicked:
                     self.homeMusic = False
                     self.screen.fill(self.WHITE)
@@ -199,13 +192,13 @@ class Game:
                         self.screen.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.levelConfirm:
+                if self.startGame:
                     if self.advancedRect.collidepoint(event.pos):
                         self.advClicked = True
                     if self.beginnerRect.collidepoint(event.pos):
                         self.beginnerClicked = True
 
-            if self.levelConfirm and not self.advClicked:
+            if self.startGame and not self.advClicked:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.musichitbox.collidepoint(event.pos) and not self.helpbool:
                         logging.debug("Music Button Clicked")
@@ -523,6 +516,11 @@ class Game:
             if self.done:
                 self.start = 0
                 self.end = 0
-                
+
+if Game().run == False:
+    pygame.mixer.music.stop()
+    pygame.quit()
+    exit(0)
+
 if __name__ == '__main__':
     Game().run()
