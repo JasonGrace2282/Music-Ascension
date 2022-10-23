@@ -15,7 +15,11 @@ class Game:
         pygame.display.set_caption("Music Ascension")
         
         # logging
-        logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
+        submit_game = False
+        if submit_game:
+            logging.basicConfig(level= logging.INFO, format='%(message)s')
+        elif not submit_game:
+            logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
 
         # Screen
         self.screen = pygame.display.set_mode((width, height))
@@ -396,6 +400,7 @@ class Game:
                         self.counter = 0
                     if self.level.back2 == True:
                         self.level1picked = False
+                        self.level3picked = False
                         self.stageChooser = False
                         self.pizzaInfo2 = False
                         self.level.back2 = False
