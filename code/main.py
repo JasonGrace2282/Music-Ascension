@@ -58,7 +58,6 @@ class Game:
         self.level2picked = False
         self.level3picked = False
         self.informationPage2 = False
-        self.advancedMap = False
         self.DurationStage2 = False
         self.infclicked = False
         self.pizzaMan3 = False
@@ -70,10 +69,8 @@ class Game:
         self.noteBoolean3 = False
         self.NDaudioBool = False
         self.helpbool = False
+        self.done = False
         self.homeMusic = True
-        self.spaceCounter1 = 1
-        self.spaceCounter2 = 0
-        self.spaceCounter3 = 0
         self.sleepCounter1 = 0
         self.sleepCounter2 = 0
         self.sleepCounter3 = 0
@@ -85,7 +82,10 @@ class Game:
         self.completecounter = 0
         self.counter = 0
         self.creditsCounter = 0
-        self.home_musiccounter = 0
+        self.home_music_counter = 0
+        self.start = 0
+        self.end = 0
+        # rects
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
@@ -106,9 +106,6 @@ class Game:
         self.musichitbox = pygame.Rect(0, height-self.musicbutton.get_height(), self.musicbutton.get_width(), self.musicbutton.get_height())
         self.helpRect = pygame.Rect(width-self.helpbutton.get_width(), 0, self.helpbutton.get_width(), self.helpbutton.get_height())
 
-        self.start = 0
-        self.end = 0
-        self.done = False
         self.WHITE = (255, 255, 255)
 
     def run(self):
@@ -198,42 +195,32 @@ class Game:
                     if self.beginnerRect.collidepoint(event.pos):
                         self.beginnerClicked = True
 
+            if self.startGame:
+                if self.advClicked:
+                    self.screen.fill("white")
+                    self.screen.blit(self.advMapImage, (0, 0))
+                    self.screen.blit(self.backImage, self.backRect)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.backRect.collidepoint(event.pos):
+                            self.advClicked = False
+
             if self.startGame and not self.advClicked:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.musichitbox.collidepoint(event.pos) and not self.helpbool:
                         logging.debug("Music Button Clicked")
                         if self.homeMusic and not self.beginnerClicked:
-                            if self.home_musiccounter == 0:
-                                self.home_musiccounter+=1
+                            if self.home_music_counter == 0:
+                                self.home_music_counter+=1
                                 self.homeMusic = False
-                                logging.debug("Music is Sine waves ", self.home_musiccounter)
+                                logging.debug("Music is Sine waves ", self.home_music_counter)
                                 pygame.time.delay(200)
                         elif not self.homeMusic:
-                            if self.home_musiccounter == 1:
-                                self.home_musiccounter-=1
+                            if self.home_music_counter == 1:
+                                self.home_music_counter-=1
                                 self.homeMusic = True
-                                logging.debug("Chaos Theory is fluid mechanics ", self.home_musiccounter)
+                                logging.debug("Chaos Theory is fluid mechanics ", self.home_music_counter)
                                 pygame.time.delay(200)
-
-                if self.advClicked:
-                    self.screen.fill(self.WHITE)
-                    advTopicsText = pygame.font.SysFont(None, 40)
-                    advTopicsText = advTopicsText.render('Topics Covered: ', True, 0)
-                    self.screen.blit(advTopicsText, (0, 0))
-                    advTopicsText2 = pygame.font.SysFont(None, 40)
-                    advTopicsText2 = advTopicsText2.render('Dynamics and Articulation', True, 0)
-                    self.screen.blit(advTopicsText2, (0, 50))
-                    advTopicsText3 = pygame.font.SysFont(None, 40)
-                    advTopicsText3 = advTopicsText3.render('Time Signatures', True, 0)
-                    self.screen.blit(advTopicsText3, (0, 100))
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
-                    self.screen.blit(self.backImage, self.backRect)
-
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.nextButton.collidepoint(event.pos):
-                            self.advancedMap = True
-                        if self.backRect.collidepoint(event.pos):
-                            self.advClicked = False
 
                 if self.beginnerClicked:
                     self.screen.fill(self.WHITE)
@@ -246,16 +233,6 @@ class Game:
                             self.choosebeginnerlevel = True
                         if self.backRect.collidepoint(event.pos):
                             self.beginnerClicked = False
-
-                if self.advancedMap:
-                    self.screen.fill("white")
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
-
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.backRect.collidepoint(event.pos):
-                            self.advClicked = False
-                            self.advancedMap = False
 
                 if self.choosebeginnerlevel:
                     self.screen.blit(self.beginnerMap, (0, 0))
