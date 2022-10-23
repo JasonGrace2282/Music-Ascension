@@ -25,7 +25,7 @@ class TeleportLevel():
         self.player_on_ground = False
 
         # logging
-        logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
+        logging.basicConfig(level= logging.DEBUG, format='level.py\n%(message)s')
 
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
@@ -72,14 +72,13 @@ class TeleportLevel():
         self.stagetimer = 0
         self.WHITE = (255, 255, 255)
         if self.stage == 1:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/beginnerstaff.png"))
+            self.staff.add(NoteTile((35, 100), (266, 937), False, True, "../resources/beginnerstaff.png"))
         elif self.stage == 2:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/odetojoystaff.png"))
+            self.staff.add(NoteTile((35, 100), (266, 937), False, True, "../resources/odetojoystaff.png"))
         elif self.stage == 3:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/wheelsstaff.png"))
+            self.staff.add(NoteTile((35, 100), (266, 937), False, True, "../resources/wheelsstaff.png"))
         elif self.stage == 4:
-            self.staff.add(NoteTile((35, 10), (266, 937), False, True, "../resources/twinklestaff.png"))
-
+            self.staff.add(NoteTile((35, 100), (266, 937), False, True, "../resources/twinklestaff.png"))
     def on_ground(self):
         if self.player.sprite.on_ground:
             self.player_on_ground = True

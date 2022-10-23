@@ -28,7 +28,7 @@ class Game:
         self.startButtonImage = pygame.image.load("../resources/start.png")
         self.creditsButtonImage = pygame.image.load("../resources/credits.png")
         self.nextButtonImage = pygame.image.load("../resources/next3.png")
-        self.beginnerMap = pygame.image.load("../resources/beginnermap.png")
+        self.beginnerMap = pygame.image.load("../resources/beginner_map.jpg")
         self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
         self.beginnerImage = pygame.image.load("../resources/beginner.png")
         self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
@@ -43,7 +43,7 @@ class Game:
         self.musicbutton = pygame.image.load("../resources/musicbutton.png")
         self.helpbutton = pygame.image.load("../resources/help2.png")
         self.NDbackground = pygame.image.load("../resources/NDbackground2.png")
-        self.helpbg = pygame.image.load("../resources/helpbg.png")
+        self.helpbg = pygame.image.load("../resources/help_bg.jpg")
 
         # Variables
         self.startGame = False
@@ -369,7 +369,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
-                                logging.debug("Next Counter :", self.nextCounter)
+                                logging.debug(f"Next Counter: {self.nextCounter}")
                                 self.level2picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -432,9 +432,6 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                     elif self.level.reset:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
-                        if self.level.playMetronome:
-                            if not pygame.mixer.Channel(0).get_busy():
-                                pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drum3.wav'))
                     elif self.level.back:
                         self.level2picked = False
                         self.informationPage2 = False
@@ -449,10 +446,8 @@ class Game:
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
                         pygame.mixer.Channel(3).stop()
-                    
-                    if self.level.playMetronome:
-                        if not pygame.mixer.Channel(0).get_busy():
-                            pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drum3.wav'))
+                    if not pygame.mixer.Channel(0).get_busy():
+                        pygame.mixer.Channel(0).play(pygame.mixer.Sound('../resources/drum3.wav'))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.level.settings.collidepoint(event.pos):

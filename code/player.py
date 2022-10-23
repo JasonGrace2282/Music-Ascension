@@ -116,7 +116,8 @@ class TeleportPlayer(pygame.sprite.Sprite):
         if not self.correctnote:
             logging.debug("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
         elif self.correctnote:
-            logging.debug("You correctly chose the note on the staff!")
+            # logging.debug("You correctly chose the note on the staff!")
+            pass
         
         if self.delta <= 0:
             pass
