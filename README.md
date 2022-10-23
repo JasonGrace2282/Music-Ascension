@@ -36,6 +36,9 @@ Another way you can run the program is by cloning the git repository. To do that
 <li>If the buttons are not working, do not worry! You should just spam click the button until it works</li>
 <li>After running the program, if the pygame window is larger than your computer/monitors screen size, you will need to adjust your screen scale and layout. On windows the process is as follows: Go to your settings. Click Display and scroll down to Scale and Layout. The first option in scale and layout is a percentage (The title is "Change the size of text, apps, and other items). If the pygame window is larger than your screen, you will typically need to adjust that percentage to about 100%. However, adjust this percentage until the pygame window fits in your screen.</li></ul>
 
+<h2>The obstacles</h2>
+To be done
+
 <h2> Tools and libraries used</h2>
 <ul><li>Python 3.10</li>
 <li>Github</li>
@@ -43,10 +46,13 @@ Another way you can run the program is by cloning the git repository. To do that
 <li>Sys Library</li>
 <li>Time Library</li>
 <li>tkinter Library</li>
-<li>Cycle from itertools Library</li></ul>
+<li>Logging Library</li></ul>
 
+
+<h2>Slideshow</h2>
+To visit a quick slideshow regarding our app, please click <link href='https://docs.google.com/presentation/d/1JtVzCzABLJGl5BPgiDY0HiuBMmF1Py5zkR1RcxyE2ZQ/edit#slide=id.g15c6a5fd0d4_0_0'>here</link>
 <h2>Known Errors</h2>
-<ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and runnign the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
+<ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and running the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
 <li>You may have to click a button several times for it to work</li></ul>
