@@ -102,7 +102,7 @@ class TeleportLevel():
                         last = True
                     offset = 128
                     pos = (offset+pos[0], pos[1]-32)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
 
                     self.tiles.add(tile)
                     last = False
@@ -114,7 +114,7 @@ class TeleportLevel():
                     offset = 192
 
                     pos = (offset+pos[0], pos[1]-64)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
                     self.tiles.add(tile)
                     last = False
 
@@ -124,7 +124,7 @@ class TeleportLevel():
                         last = True
                     offset = 256
                     pos = (offset+pos[0], pos[1]-96)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
                     self.tiles.add(tile)
                     last = False
 
@@ -134,7 +134,7 @@ class TeleportLevel():
                         last = True
                     offset = 320
                     pos = (offset+pos[0], pos[1]-128)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
                     self.tiles.add(tile)
                     last = False
 
@@ -144,7 +144,7 @@ class TeleportLevel():
                         last = True
                     offset = 384
                     pos = (offset+pos[0], pos[1]-192)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
                     self.tiles.add(tile)
                     last = False
 
@@ -154,7 +154,7 @@ class TeleportLevel():
                         last = True
                     offset = 448
                     pos = (offset+pos[0], pos[1]-256)
-                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last)
+                    tile = TeleportTile(pos, (tilesize, tilesize), info[1], last, True, "../resources/island2.png")
                     self.tiles.add(tile)
                     last = False
 
@@ -201,7 +201,7 @@ class TeleportLevel():
                 note = pygame.font.Font("../resources/PressStart2P.ttf", 40)
                 self.note_text = note.render(f'{self.player.sprite.level_note}', True, self.WHITE)
                 if player.direction.y > 0:
-                    player.rect.bottom = sprite.rect.top
+                    player.rect.bottom = sprite.rect.top + 50
                     player.direction.y = 0
                     player.on_ground = True
                 elif player.direction.y < 0:
@@ -286,7 +286,7 @@ class TeleportLevel():
                         logging.debug("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
-
+        
 
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface, stage, bass=False):

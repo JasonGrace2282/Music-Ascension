@@ -498,6 +498,7 @@ if Game().run == False:
     pygame.mixer.music.stop()
     pygame.quit()
     exit(0)
+   
 
 if __name__ == '__main__':
     Game().run()
