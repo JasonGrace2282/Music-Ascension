@@ -56,8 +56,8 @@ class Game:
         self.beginnerClicked = False
         self.choosebeginnerlevel = False
         self.getCoordinates = False
-        self.stageChooser = False
-        self.stageChooser2 = False
+        self.notes_1 = False
+        self.duration_notes_1 = False
         self.level1picked = False
         self.level2picked = False
         self.level3picked = False
@@ -245,23 +245,23 @@ class Game:
                         sleep(0.3)
                         self.sleepCounter5+=1
 
-                if event.type == pygame.MOUSEBUTTONDOWN and self.choosebeginnerlevel:
-                    if self.noteDurationStage1.collidepoint(event.pos):
-                        self.stageChooser = True
-                    elif self.noteDurationStage2.collidepoint(event.pos):
-                        self.stageChooser2 = True
-                    elif self.level3.collidepoint(event.pos):
-                        self.level3picked = True
-                    elif self.NDstage3.collidepoint(event.pos):
-                        self.infclicked = True
-                    elif self.pizza_man_2.collidepoint(event.pos):
-                        logging.debug("Warning: File May Glitch.\nThis game is not finsished yet")
-                        self.level3picked = True
-                    elif self.pizza_man_3.collidepoint(event.pos):
-                        self.pizzaMan3 = True
-                    elif self.helpRect.collidepoint(event.pos):
-                        self.helpbool = True
-                        self.sleepCounter6 == 0
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.noteDurationStage1.collidepoint(event.pos):
+                            self.notes_1 = True
+                        elif self.noteDurationStage2.collidepoint(event.pos):
+                            self.duration_notes_1 = True
+                        elif self.level3.collidepoint(event.pos):
+                            self.level3picked = True
+                        elif self.NDstage3.collidepoint(event.pos):
+                            self.infclicked = True
+                        elif self.pizza_man_2.collidepoint(event.pos):
+                            logging.debug("Warning: File May Glitch.\nThis game is not finsished yet")
+                            self.level3picked = True
+                        elif self.pizza_man_3.collidepoint(event.pos):
+                            self.pizzaMan3 = True
+                        elif self.helpRect.collidepoint(event.pos):
+                            self.helpbool = True
+                            self.sleepCounter6 == 0
                 
                 if self.helpbool:
                     self.screen.fill(0)
@@ -284,7 +284,7 @@ class Game:
                             self.DurationStage2 = False
 
                 if self.infclicked:
-                    self.level1picked = True
+                    self.notes_1 = True
                     self.level.infmode = True
 
                 if self.pizzaMan3:
@@ -295,7 +295,7 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan3 = False
                 
-                if self.stageChooser:
+                if self.notes_1:
                     self.screen.blit(self.pizzaNotes1, (0, 0))
                     self.screen.blit(self.nextButtonImage, self.nextButton)
 
@@ -322,7 +322,7 @@ class Game:
                             if self.nextCounter2 == 0:
                                 self.nextCounter2 = 1
 
-                if self.stageChooser2:
+                if self.duration_notes_1:
                     self.screen.fill(self.WHITE)
                     self.screen.blit(self.informationPage1, (0, 0))
                     self.screen.blit(self.playButton, self.quarternoteAudio)
@@ -396,12 +396,12 @@ class Game:
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level1picked = False
-                        self.stageChooser = False
+                        self.notes_1 = False
                         self.counter = 0
                     if self.level.back2 == True:
                         self.level1picked = False
                         self.level3picked = False
-                        self.stageChooser = False
+                        self.notes_1 = False
                         self.pizzaInfo2 = False
                         self.level.back2 = False
                         self.level.settingsClicked2 = False
@@ -425,7 +425,7 @@ class Game:
                         self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
                         self.level2picked = False
                         self.informationPage2 = False
-                        self.stageChooser2 = False
+                        self.duration_notes_1 = False
                         self.counter = 0
                         pygame.mixer.Channel(0).stop()
                         pygame.mixer.Channel(1).stop()
@@ -440,7 +440,7 @@ class Game:
                     elif self.level.back:
                         self.level2picked = False
                         self.informationPage2 = False
-                        self.stageChooser2 = False
+                        self.duration_notes_1 = False
                         self.counter = 0
                         self.DurationStage2 = False
                         self.infclicked = False
@@ -475,11 +475,11 @@ class Game:
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level3picked = False
-                        self.stageChooser = False
+                        self.notes_1 = False
                         self.counter = 0
                     if self.level.back2 == True:
                         self.level3picked = False
-                        self.stageChooser = False
+                        self.notes_1 = False
                         self.pizzaInfo2 = False
                         self.level.back2 = False
                         self.level.settingsClicked2 = False
