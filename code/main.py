@@ -1,5 +1,4 @@
 import pygame
-from itertools import cycle
 import logging
 from time import sleep, perf_counter
 from tkinter import Tk
@@ -15,7 +14,8 @@ class Game:
         pygame.init()
         pygame.display.set_caption("Music Ascension")
         
-
+        # logging
+        logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
 
         # Screen
         self.screen = pygame.display.set_mode((width, height))
@@ -117,7 +117,7 @@ class Game:
     def run(self):
         logging.info('Hello and Welcome to Music Ascension!\nIf you cannot see the full window, please change your screen scale to 100%\
             \nTo see how, please check out our README.md file')
-        for _ in cycle((1, 1)):
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.mixer.music.stop()
