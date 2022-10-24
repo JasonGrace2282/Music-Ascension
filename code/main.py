@@ -28,17 +28,17 @@ class Game:
         # Background
         self.frontPage = pygame.image.load("../resources/frontpage.png")
         self.levelBackground = pygame.image.load("../resources/background.jpg")
-        self.AdvancedImage = pygame.image.load("../resources/Advanced.png")
+        self.inf_mode_img = pygame.image.load("../resources/infinite.png")
         self.startButtonImage = pygame.image.load("../resources/start.png")
         self.creditsButtonImage = pygame.image.load("../resources/credits.png")
         self.nextButtonImage = pygame.image.load("../resources/next3.png")
-        self.beginnerMap = pygame.image.load("../resources/beginner_map.jpg")
+        self.beginnerMap = pygame.image.load("../resources/beginner_map.png")
         self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
         self.beginnerImage = pygame.image.load("../resources/beginner.png")
         self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
         self.NDhow2play = pygame.image.load("../resources/NDdirections.png")
         self.playButton = pygame.image.load("../resources/play.png")
-        self.advMapImage = pygame.image.load("../resources/WorkInProgress.jpg")
+        self.work_in_progress = pygame.image.load("../resources/WorkInProgress.jpg")
         self.backImage = pygame.image.load("../resources/back3.png")
         self.button = pygame.image.load("../resources/copybutton3.png")
         self.pizzaNotes1 = pygame.image.load("../resources/treble_notes.png")
@@ -92,7 +92,7 @@ class Game:
         # rects
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.infRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
+        self.infRect = pygame.Rect(600-self.inf_mode_img.get_width()/2, 400, self.inf_mode_img.get_width(), self.inf_mode_img.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(width-self.nextButtonImage.get_width(), height-self.nextButtonImage.get_height(), self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
@@ -153,7 +153,7 @@ class Game:
                 self.SCREEN.fill(0)
                 self.SCREEN.blit(self.levelBackground, (0, 0))
                 self.SCREEN.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
-                self.SCREEN.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
+                self.SCREEN.blit(self.inf_mode_img, (600-self.inf_mode_img.get_width()/2, 400, self.inf_mode_img.get_width(), self.inf_mode_img.get_height()))
                 self.SCREEN.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
 
             if not self.startGame:
@@ -268,7 +268,7 @@ class Game:
                                 self.sleepCounter6+=1
 
                 if self.DurationStage2:
-                    self.SCREEN.blit(self.advMapImage, (0, 0))
+                    self.SCREEN.blit(self.work_in_progress, (0, 0))
                     self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 2 of note duration
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -279,7 +279,7 @@ class Game:
                     self.notes_1 = True
 
                 if self.pizzaMan3:
-                    self.SCREEN.blit(self.advMapImage, (0, 0))
+                    self.SCREEN.blit(self.work_in_progress, (0, 0))
                     self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
                     if event.type == pygame.MOUSEBUTTONDOWN:
