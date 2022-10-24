@@ -244,12 +244,11 @@ class Game:
                         elif self.noteDurationStage2.collidepoint(event.pos):
                             self.duration_notes_1 = True
                         elif self.level3.collidepoint(event.pos):
-                            self.level3picked = True
+                            self.pizzaMan3 = True
                         elif self.NDstage3.collidepoint(event.pos):
-                            self.level3picked = True
+                            self.pizzaMan3 = True
                         elif self.pizza_man_2.collidepoint(event.pos):
-                            logging.debug("Warning: File May Glitch.\nThis game is not finsished yet")
-                            self.level3picked = True
+                            self.pizzaMan3 = True
                         elif self.pizza_man_3.collidepoint(event.pos):
                             self.pizzaMan3 = True
                         elif self.helpRect.collidepoint(event.pos):
