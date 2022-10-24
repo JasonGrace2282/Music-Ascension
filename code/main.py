@@ -22,8 +22,8 @@ class Game:
             logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
 
         # Screen
-        self.screen = pygame.display.set_mode((width, height))
-        self.level = TeleportLevel(teleportlevel1, self.screen, 1)
+        self.SCREEN = pygame.display.set_mode((width, height))
+        self.level = TeleportLevel(teleportlevel1, self.SCREEN, 1)
 
         # Background
         self.frontPage = pygame.image.load("../resources/frontpage.png")
@@ -137,10 +137,10 @@ class Game:
             if not self.homeMusic:
                 pygame.mixer.Channel(4).stop()
 
-            self.screen.fill(0)
-            self.screen.blit(self.frontPage, (0, 0))
-            self.screen.blit(self.startButtonImage, (540, 200))
-            self.screen.blit(self.creditsButtonImage, (530, 300))
+            self.SCREEN.fill(0)
+            self.SCREEN.blit(self.frontPage, (0, 0))
+            self.SCREEN.blit(self.startButtonImage, (540, 200))
+            self.SCREEN.blit(self.creditsButtonImage, (530, 300))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startRect.collidepoint(event.pos):
@@ -150,19 +150,19 @@ class Game:
                     self.creditsClicked = True
 
             if self.startGame:
-                self.screen.fill(0)
-                self.screen.blit(self.levelBackground, (0, 0))
-                self.screen.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
-                self.screen.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
-                self.screen.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
+                self.SCREEN.fill(0)
+                self.SCREEN.blit(self.levelBackground, (0, 0))
+                self.SCREEN.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
+                self.SCREEN.blit(self.AdvancedImage, (600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height()))
+                self.SCREEN.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
 
             if not self.startGame:
                 if self.creditsClicked:
                     self.homeMusic = False
-                    self.screen.fill(self.WHITE)
-                    self.screen.blit(self.creditsImage, (0, 0))
-                    self.screen.blit(self.button, self.copyClipboard)
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.fill(self.WHITE)
+                    self.SCREEN.blit(self.creditsImage, (0, 0))
+                    self.SCREEN.blit(self.button, self.copyClipboard)
+                    self.SCREEN.blit(self.backImage, self.backRect)
                     while not pygame.mixer.music.get_busy():
                         pygame.mixer.music.load("../resources/backgroundmusic2.wav")
                         pygame.mixer.music.play()
@@ -190,7 +190,7 @@ class Game:
 
                     if self.copied:
                         copiedtext = (pygame.font.Font("../resources/PressStart2P.ttf", 40)).render('Link copied to Clipboard', True, (0, 0, 255))
-                        self.screen.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
+                        self.SCREEN.blit(copiedtext, (600-copiedtext.get_width()/2, height/2+200))
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startGame:
@@ -201,9 +201,9 @@ class Game:
 
             if self.startGame:
                 if self.advClicked:
-                    self.screen.fill("white")
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.fill("white")
+                    self.SCREEN.blit(self.advMapImage, (0, 0))
+                    self.SCREEN.blit(self.backImage, self.backRect)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
@@ -227,10 +227,10 @@ class Game:
                                 pygame.time.delay(200)
 
                 if self.beginnerClicked:
-                    self.screen.fill(self.WHITE)
-                    self.screen.blit(self.beginnerTopicsCovered, (0, 0))
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.fill(self.WHITE)
+                    self.SCREEN.blit(self.beginnerTopicsCovered, (0, 0))
+                    self.SCREEN.blit(self.nextButtonImage, self.nextButton)
+                    self.SCREEN.blit(self.backImage, self.backRect)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -239,8 +239,8 @@ class Game:
                             self.beginnerClicked = False
 
                 if self.choosebeginnerlevel:
-                    self.screen.blit(self.beginnerMap, (0, 0))
-                    self.screen.blit(self.helpbutton, self.helpRect)
+                    self.SCREEN.blit(self.beginnerMap, (0, 0))
+                    self.SCREEN.blit(self.helpbutton, self.helpRect)
                     while self.sleepCounter5 == 0:
                         sleep(0.3)
                         self.sleepCounter5+=1
@@ -264,9 +264,9 @@ class Game:
                             self.sleepCounter6 == 0
                 
                 if self.helpbool:
-                    self.screen.fill(0)
-                    self.screen.blit(self.helpbg, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.fill(0)
+                    self.SCREEN.blit(self.helpbg, (0, 0))
+                    self.SCREEN.blit(self.backImage, self.backRect)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
@@ -276,8 +276,8 @@ class Game:
                                 self.sleepCounter6+=1
 
                 if self.DurationStage2:
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.blit(self.advMapImage, (0, 0))
+                    self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert Code to call stage 2 of note duration
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
@@ -287,16 +287,16 @@ class Game:
                     self.notes_1 = True
 
                 if self.pizzaMan3:
-                    self.screen.blit(self.advMapImage, (0, 0))
-                    self.screen.blit(self.backImage, self.backRect)
+                    self.SCREEN.blit(self.advMapImage, (0, 0))
+                    self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.pizzaMan3 = False
                 
                 if self.notes_1:
-                    self.screen.blit(self.pizzaNotes1, (0, 0))
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
+                    self.SCREEN.blit(self.pizzaNotes1, (0, 0))
+                    self.SCREEN.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -307,9 +307,9 @@ class Game:
                                     self.sleepCounter4 = 1
                 
                 if self.pizzaInfo2:
-                    self.screen.fill(0)
-                    self.screen.blit(self.pizzaplaynotes, (0, 0))
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
+                    self.SCREEN.fill(0)
+                    self.SCREEN.blit(self.pizzaplaynotes, (0, 0))
+                    self.SCREEN.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -322,13 +322,13 @@ class Game:
                                 self.nextCounter2 = 1
 
                 if self.duration_notes_1:
-                    self.screen.fill(self.WHITE)
-                    self.screen.blit(self.informationPage1, (0, 0))
-                    self.screen.blit(self.playButton, self.quarternoteAudio)
-                    self.screen.blit(self.playButton, self.wholenoteAudio)
-                    self.screen.blit(self.playButton, self.halfnoteAudio)
-                    self.screen.blit(self.playButton, self.eighthnoteAudio)
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
+                    self.SCREEN.fill(self.WHITE)
+                    self.SCREEN.blit(self.informationPage1, (0, 0))
+                    self.SCREEN.blit(self.playButton, self.quarternoteAudio)
+                    self.SCREEN.blit(self.playButton, self.wholenoteAudio)
+                    self.SCREEN.blit(self.playButton, self.halfnoteAudio)
+                    self.SCREEN.blit(self.playButton, self.eighthnoteAudio)
+                    self.SCREEN.blit(self.nextButtonImage, self.nextButton)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -363,8 +363,8 @@ class Game:
                                 pygame.mixer.Channel(2).stop()
 
                 if self.informationPage2:
-                    self.screen.blit(self.NDhow2play, (0, 0))
-                    self.screen.blit(self.nextButtonImage, self.nextButton)
+                    self.SCREEN.blit(self.NDhow2play, (0, 0))
+                    self.SCREEN.blit(self.nextButtonImage, self.nextButton)
                     if self.sleepCounter1 == 0:
                         sleep(0.2)
                         self.sleepCounter1 = 1
@@ -381,20 +381,20 @@ class Game:
                             
                 if self.level1picked and self.counter == 0:
                     if self.infclicked:
-                        self.level = NoteLevel(notelevel1, self.screen, self.level.stage, infmode=True)
+                        self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage, infmode=True)
                     elif not self.infclicked:
-                        self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                        self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
                     self.homeMusic = False
-                    self.screen.fill("black")
+                    self.SCREEN.fill("black")
                     self.level.run()
                     if self.level.reset and self.level.stagefinished:
                         self.completecounter += 1
                         if self.completecounter >= 20:
                             self.level.run()
-                            self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage)
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level1picked = False
@@ -413,18 +413,18 @@ class Game:
                         pygame.mixer.music.stop()
 
                 if self.level2picked and self.counter == 0:
-                    self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
+                    self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     self.counter = 1
 
                 if self.level2picked:
                     self.homeMusic = False
                     self.level.playMetronome = True
-                    self.screen.fill("black")
-                    self.screen.blit(self.NDbackground, (0, 0))
+                    self.SCREEN.fill("black")
+                    self.SCREEN.blit(self.NDbackground, (0, 0))
                     try:
                         self.level.run(self.end-self.start)
                     except:
-                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                         self.level2picked = False
                         self.informationPage2 = False
                         self.duration_notes_1 = False
@@ -436,9 +436,9 @@ class Game:
                         while self.sleepCounter2 == 0:
                             sleep(1)
                             self.sleepCounter2 = 1
-                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     elif self.level.reset:
-                        self.level = TeleportLevel(teleportlevel1, self.screen, self.level.stage)
+                        self.level = TeleportLevel(teleportlevel1, self.SCREEN, self.level.stage)
                     elif self.level.back:
                         self.level2picked = False
                         self.informationPage2 = False
@@ -461,19 +461,19 @@ class Game:
                             self.level.settingsClicked = True
                     
                 if self.level3picked and self.counter == 0:
-                    self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage, True)
+                    self.level = BassNoteLevel(notelevel1, self.SCREEN, self.level.stage, True)
                     self.counter = 1
                     logging.debug("e")
 
                 if self.level3picked:
                     self.homeMusic = False
-                    self.screen.fill("black")
+                    self.SCREEN.fill("black")
                     self.level.run()
                     if self.level.reset and self.level.stagefinished:
                         self.completecounter += 1
                         if self.completecounter >= 20:
                             self.level.run()
-                            self.level = BassNoteLevel(notelevel1, self.screen, self.level.stage)
+                            self.level = BassNoteLevel(notelevel1, self.SCREEN, self.level.stage)
                             self.completecounter = 0
                     elif self.level.chain:
                         self.level3picked = False
