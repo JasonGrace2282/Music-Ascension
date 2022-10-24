@@ -2,10 +2,13 @@ import pygame
 
 
 class TeleportTile(pygame.sprite.Sprite):
-    def __init__(self, pos, dimensions, note, last):
+    def __init__(self, pos, dimensions, note, last, advanced, image="../resources/hitbox.png"):
         super().__init__()
-        self.image = pygame.Surface(dimensions)
-        self.image.fill("grey")
+        if advanced:
+            self.image = pygame.image.load(image)
+        else:
+            self.image = pygame.Surface(dimensions)
+            self.image.fill("grey")
         self.rect = self.image.get_rect(topleft=pos)
         self.pos = pos
         self.note = note
