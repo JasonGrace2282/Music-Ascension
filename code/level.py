@@ -1,4 +1,3 @@
-from asyncio import staggered
 import pygame
 import logging
 from random import randint, choice
