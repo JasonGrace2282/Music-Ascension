@@ -56,7 +56,6 @@ class TeleportLevel():
         self.helpRect = pygame.Rect(width-self.helpimage.get_width(), 0, self.helpimage.get_width(), self.helpimage.get_height())
         self.backbuttonRect = pygame.Rect(0, height-self.backImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
         self.helpbool = False
-        self.infmode = False
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
@@ -288,7 +287,7 @@ class TeleportLevel():
         
 
 class NoteLevel(TeleportLevel):
-    def __init__(self, level_data, surface, stage, bass=False):
+    def __init__(self, level_data, surface, stage, bass=False, infmode = False):
         self.WHITE = (255, 255, 255)
         self.coins_needed = [30, (300, 10)]
         self.ledger = pygame.sprite.GroupSingle()
@@ -306,6 +305,7 @@ class NoteLevel(TeleportLevel):
         self.playercoins = 0
         self.level_data = level_data
         self.bass = bass
+        self.infmode = infmode
 
 
     def setup_level(self, layout):
@@ -328,7 +328,7 @@ class NoteLevel(TeleportLevel):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
+                exit(0)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.wrongcounter = 0
@@ -495,7 +495,8 @@ class NoteLevel(TeleportLevel):
 
         if self.draw:
             self.player.draw(self.display_surface)
-            self.display_surface.blit(self.coins_needed_text, self.coins_needed[1])
+            if not self.infmode:
+                self.display_surface.blit(self.coins_needed_text, self.coins_needed[1])
             if self.note_text != None:
                 self.display_surface.blit(self.note_text, (700-self.note_text.get_width()/2, 200))
             if self.coin_text != None:

@@ -285,7 +285,6 @@ class Game:
 
                 if self.infclicked:
                     self.notes_1 = True
-                    self.level.infmode = True
 
                 if self.pizzaMan3:
                     self.screen.blit(self.advMapImage, (0, 0))
@@ -381,7 +380,10 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
+                    if self.infclicked:
+                        self.level = NoteLevel(notelevel1, self.screen, self.level.stage, infmode=True)
+                    elif not self.infclicked:
+                        self.level = NoteLevel(notelevel1, self.screen, self.level.stage)
                     self.counter = 1
 
                 if self.level1picked:
