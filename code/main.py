@@ -15,7 +15,7 @@ class Game:
         pygame.display.set_caption("Music Ascension")
         
         # logging
-        submit_game = False
+        submit_game = True
         if submit_game:
             logging.basicConfig(level= logging.INFO, format='%(message)s')
         elif not submit_game:
