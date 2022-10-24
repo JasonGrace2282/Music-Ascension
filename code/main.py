@@ -51,7 +51,7 @@ class Game:
 
         # Variables
         self.startGame = False
-        self.advClicked = False
+        self.infClicked = False
         self.creditsClicked = False
         self.beginnerClicked = False
         self.choosebeginnerlevel = False
@@ -92,7 +92,7 @@ class Game:
         # rects
         self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
-        self.advancedRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
+        self.infRect = pygame.Rect(600-self.AdvancedImage.get_width()/2, 400, self.AdvancedImage.get_width(), self.AdvancedImage.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
         self.nextButton = pygame.Rect(width-self.nextButtonImage.get_width(), height-self.nextButtonImage.get_height(), self.nextButtonImage.get_width(), self.nextButtonImage.get_height())
         self.noteDurationStage1 = pygame.Rect(28, 341, 139, 188)
@@ -194,22 +194,15 @@ class Game:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startGame:
-                    if self.advancedRect.collidepoint(event.pos):
-                        self.advClicked = True
                     if self.beginnerRect.collidepoint(event.pos):
                         self.beginnerClicked = True
+                    elif self.infRect.collidepoint(event.pos):
+                        self.infClicked = True
+                        self.level1picked = True
+                        logging.debug("e")
+
 
             if self.startGame:
-                if self.advClicked:
-                    self.SCREEN.fill("white")
-                    self.SCREEN.blit(self.advMapImage, (0, 0))
-                    self.SCREEN.blit(self.backImage, self.backRect)
-
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.backRect.collidepoint(event.pos):
-                            self.advClicked = False
-
-            if self.startGame and not self.advClicked:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.musichitbox.collidepoint(event.pos) and not self.helpbool:
                         logging.debug("Music Button Clicked")
@@ -253,7 +246,7 @@ class Game:
                         elif self.level3.collidepoint(event.pos):
                             self.level3picked = True
                         elif self.NDstage3.collidepoint(event.pos):
-                            self.infclicked = True
+                            self.level3picked = True
                         elif self.pizza_man_2.collidepoint(event.pos):
                             logging.debug("Warning: File May Glitch.\nThis game is not finsished yet")
                             self.level3picked = True
@@ -380,9 +373,10 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    if self.infclicked:
+                    print("ww")
+                    if self.infClicked:
                         self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage, infmode=True)
-                    elif not self.infclicked:
+                    elif not self.infClicked:
                         self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage)
                     self.counter = 1
 
@@ -410,6 +404,7 @@ class Game:
                         self.counter = 0
                         self.level.backgroundmusic = True
                         self.homeMusic = True
+                        self.infClicked = False
                         pygame.mixer.music.stop()
 
                 if self.level2picked and self.counter == 0:
@@ -445,7 +440,6 @@ class Game:
                         self.duration_notes_1 = False
                         self.counter = 0
                         self.DurationStage2 = False
-                        self.infclicked = False
                         self.level3clicked = False
                         self.pizzaMan3 = False
                         self.level.playMetronome = False

@@ -692,10 +692,14 @@ class BassNoteLevel(NoteLevel):
 
         note = choice(notes)
         font = pygame.font.Font("../resources/PressStart2P.ttf", 35)
+        smallfont = pygame.font.Font("../resources/PressStart2P.ttf", 28)
         self.font3 = pygame.font.Font("../resources/PressStart2P.ttf", 35)
         self.note = note
+        coins_left = self.coins_needed[0]-self.player.sprite.coins
+        self.coins_needed_text = smallfont.render(f'Coins needed: {coins_left}', True, self.WHITE)
         self.coin_text = font.render(str(self.player.sprite.coins), True, self.WHITE)
         self.note_text = font.render(f'Find {note}', True, self.WHITE)
+        self.noteselected_text = font.render("Find ", True, self.WHITE)
 
         self.player.sprite.pos = (self.player.sprite.rect.centerx, self.player.sprite.rect.centery)
 
@@ -704,3 +708,6 @@ class BassNoteLevel(NoteLevel):
         self.house.add(house)
         barrier = NoteTile((self.house.sprite.pos[0], 0), (1, 704), False, False)
         self.barrier.add(barrier)
+
+
+        
