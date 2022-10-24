@@ -51,7 +51,6 @@ class Game:
 
         # Variables
         self.startGame = False
-        self.infClicked = False
         self.creditsClicked = False
         self.beginnerClicked = False
         self.choosebeginnerlevel = False
@@ -63,7 +62,7 @@ class Game:
         self.level3picked = False
         self.informationPage2 = False
         self.DurationStage2 = False
-        self.infclicked = False
+        self.infClicked = False
         self.pizzaMan3 = False
         self.metronome_counter = False
         self.copied = False
@@ -198,8 +197,8 @@ class Game:
                         self.beginnerClicked = True
                     elif self.infRect.collidepoint(event.pos):
                         self.infClicked = True
-                        self.level1picked = True
-                        logging.debug("e")
+                        self.choosebeginnerlevel = True
+                        logging.debug("inf mode clicked")
 
 
             if self.startGame:
@@ -275,7 +274,7 @@ class Game:
                         if self.backRect.collidepoint(event.pos):
                             self.DurationStage2 = False
 
-                if self.infclicked:
+                if self.infClicked:
                     self.notes_1 = True
 
                 if self.pizzaMan3:
@@ -293,6 +292,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.choosebeginnerlevel:
+                                logging.debug('1+1=3')
                                 self.pizzaInfo2 = True
                                 while self.sleepCounter4 == 0:
                                     sleep(0.2)
