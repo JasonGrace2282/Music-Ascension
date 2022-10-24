@@ -9,19 +9,14 @@ As mentioned previously, the game is meant for students learning basic music the
 
 <h2> How to Play?</h2>
 When you open the file, you will be greeted with a screen that shows two buttons, Start and Credits. If you click on credits, you can see a button. When you click the button, the link to our image credits (so that we aren't plagerizing) is copied to your clipboard. The credits can also be found <link href='https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing'>here</link>. However in order to start the game, you must click on the start button. 
-
 After that, you can choose the level of experience you have with music theory. 
-
 If you click beginner, you will see the topics covered in the beginner level (Note durations and Notes on the staff).
 If you click Advanced, you will see the topics covered in the more advanced level (Time signatures, and Dynamics and Articulations). This level is a work in progress.
 On the bottom-left corner, you will see a button called "Music". Clicking that will toggle on and off the background music.
-
 Once you click next, a map will appear, with different GPS markers indicating different levels. On each GPS marker, there is a symbol that represents the topic covered. Once you click on the level and topic that you want to learn about, a page with the notes needed to succeed in the level will appear. This page contains all the information you will need to pass the level. 
-
 Once you click next, you will be directed to a page containing the goal of the game, and how to play it. After clicking next, the game will begin.
 The game will have a settings/menu button. Clicking on it opens a panel with different features, such as retrying the level, quitting the game (which will redirect you to the map), and exiting the settings.
 At this point, you can navigate to whichever level you want and play any level you want. Each level will contain a page of notes, filled with the information needed to pass the level. After reading the notes, you can click next. You will then see a page containing the info about how to play the game. Click next to start the game.
-
 After completing a minigame, you will be transported back to the main menu, where you can choose a different topic to learn and have fun with. Enjoy!
 
 <h2>Downloading and running the program</h2>
