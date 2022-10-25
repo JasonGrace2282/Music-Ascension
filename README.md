@@ -20,11 +20,12 @@ At this point, you can navigate to whichever level you want and play any level y
 After completing a minigame, you will be transported back to the main menu, where you can choose a different topic to learn and have fun with. Enjoy!
 
 <h2>Downloading and running the program</h2>
-There are two ways you can download, and run the program.
-<ol><li>Download the .exe file.<br>
-This is the simplest way to download the program. All you need to do is go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>, and look in the code folder. You should find a .exe file called MusicAscension.exe. Download that file. Once it has finished downloading, all you have to do is open the file and it will run the program!</li>
-<li>Clone the git repository<br>
-Another way you can run the program is by cloning the git repository. To do that, you first go to our git repositry, linked <link href='https://github.com/JasonGrace2282/Music-Ascension'>here</link>, and click on code. Underneath, you will find an option that says download ZIP. Click that and put the folder in an easy to remember location. Right click on the folder and click extract all, and choose your extraction location. After that, you can open the IDE of your choice, and open up the extracted files. It will have two important folders: code and resources. Opening the resources folder shows you the images and audio in the game. However, to run the code, you must open the code folder and open main.py. Running main.py will launch the game. Enjoy!</li></ol>
+<ol><li>Go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>.</li>
+<li>Click on the code button in the top-right of the screen, and click download ZIP</li>
+<li>Store the ZIP in an easy-to-remember location and extract the files from the ZIP by right clicking and choosing the "extract all" option.</li></ol>
+From here there are 2 ways to run the program.<br>
+One way is to run the exe. To do that, navigate to the location of the extracted files. Click on the code folder. Inside you will find an exe called music_ascension.exe: running that will run the program.<br>
+Another way you can run the program is by cloning the git repository. To do so, you must open up the IDE of your choice, and open the extracted files on the IDE. The process will vary by IDE. Once you upload the files to your IDE, you will find two important folders: code and resources. Opening the resources folder shows you the images and audio in the game. However, to run the code, you must open the code folder and open main.py. Running main.py will launch the game. Enjoy!</li>
 
 <h2>Troubleshooting</h2>
 <ul><li>If the program could not access the location of an image, you might need to go into your IDE's run configuration and add the folder "<b style="font-family:Consolas">code</b>" to the end of it. Alternatively, if your IDE has a terminal (like VSCode for example), all you need to do is go into the terminal and type "<b style="font-family:Consolas"><a style="color:orange">cd code</a></b>"</li>
@@ -44,7 +45,7 @@ During the time we were coding our app, we encountered many difficulties, from p
 <li>Logging Library</li></ul>
 
 <h2>Slideshow</h2>
-To visit a quick slideshow regarding our app, please click <link href='https://docs.google.com/presentation/d/1JtVzCzABLJGl5BPgiDY0HiuBMmF1Py5zkR1RcxyE2ZQ/edit#slide=id.g15c6a5fd0d4_0_0'>here</link>
+To visit a quick slideshow regarding our app, please click <a href='https://docs.google.com/presentation/d/1JtVzCzABLJGl5BPgiDY0HiuBMmF1Py5zkR1RcxyE2ZQ/edit#slide=id.g15c6a5fd0d4_0_0'>here</a>
 <h2>Known Errors</h2>
 <ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and running the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
