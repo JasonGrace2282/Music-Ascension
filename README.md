@@ -1,6 +1,6 @@
 # Music Ascension
 by the Captains of Code: <br/>
-Aarush Deshpande, Mihir Nimkar, Anika Dureja and Ayush Rao<br>
+Mihir Nimkar, Aarush Deshpande, Anika Dureja and Ayush Rao<br>
 <h2>Problem Statement</h2>
 People in music classes are struggling with music theory or notation, and need a different style of learning and practicing other than the typical classroom style. While there are other apps that do similiar things, they may cost money which low-income families cannot afford, have ads, or aren’t as fun to use. This motivated us to create this game as a way to make learning music theory more fun, while staying free! It is meant to supplement the information learned in school and to be used as a fun way to practice and develop music reading skills.
 
