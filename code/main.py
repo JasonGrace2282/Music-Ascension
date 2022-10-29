@@ -63,7 +63,7 @@ class Game:
         self.informationPage2 = False
         self.DurationStage2 = False
         self.infClicked = False
-        self.pizzaMan3 = False
+        self.WIP_clicked = False
         self.metronome_counter = False
         self.copied = False
         self.pizzaInfo2 = False
@@ -243,13 +243,13 @@ class Game:
                         elif self.noteDurationStage2.collidepoint(event.pos):
                             self.duration_notes_1 = True
                         elif self.level3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.NDstage3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.pizza_man_2.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.pizza_man_3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.helpRect.collidepoint(event.pos):
                             self.helpbool = True
                             self.sleepCounter6 == 0
@@ -277,13 +277,16 @@ class Game:
                 if self.infClicked:
                     self.notes_1 = True
 
-                if self.pizzaMan3:
+                if self.WIP_clicked and not self.choose_level:
+                    self.WIP_clicked = False
+
+                if self.WIP_clicked and self.choose_level:
                     self.SCREEN.blit(self.work_in_progress, (0, 0))
                     self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
-                            self.pizzaMan3 = False
+                            self.WIP_clicked = False
                 
                 if self.notes_1:
                     self.SCREEN.blit(self.pizzaNotes1, (0, 0))
@@ -372,7 +375,6 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    print("ww")
                     if self.infClicked:
                         self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage+1, infmode=True)
                     elif not self.infClicked:
@@ -403,6 +405,10 @@ class Game:
                         self.counter = 0
                         self.level.backgroundmusic = True
                         self.homeMusic = True
+                        if self.infClicked:
+                            self.choose_level = False
+                            self.levelsClicked = False
+                            self.level.stage -= 1
                         self.infClicked = False
                         pygame.mixer.music.stop()
 
@@ -440,7 +446,7 @@ class Game:
                         self.counter = 0
                         self.DurationStage2 = False
                         self.level3clicked = False
-                        self.pizzaMan3 = False
+                        self.WIP_clicked = False
                         self.level.playMetronome = False
                         self.homeMusic = True
                         pygame.mixer.Channel(0).stop()
