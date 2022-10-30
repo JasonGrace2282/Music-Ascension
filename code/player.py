@@ -34,7 +34,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.level_note = "G"
 
         # logging
-        logging.basicConfig(level= logging.WARNING, format='player.py\n%(message)s')
+        logging.basicConfig(level= logging.DEBUG, format='player.py\n%(message)s')
 
     def set_image(self):
 

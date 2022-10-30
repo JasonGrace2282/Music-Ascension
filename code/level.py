@@ -25,7 +25,7 @@ class TeleportLevel():
         self.player_on_ground = False
 
         # logging
-        logging.basicConfig(level= logging.WARNING, format='level.py\n%(message)s')
+        logging.basicConfig(level= logging.DEBUG, format='level.py\n%(message)s')
 
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
