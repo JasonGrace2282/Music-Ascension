@@ -21,6 +21,7 @@ After completing a minigame, you will be transported back to the main menu, wher
 <h2>Important Info</h2>
 For the notes on the staff minigame, the note helper text is only availiable on the first stage. From the second stage forward, there is no helper text.
 There is no helper text for the note duration minigame.
+All images have been custom made by the Captains of Code
 <h2>Downloading and running the program</h2>
 <ol><li>Go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>.</li>
 <li>Click on the code button in the top-right of the screen, and click download ZIP</li>
