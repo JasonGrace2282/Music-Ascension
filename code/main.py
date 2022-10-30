@@ -32,9 +32,9 @@ class Game:
         self.startButtonImage = pygame.image.load("../resources/start.png")
         self.creditsButtonImage = pygame.image.load("../resources/credits.png")
         self.nextButtonImage = pygame.image.load("../resources/next3.png")
-        self.beginnerMap = pygame.image.load("../resources/beginner_map.png")
-        self.beginnerTopicsCovered = pygame.image.load("../resources/beginnertopics.png")
-        self.beginnerImage = pygame.image.load("../resources/levels_img.png")
+        self.levelsMap = pygame.image.load("../resources/levels_map.png")
+        self.levelsTopicsCovered = pygame.image.load("../resources/levels_topics.png")
+        self.levelsImage = pygame.image.load("../resources/levels_img.png")
         self.informationPage1 = pygame.image.load("../resources/NDNotes.jpg")
         self.NDhow2play = pygame.image.load("../resources/NDdirections.png")
         self.playButton = pygame.image.load("../resources/play.png")
@@ -52,8 +52,8 @@ class Game:
         # Variables
         self.startGame = False
         self.creditsClicked = False
-        self.beginnerClicked = False
-        self.choosebeginnerlevel = False
+        self.levelsClicked = False
+        self.choose_level = False
         self.getCoordinates = False
         self.notes_1 = False
         self.duration_notes_1 = False
@@ -63,7 +63,7 @@ class Game:
         self.informationPage2 = False
         self.DurationStage2 = False
         self.infClicked = False
-        self.pizzaMan3 = False
+        self.WIP_clicked = False
         self.metronome_counter = False
         self.copied = False
         self.pizzaInfo2 = False
@@ -89,7 +89,7 @@ class Game:
         self.start = 0
         self.end = 0
         # rects
-        self.beginnerRect = pygame.Rect(600-self.beginnerImage.get_width()/2, 50, self.beginnerImage.get_width(), self.beginnerImage.get_height())
+        self.levelsRect = pygame.Rect(600-self.levelsImage.get_width()/2, 50, self.levelsImage.get_width(), self.levelsImage.get_height())
         self.startRect = pygame.Rect(540, 200, self.startButtonImage.get_width(), self.startButtonImage.get_height())
         self.infRect = pygame.Rect(600-self.inf_mode_img.get_width()/2, 400, self.inf_mode_img.get_width(), self.inf_mode_img.get_height())
         self.creditsButton = pygame.Rect(530, 300, self.creditsButtonImage.get_width(), self.creditsButtonImage.get_height())
@@ -151,7 +151,7 @@ class Game:
             if self.startGame:
                 self.SCREEN.fill(0)
                 self.SCREEN.blit(self.levelBackground, (0, 0))
-                self.SCREEN.blit(self.beginnerImage,(600-self.beginnerImage.get_width()/2, 50))
+                self.SCREEN.blit(self.levelsImage,(600-self.levelsImage.get_width()/2, 50))
                 self.SCREEN.blit(self.inf_mode_img, (600-self.inf_mode_img.get_width()/2, 400, self.inf_mode_img.get_width(), self.inf_mode_img.get_height()))
                 self.SCREEN.blit(self.musicbutton, (0, height-self.musicbutton.get_height()))
 
@@ -193,19 +193,18 @@ class Game:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.startGame:
-                    if self.beginnerRect.collidepoint(event.pos):
-                        self.beginnerClicked = True
-                    elif self.infRect.collidepoint(event.pos):
+                    if self.levelsRect.collidepoint(event.pos):
+                        self.levelsClicked = True
+                    elif self.infRect.collidepoint(event.pos) and self.levelsClicked == False and self.choose_level == False:
                         self.infClicked = True
-                        self.choosebeginnerlevel = True
+                        self.choose_level = True
                         logging.debug("inf mode clicked")
-
 
             if self.startGame:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.musichitbox.collidepoint(event.pos) and not self.helpbool:
                         logging.debug("Music Button Clicked")
-                        if self.homeMusic and not self.beginnerClicked:
+                        if self.homeMusic and not self.levelsClicked:
                             if self.home_music_counter == 0:
                                 self.home_music_counter+=1
                                 self.homeMusic = False
@@ -218,20 +217,21 @@ class Game:
                                 logging.debug("Chaos Theory is fluid mechanics ", self.home_music_counter)
                                 pygame.time.delay(200)
 
-                if self.beginnerClicked:
+                if self.levelsClicked:
                     self.SCREEN.fill(self.WHITE)
-                    self.SCREEN.blit(self.beginnerTopicsCovered, (0, 0))
+                    self.SCREEN.blit(self.levelsTopicsCovered, (0, 0))
                     self.SCREEN.blit(self.nextButtonImage, self.nextButton)
                     self.SCREEN.blit(self.backImage, self.backRect)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            self.choosebeginnerlevel = True
+                            self.choose_level = True
                         if self.backRect.collidepoint(event.pos):
-                            self.beginnerClicked = False
+                            self.levelsClicked = False
 
-                if self.choosebeginnerlevel:
-                    self.SCREEN.blit(self.beginnerMap, (0, 0))
+
+                if self.choose_level:
+                    self.SCREEN.blit(self.levelsMap, (0, 0))
                     self.SCREEN.blit(self.helpbutton, self.helpRect)
                     while self.sleepCounter5 == 0:
                         sleep(0.3)
@@ -243,13 +243,13 @@ class Game:
                         elif self.noteDurationStage2.collidepoint(event.pos):
                             self.duration_notes_1 = True
                         elif self.level3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.NDstage3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.pizza_man_2.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.pizza_man_3.collidepoint(event.pos):
-                            self.pizzaMan3 = True
+                            self.WIP_clicked = True
                         elif self.helpRect.collidepoint(event.pos):
                             self.helpbool = True
                             self.sleepCounter6 == 0
@@ -277,13 +277,16 @@ class Game:
                 if self.infClicked:
                     self.notes_1 = True
 
-                if self.pizzaMan3:
+                if self.WIP_clicked and not self.choose_level:
+                    self.WIP_clicked = False
+
+                if self.WIP_clicked and self.choose_level:
                     self.SCREEN.blit(self.work_in_progress, (0, 0))
                     self.SCREEN.blit(self.backImage, self.backRect)
                     # Insert code to call stage 3 of pizza man minigame
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
-                            self.pizzaMan3 = False
+                            self.WIP_clicked = False
                 
                 if self.notes_1:
                     self.SCREEN.blit(self.pizzaNotes1, (0, 0))
@@ -291,7 +294,7 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            if self.choosebeginnerlevel:
+                            if self.choose_level:
                                 logging.debug('1+1=3')
                                 self.pizzaInfo2 = True
                                 while self.sleepCounter4 == 0:
@@ -305,7 +308,7 @@ class Game:
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
-                            if self.choosebeginnerlevel and self.nextCounter2 == 1:
+                            if self.choose_level and self.nextCounter2 == 1:
                                 self.level1picked = True
                     
                     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -372,9 +375,8 @@ class Game:
                                 self.nextCounter+=1
                             
                 if self.level1picked and self.counter == 0:
-                    print("ww")
                     if self.infClicked:
-                        self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage, infmode=True)
+                        self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage+1, infmode=True)
                     elif not self.infClicked:
                         self.level = NoteLevel(notelevel1, self.SCREEN, self.level.stage)
                     self.counter = 1
@@ -403,6 +405,10 @@ class Game:
                         self.counter = 0
                         self.level.backgroundmusic = True
                         self.homeMusic = True
+                        if self.infClicked:
+                            self.choose_level = False
+                            self.levelsClicked = False
+                            self.level.stage -= 1
                         self.infClicked = False
                         pygame.mixer.music.stop()
 
@@ -440,7 +446,7 @@ class Game:
                         self.counter = 0
                         self.DurationStage2 = False
                         self.level3clicked = False
-                        self.pizzaMan3 = False
+                        self.WIP_clicked = False
                         self.level.playMetronome = False
                         self.homeMusic = True
                         pygame.mixer.Channel(0).stop()
