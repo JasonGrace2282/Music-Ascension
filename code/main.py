@@ -283,7 +283,6 @@ class Game:
                 if self.WIP_clicked and self.choose_level:
                     self.SCREEN.blit(self.work_in_progress, (0, 0))
                     self.SCREEN.blit(self.backImage, self.backRect)
-                    # Insert code to call stage 3 of pizza man minigame
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.backRect.collidepoint(event.pos):
                             self.WIP_clicked = False

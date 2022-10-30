@@ -669,11 +669,6 @@ class NoteLevel(TeleportLevel):
             self.DISPLAY_SURFACE.blit(self.helpbg, (0, 0))
             self.DISPLAY_SURFACE.blit(self.backImage, self.backbuttonRect)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-
 class BassNoteLevel(NoteLevel):
     def __init__(self, level_data, surface, stage, bass):
         super().__init__(level_data, surface, stage, bass)
@@ -682,7 +677,7 @@ class BassNoteLevel(NoteLevel):
         noteY = [78, 128, 178, 228, 278, 328, 378, 428, 478]
 
         """pos = (0, 100)
-        for i in range(1, 6):
+        for _ in range(1, 6):
             tile = NoteTile(pos, (9000, 20), "G", False)
             self.tiles.add(tile)
             pos = (pos[0], pos[1]+100"""
