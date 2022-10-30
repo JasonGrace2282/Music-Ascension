@@ -18,7 +18,9 @@ Once you click next on the information page, you will be directed to a page cont
 The game will have a settings/menu button. Clicking on it opens a panel with different features, such as retrying the level, quitting the game (which will redirect you to the map), and exiting the settings. Please note that on some games, the settings may not work consistently.
 At this point, you can navigate to whichever level you want and play any level you want. Each level will contain a page of notes, filled with the information needed to pass the level. After reading the notes, you can click next. You will then see a page containing the info about how to play the game. Click next to start the game.
 After completing a minigame, you will be transported back to the main menu, where you can choose a different topic to learn and have fun with. Enjoy!
-
+<h2>Important Info</h2>
+For the notes on the staff minigame, the note helper text is only availiable on the first stage. From the second stage forward, there is no helper text.
+There is no helper text for the note duration minigame.
 <h2>Downloading and running the program</h2>
 <ol><li>Go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>.</li>
 <li>Click on the code button in the top-right of the screen, and click download ZIP</li>

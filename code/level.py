@@ -41,6 +41,8 @@ class TeleportLevel():
         self.stageimage = pygame.image.load("../resources/stagefinished.png")
         self.helpimage = pygame.image.load("../resources/help2.png")
         self.helpbg = pygame.image.load("../resources/pizza_notes.png")
+        self.pizza_notes = pygame.image.load("../resources/pizza_notes.png")
+        self.help_rect_2 = pygame.Rect(0, self.restartImage.get_height()+self.backImage.get_height()+self.mainmenuImage.get_height(), self.mainmenuImage.get_width(), self.mainmenuImage.get_height())
         self.exitSettings = pygame.Rect(0, 0, self.restartImage.get_width(), self.restartImage.get_height())
         self.exitSettings2 = pygame.Rect(0, 0, self.backImage.get_width(), self.backImage.get_height())
         self.restart = pygame.Rect(0, self.restartImage.get_height(), self.backImage.get_width(), self.backImage.get_height())
@@ -59,6 +61,7 @@ class TeleportLevel():
         self.settingsClicked = False
         self.settingsClicked2 = False
         self.stagefinished = False
+        self.helpbool2 = False
         self.backgroundmusic = True
         self.reset = False
         self.back = False
@@ -243,12 +246,11 @@ class TeleportLevel():
         self.DISPLAY_SURFACE.blit(self.settingsImage, (100, 0))
 
         if self.settingsClicked:
-            self.DISPLAY_SURFACE.blit(self.background4Settings, (0, 0))
-            self.DISPLAY_SURFACE.blit(self.background4Settings, (0, self.background4Settings.get_height()))
-            self.DISPLAY_SURFACE.blit(self.background4Settings, (0, 2*self.background4Settings.get_height()))
-            self.DISPLAY_SURFACE.blit(self.backImage, (0, 0))
-            self.DISPLAY_SURFACE.blit(self.restartImage, (0, 100))
-            self.DISPLAY_SURFACE.blit(self.mainmenuImage, (0, self.restartImage.get_height()+self.backImage.get_height()))
+            self.DISPLAY_SURFACE.fill(0, (0, 0, self.mainmenuImage.get_width(), height))
+            self.DISPLAY_SURFACE.blit(self.backImage, self.exitSettings)
+            self.DISPLAY_SURFACE.blit(self.restartImage, self.restart)
+            self.DISPLAY_SURFACE.blit(self.mainmenuImage, self.mainmenu)
+            self.DISPLAY_SURFACE.blit(self.helpimage, self.help_rect_2)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -259,12 +261,28 @@ class TeleportLevel():
                         logging.debug("reset")
                         self.reset = True
                         pygame.mixer.Channel(3).stop()
-                    if self.mainmenu.collidepoint(event.pos):
+                    elif self.mainmenu.collidepoint(event.pos):
                         logging.debug("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
-                    if self.exitSettings.collidepoint(event.pos):
+                    elif self.exitSettings.collidepoint(event.pos):
                         logging.debug("settings exited")
+                        self.settingsClicked = False
+                    elif self.help_rect_2.collidepoint(event.pos):
+                        logging.debug('help clicked')
+                        self.helpbool2 = True
+            
+        if self.helpbool2:
+            self.DISPLAY_SURFACE.blit(self.pizza_notes, (0, 0))
+            self.DISPLAY_SURFACE.blit(self.backImage, self.backbuttonRect)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit(0)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.backbuttonRect.collidepoint(event.pos):
+                        logging.debug('Back button clicked')
+                        self.helpbool2 = False
                         self.settingsClicked = False
 
         if self.player.sprite.rect.topleft[1] > height:
@@ -280,7 +298,7 @@ class TeleportLevel():
                         logging.debug("reset")
                         self.reset = True
                         pygame.mixer.Channel(3).stop()
-                    if self.middle_mainmenu.collidepoint(event.pos):
+                    elif self.middle_mainmenu.collidepoint(event.pos):
                         logging.debug("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
