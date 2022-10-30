@@ -25,7 +25,7 @@ class TeleportLevel():
         self.player_on_ground = False
 
         # logging
-        logging.basicConfig(level= logging.DEBUG, format='level.py\n%(message)s')
+        logging.basicConfig(level= logging.CRITICAL, format='level.py\n%(message)s')
 
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
@@ -289,6 +289,7 @@ class TeleportLevel():
 class NoteLevel(TeleportLevel):
     def __init__(self, level_data, surface, stage, bass=False, infmode = False):
         self.WHITE = (255, 255, 255)
+        self.stage_image_blit = False
         self.coins_needed = [30, (300, 10)]
         self.ledger = pygame.sprite.GroupSingle()
         self.house = pygame.sprite.GroupSingle()
@@ -352,10 +353,12 @@ class NoteLevel(TeleportLevel):
         if not self.infmode:
             if self.playercoins >= self.coins_needed[0]:
                 if self.stagetimer <= 50:
+                    self.stage_image_blit = True
                     self.stagetimer += 1
                     self.DISPLAY_SURFACE.blit(self.stageimage, (0, 0))
                     logging.debug("Feynman is cool ", self.stagetimer)
                 else:
+                    self.stage_image_blit = False
                     self.stagetimer = 0
                     self.stage += 1
                     self.stagefinished = True
@@ -495,11 +498,11 @@ class NoteLevel(TeleportLevel):
 
         if self.draw:
             self.player.draw(self.DISPLAY_SURFACE)
-            if not self.infmode:
+            if not self.infmode or self.stage_image_blit:
                 self.DISPLAY_SURFACE.blit(self.coins_needed_text, self.coins_needed[1])
             if self.note_text != None:
                 self.DISPLAY_SURFACE.blit(self.note_text, (700-self.note_text.get_width()/2, 200))
-            if self.coin_text != None:
+            if self.coin_text != None and not self.stage_image_blit:
                 self.DISPLAY_SURFACE.blit(self.coins, (self.settingsImage.get_width(), 0))
                 self.DISPLAY_SURFACE.blit(self.coin_text, (self.settingsImage.get_width()+self.coins.get_width(), 0))
 
