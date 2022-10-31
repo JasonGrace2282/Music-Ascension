@@ -18,7 +18,10 @@ Once you click next on the information page, you will be directed to a page cont
 The game will have a settings/menu button. Clicking on it opens a panel with different features, such as retrying the level, quitting the game (which will redirect you to the map), and exiting the settings. Please note that on some games, the settings may not work consistently.
 At this point, you can navigate to whichever level you want and play any level you want. Each level will contain a page of notes, filled with the information needed to pass the level. After reading the notes, you can click next. You will then see a page containing the info about how to play the game. Click next to start the game.
 After completing a minigame, you will be transported back to the main menu, where you can choose a different topic to learn and have fun with. Enjoy!
-
+<h2>Important Info</h2>
+For the notes on the staff minigame, the note helper text is only availiable on the first stage. From the second stage forward, there is no helper text.
+There is no helper text for the note duration minigame.
+All images have been custom made by the Captains of Code
 <h2>Downloading and running the program</h2>
 <ol><li>Go to our git repository, linked <a href='https://github.com/JasonGrace2282/Music-Ascension'>here</a>.</li>
 <li>Click on the code button in the top-right of the screen, and click download ZIP</li>
@@ -46,9 +49,15 @@ During the time we were coding our app, we encountered many difficulties, from p
 <li>Logging Library</li></ul>
 
 <h2>Slideshow</h2>
-To visit a quick slideshow regarding our app, please click <a href='https://docs.google.com/presentation/d/1JtVzCzABLJGl5BPgiDY0HiuBMmF1Py5zkR1RcxyE2ZQ/edit#slide=id.g15c6a5fd0d4_0_0'>here</a>
+To visit a quick slideshow regarding our app, please download the repository. After downloading, you will find a pdf called 'Music_Ascension_Slideshow.pdf", which contains a quick slideshow about our game!
 <h2>Known Errors</h2>
 <ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and running the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
 <li>You may have to click a button several times for it to work</li></ul>
+
+<h2>The branches</h2>
+From the best branches to the worst branches to run the code on:
+<ul><li>The safest and best branch to run the code on is the master branch. It is mostly up to date; however, new features may not be added until later</li>
+<li>The second best, and most up-to-date branch is develop. As this is our development branch, there may be instances where features are still buggy and/or may not work.</li>
+<li>Finally, the worst branch to run the code on is the backup branch. The back-up branch is outdated; many features are also extremely buggy.
