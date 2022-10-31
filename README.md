@@ -55,3 +55,9 @@ To visit a quick slideshow regarding our app, please download the repository. Af
 <li>Advanced Level is still a work in progress</li>
 <li>Level 2 and 3 for both topics in Beginner Level are a work in progress</li>
 <li>You may have to click a button several times for it to work</li></ul>
+
+<h2>The branches</h2>
+From the best branches to the worst branches to run the code on:
+<ul><li>The safest and best branch to run the code on is the master branch. It is mostly up to date; however, new features may not be added until later</li>
+<li>The second best, and most up-to-date branch is develop. As this is our development branch, there may be instances where features are still buggy and/or may not work.</li>
+<li>Finally, the worst branch to run the code on is the backup branch. The back-up branch is outdated; many features are also extremely buggy.
