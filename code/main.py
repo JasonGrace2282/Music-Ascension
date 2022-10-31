@@ -1,5 +1,5 @@
-import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from logging import basicConfig, debug, info, INFO, DEBUG
 from time import sleep, perf_counter
