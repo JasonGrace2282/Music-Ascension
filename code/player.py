@@ -1,5 +1,5 @@
 import pygame
-import logging
+from logging import basicConfig, debug, CRITICAL
 from time import perf_counter, sleep
 from setup import height
 
@@ -34,7 +34,7 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.level_note = "G"
 
         # logging
-        logging.basicConfig(level= logging.CRITICAL, format='player.py\n%(message)s')
+        basicConfig(level= CRITICAL, format='player.py\n%(message)s')
 
     def set_image(self):
 
@@ -114,63 +114,63 @@ class TeleportPlayer(pygame.sprite.Sprite):
         self.delta = round(self.delta, 2)
 
         if not self.correctnote:
-            logging.debug("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
+            debug("Sorry, you have the wrong note selected.\n Try changing the note selected to the note on the staff.")
         elif self.correctnote:
-            # logging.debug("You correctly chose the note on the staff!")
+            # debug("You correctly chose the note on the staff!")
             pass
         
         if self.delta <= 0:
             pass
         elif 0.1 <= self.delta < 0.4:
-            logging.debug("Aww, you needed to hold it a little bit longer!")
+            debug("Aww, you needed to hold it a little bit longer!")
         elif 0.4 <= self.delta < 0.6 and self.correctnote:
-            logging.debug("0.5")
+            debug("0.5")
             self.direction.y -= 32
             self.rect.y += self.direction.y
             self.direction.y += 32
             self.direction.x += 16
         elif 0.6 <= self.delta < 0.9:
-            logging.debug("Aww, you didn't hold it for the right amount of time")
+            debug("Aww, you didn't hold it for the right amount of time")
         elif 0.9 <= self.delta < 1.1 and self.correctnote:
-            logging.debug("1")
+            debug("1")
             self.direction.y -= 64
             self.rect.y += self.direction.y
             self.direction.y += 64
             self.direction.x += 24
         elif 1.1 <= self.delta < 1.4:
-            logging.debug("mission failed successfully.")
+            debug("mission failed successfully.")
         elif 1.4 <= self.delta < 1.6 and self.correctnote:
-            logging.debug("1.5")
+            debug("1.5")
             self.direction.y -= 96
             self.rect.y += self.direction.y
             self.direction.y += 96
             self.direction.x += 32
         elif 1.6 <= self.delta < 1.9:
-            logging.debug("mission failed, we'll get e'm next time")
+            debug("mission failed, we'll get e'm next time")
         elif 1.9 <= self.delta < 2.1 and self.correctnote:
-            logging.debug("2")
+            debug("2")
             self.direction.y -= 128
             self.rect.y += self.direction.y
             self.direction.y += 128
             self.direction.x += 40
         elif 2.1 <= self.delta < 2.9:
-            logging.debug("mission failed, we'll get e'm next time")
+            debug("mission failed, we'll get e'm next time")
         elif 2.9 <= self.delta < 3.1 and self.correctnote:
-            logging.debug("3")
+            debug("3")
             self.direction.y -= 192
             self.rect.y += self.direction.y
             self.direction.y += 192
             self.direction.x += 48
         elif 3.1 <= self.delta < 3.9:
-            logging.debug("mission failed, we'll get e'm next time")
+            debug("mission failed, we'll get e'm next time")
         elif 3.9 <= self.delta < 4.1 and self.correctnote:
-            logging.debug("4")
+            debug("4")
             self.direction.y -= 256
             self.rect.y += self.direction.y
             self.direction.y += 256
             self.direction.x += 56
         elif self.delta > 4.1:
-            logging.debug("mission failed, we'll get e'm next time")
+            debug("mission failed, we'll get e'm next time")
 
     def update(self, delta, shift):
         self.input(delta)
@@ -198,7 +198,7 @@ class NotePlayer(TeleportPlayer):
             sleep(0.1)
             self.counter = True
         elif keys[pygame.K_UP] and self.counter and not self.ready and self.pos[1]-48 > 0:
-            logging.debug("hi")
+            debug("hi")
             self.pos = (self.pos[0], self.pos[1]-48)
             self.counter = False
         elif keys[pygame.K_DOWN] and self.counter and not self.ready and self.pos[1]+114 < height:

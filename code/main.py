@@ -1,7 +1,7 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
-import logging
+from logging import basicConfig, debug, info, INFO, DEBUG
 from time import sleep, perf_counter
 from tkinter import Tk
 from setup import teleportlevel1, height, width, notelevel1
@@ -19,9 +19,9 @@ class Game:
         # logging
         submit_game = True
         if submit_game:
-            logging.basicConfig(level= logging.INFO, format='%(message)s')
+            basicConfig(level= INFO, format='%(message)s')
         elif not submit_game:
-            logging.basicConfig(level= logging.DEBUG, format='main.py\n%(message)s')
+            basicConfig(level= DEBUG, format='main.py\n%(message)s')
 
         # Screen
         self.SCREEN = pygame.display.set_mode((width, height))
@@ -114,7 +114,7 @@ class Game:
         self.WHITE = (255, 255, 255)
 
     def run(self):
-        logging.info('Hello and Welcome to Music Ascension!\nIf you cannot see the full window, please change your screen scale to 100%\
+        info('Hello and Welcome to Music Ascension!\nIf you cannot see the full window, please change your screen scale to 100%\
             \nTo see how, please check out our README.md file')
         while True:
             for event in pygame.event.get():
@@ -128,7 +128,7 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.end = perf_counter()
                         self.done = True
-                        logging.debug(round(self.end - self.start, 1))
+                        debug(round(self.end - self.start, 1))
 
             if self.homeMusic:
                 while not pygame.mixer.Channel(4).get_busy():
@@ -183,7 +183,7 @@ class Game:
                             clipboard.clipboard_append('https://docs.google.com/document/d/1THAizjwlYdVoINJjOBudmcoIM79gEhlbue3cjW5E7r0/edit?usp=sharing')
                             clipboard.update()
                             clipboard.destroy()
-                            logging.debug("Copied to clipboard")
+                            debug("Copied to clipboard")
                             self.copied = True
                             
                     if event.type == pygame.MOUSEBUTTONDOWN and self.creditsCounter != 1 and self.copyClipboard.collidepoint(event.pos):
@@ -200,23 +200,23 @@ class Game:
                     elif self.infRect.collidepoint(event.pos) and self.levelsClicked == False and self.choose_level == False:
                         self.infClicked = True
                         self.choose_level = True
-                        logging.debug("inf mode clicked")
+                        debug("inf mode clicked")
 
             if self.startGame:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.musichitbox.collidepoint(event.pos) and not self.helpbool:
-                        logging.debug("Music Button Clicked")
+                        debug("Music Button Clicked")
                         if self.homeMusic and not self.levelsClicked:
                             if self.home_music_counter == 0:
                                 self.home_music_counter+=1
                                 self.homeMusic = False
-                                logging.debug("Music is Sine waves ", self.home_music_counter)
+                                debug("Music is Sine waves ", self.home_music_counter)
                                 pygame.time.delay(200)
                         elif not self.homeMusic:
                             if self.home_music_counter == 1:
                                 self.home_music_counter-=1
                                 self.homeMusic = True
-                                logging.debug("Chaos Theory is fluid mechanics ", self.home_music_counter)
+                                debug("Chaos Theory is fluid mechanics ", self.home_music_counter)
                                 pygame.time.delay(200)
 
                 if self.levelsClicked:
@@ -296,7 +296,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.choose_level:
-                                logging.debug('1+1=3')
+                                debug('1+1=3')
                                 self.pizzaInfo2 = True
                                 while self.sleepCounter4 == 0:
                                     sleep(0.2)
@@ -368,7 +368,7 @@ class Game:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
                             if self.nextCounter == 1:
-                                logging.debug(f"Next Counter: {self.nextCounter}")
+                                debug(f"Next Counter: {self.nextCounter}")
                                 self.level2picked = True
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.nextButton.collidepoint(event.pos):
@@ -463,7 +463,7 @@ class Game:
                 if self.level3picked and self.counter == 0:
                     self.level = BassNoteLevel(notelevel1, self.SCREEN, self.level.stage, True)
                     self.counter = 1
-                    logging.debug("e")
+                    debug("e")
 
                 if self.level3picked:
                     self.homeMusic = False

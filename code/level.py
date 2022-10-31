@@ -1,5 +1,5 @@
 import pygame
-import logging
+from logging import basicConfig, debug, CRITICAL
 from random import randint, choice
 from tiles import TeleportTile, NoteTile
 from setup import tilesize, width, height
@@ -25,7 +25,7 @@ class TeleportLevel():
         self.player_on_ground = False
 
         # logging
-        logging.basicConfig(level= logging.CRITICAL, format='level.py\n%(message)s')
+        basicConfig(level= CRITICAL, format='level.py\n%(message)s')
 
         self.background4Settings = pygame.image.load("../resources/blank.jpg")
         self.restartImage = pygame.image.load("../resources/retry2.png")
@@ -258,18 +258,18 @@ class TeleportLevel():
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.restart.collidepoint(event.pos):
-                        logging.debug("reset")
+                        debug("reset")
                         self.reset = True
                         pygame.mixer.Channel(3).stop()
                     elif self.mainmenu.collidepoint(event.pos):
-                        logging.debug("main menu")
+                        debug("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
                     elif self.exitSettings.collidepoint(event.pos):
-                        logging.debug("settings exited")
+                        debug("settings exited")
                         self.settingsClicked = False
                     elif self.help_rect_2.collidepoint(event.pos):
-                        logging.debug('help clicked')
+                        debug('help clicked')
                         self.helpbool2 = True
             
         if self.helpbool2:
@@ -281,7 +281,7 @@ class TeleportLevel():
                     exit(0)
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.backbuttonRect.collidepoint(event.pos):
-                        logging.debug('Back button clicked')
+                        debug('Back button clicked')
                         self.helpbool2 = False
                         self.settingsClicked = False
 
@@ -295,11 +295,11 @@ class TeleportLevel():
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.middle_restart.collidepoint(event.pos):
-                        logging.debug("reset")
+                        debug("reset")
                         self.reset = True
                         pygame.mixer.Channel(3).stop()
                     elif self.middle_mainmenu.collidepoint(event.pos):
-                        logging.debug("main menu")
+                        debug("main menu")
                         self.back = True
                         pygame.mixer.music.stop()
         
@@ -352,7 +352,7 @@ class NoteLevel(TeleportLevel):
                 if event.key == pygame.K_SPACE:
                     self.wrongcounter = 0
 
-        # logging.debug(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
+        # debug(f'self.note: {self.note}\nself.player.sprite.note: {self.player.sprite.note}')
         if self.note == self.player.sprite.note:
             if self.house.sprite.rect.colliderect(player.rect):
                 self.draw_old = False
@@ -363,7 +363,7 @@ class NoteLevel(TeleportLevel):
                     pygame.mixer.Channel(3).play(pygame.mixer.Sound('../resources/correct.wav'))
                     self.coincounter = 1
                     self.wrongcounter = 1
-                    logging.debug(f'Coins: {self.player.sprite.coins}')
+                    debug(f'Coins: {self.player.sprite.coins}')
             else:
                 self.coincounter = 0
                 self.player.sprite.coins = self.playercoins
@@ -374,7 +374,7 @@ class NoteLevel(TeleportLevel):
                     self.stage_image_blit = True
                     self.stagetimer += 1
                     self.DISPLAY_SURFACE.blit(self.stageimage, (0, 0))
-                    logging.debug("Feynman is cool ", self.stagetimer)
+                    debug("Feynman is cool ", self.stagetimer)
                 else:
                     self.stage_image_blit = False
                     self.stagetimer = 0
@@ -446,11 +446,11 @@ class NoteLevel(TeleportLevel):
                 if event.key == pygame.K_SPACE:
                     self.spaceclicked = True
                     self.wrongcounter = 0
-                    # logging.debug(f'self.spaceclicked = {self.spaceclicked}\nself.wrongcounter = {self.wrongcounter}')
+                    # debug(f'self.spaceclicked = {self.spaceclicked}\nself.wrongcounter = {self.wrongcounter}')
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.settings2.collidepoint(event.pos):
                     self.settingsClicked2 = True
-                    logging.debug("settings clicked")
+                    debug("settings clicked")
                 elif self.helpRect.collidepoint(event.pos):
                     self.helpbool = True
                 elif self.backbuttonRect.collidepoint(event.pos):
@@ -458,23 +458,23 @@ class NoteLevel(TeleportLevel):
                         self.helpbool = False
                 if self.settingsClicked2:
                     if self.mainmenu2.collidepoint(event.pos):
-                        logging.debug("main menu")
+                        debug("main menu")
                         self.back2 = True
                         pygame.mixer.music.stop()
                     elif self.exitSettings2.collidepoint(event.pos):
-                        logging.debug("settings exited")
+                        debug("settings exited")
                         self.settingsClicked2 = False
                     elif self.musicRect2.collidepoint(event.pos):
                         if self.backgroundmusic:
                             if self.musicCounter == 0:
                                 self.musicCounter+=1
                                 self.backgroundmusic = False
-                                logging.debug("Physics ", self.musicCounter)
+                                debug("Physics ", self.musicCounter)
                         elif not self.backgroundmusic:
                             if self.musicCounter == 1:
                                 self.musicCounter-=1
                                 self.backgroundmusic = True
-                                logging.debug("Feynman is cool ", self.musicCounter)
+                                debug("Feynman is cool ", self.musicCounter)
         
         if self.backgroundmusic:
             while not pygame.mixer.music.get_busy():
@@ -620,14 +620,14 @@ class NoteLevel(TeleportLevel):
                 note_helper = self.font3.render("High B", True, self.WHITE)
                 highB = 932-note_helper.get_width()
                 if self.spaceclicked:
-                    logging.debug("highB changed")
+                    debug("highB changed")
                     highB = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (highB, self.player.sprite.pos[1]))
             elif self.player.sprite.pos[1] == 48:
                 note_helper = self.font3.render("Max C", True, self.WHITE)
                 maxC = 900-note_helper.get_width()
                 if self.spaceclicked:
-                    logging.debug("maxC changed")
+                    debug("maxC changed")
                     maxC = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (maxC, self.player.sprite.pos[1]))
         
@@ -675,14 +675,14 @@ class NoteLevel(TeleportLevel):
                 note_helper = self.font3.render("Low B", True, self.WHITE)
                 lowB = 932-note_helper.get_width()
                 if self.spaceclicked:
-                    logging.debug("lowB changed")
+                    debug("lowB changed")
                     lowB = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (lowB, self.player.sprite.pos[1]))
             elif self.player.sprite.pos[1] == 48:
                 note_helper = self.font3.render("Mid C", True, self.WHITE)
                 midC = 900-note_helper.get_width()
                 if self.spaceclicked:
-                    logging.debug("midC changed")
+                    debug("midC changed")
                     midC = 850-note_helper.get_width()
                 self.DISPLAY_SURFACE.blit(note_helper, (midC, self.player.sprite.pos[1]))
         
