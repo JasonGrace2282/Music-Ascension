@@ -49,7 +49,7 @@ During the time we were coding our app, we encountered many difficulties, from p
 <li>Logging Library</li></ul>
 
 <h2>Slideshow</h2>
-To visit a quick slideshow regarding our app, please click <a href='https://docs.google.com/presentation/d/1JtVzCzABLJGl5BPgiDY0HiuBMmF1Py5zkR1RcxyE2ZQ/edit#slide=id.g15c6a5fd0d4_0_0'>here</a>
+To visit a quick slideshow regarding our app, please download the repository. After downloading, you will find a pdf called 'Music_Ascension_Slideshow.pdf", which contains a quick slideshow about our game!
 <h2>Known Errors</h2>
 <ul><li>Some Audio files do not work.<br><ul><li>If an audio file is crashing the program, clone the git repository (see "Downloading and running the program") and comment out (using hashtags: #) the audio files that are causing the program to crash.</li></ul></li>
 <li>Advanced Level is still a work in progress</li>
